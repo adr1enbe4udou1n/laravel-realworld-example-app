@@ -7,4 +7,4 @@ parameters:
         - app
         - tests
 
-    level: 8
+    level: 5
