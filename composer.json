@@ -11,22 +11,22 @@
         "php": "^7.3|^8.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "laravel/framework": "^8.54",
+        "laravel/framework": "^8.65",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "stechstudio/laravel-jwt": "^1.10"
+        "lcobucci/jwt": "^4.1"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.10",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
-        "friendsofphp/php-cs-fixer": "^3.0",
+        "friendsofphp/php-cs-fixer": "^3.2",
         "laravel/sail": "^1.0.1",
-        "mockery/mockery": "^1.4.2",
-        "nunomaduro/collision": "^5.0",
-        "nunomaduro/larastan": "^0.7.12",
+        "mockery/mockery": "^1.4.4",
+        "nunomaduro/collision": "^5.10",
+        "nunomaduro/larastan": "^0.7.13",
         "pestphp/pest-plugin-laravel": "^1.1",
-        "phpunit/phpunit": "^9.3.3",
+        "phpunit/phpunit": "^9.5.10",
         "spatie/phpunit-watcher": "^1.23"
     },
     "autoload": {
@@ -47,8 +47,6 @@
             "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-            "@php artisan vendor:publish --tag=laravel-assets --ansi",
             "@php artisan ide-helper:generate",
             "@php artisan ide-helper:meta"
         ],
