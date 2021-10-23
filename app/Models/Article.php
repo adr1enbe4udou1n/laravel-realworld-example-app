@@ -63,6 +63,16 @@ class Article extends Model
         return $this->belongsToMany(User::class, 'article_favorite');
     }
 
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     protected static function booted()
     {
         static::creating(function (self $article) {
