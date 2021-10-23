@@ -51,8 +51,8 @@ return [
             // Route for exposing specification.
             // Leave uri null to disable.
             'route' => [
-                'uri' => '/openapi',
-                'middleware' => [],
+                // 'uri' => '/openapi',
+                // 'middleware' => [],
             ],
 
             // Register custom middlewares for different objects.

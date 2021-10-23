@@ -39,7 +39,7 @@
             // Begin Swagger UI call region
             const ui = SwaggerUIBundle({
                 urls: [{
-                    url: '/openapi',
+                    url: '/api/swagger.json',
                     name: 'Conduit v1',
                     deepLinking: false,
                     displayOperationId: false
