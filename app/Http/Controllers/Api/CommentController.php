@@ -8,12 +8,18 @@ use App\Http\Resources\MultipleCommentsResource;
 use App\Http\Resources\SingleCommentResource;
 use App\Models\Article;
 use App\Models\Comment;
+use App\OpenApi\RequestBodies\NewCommentRequestBody;
+use App\OpenApi\Responses\ErrorValidationResponse;
+use App\OpenApi\Responses\MultipleCommentsResponse;
+use App\OpenApi\Responses\SingleCommentResponse;
 use Spatie\RouteAttributes\Attributes\Delete;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Post;
 use Spatie\RouteAttributes\Attributes\Prefix;
 use Vyuldashev\LaravelOpenApi\Attributes\Operation;
 use Vyuldashev\LaravelOpenApi\Attributes\PathItem;
+use Vyuldashev\LaravelOpenApi\Attributes\RequestBody;
+use Vyuldashev\LaravelOpenApi\Attributes\Response;
 
 #[Prefix('articles/{slug}/comments')]
 #[PathItem]
@@ -28,6 +34,7 @@ class CommentController extends Controller
      */
     #[Get('/')]
     #[Operation(tags: ['Comments'])]
+    #[Response(factory: MultipleCommentsResponse::class, statusCode: 200)]
     public function list(Article $slug): MultipleCommentsResource
     {
         return new MultipleCommentsResource(null);
@@ -42,6 +49,9 @@ class CommentController extends Controller
      */
     #[Post('/', middleware: 'auth')]
     #[Operation(tags: ['Comments'], security: 'BearerToken')]
+    #[RequestBody(factory: NewCommentRequestBody::class)]
+    #[Response(factory: SingleCommentResponse::class, statusCode: 200)]
+    #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
     public function create(Article $slug, NewCommentRequest $request): SingleCommentResource
     {
         return new SingleCommentResource(null);

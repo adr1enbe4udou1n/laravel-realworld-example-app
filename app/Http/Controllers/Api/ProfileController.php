@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProfileResource;
 use App\Models\User;
+use App\OpenApi\Responses\ProfileResponse;
 use Spatie\RouteAttributes\Attributes\Delete;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Post;
 use Spatie\RouteAttributes\Attributes\Prefix;
 use Vyuldashev\LaravelOpenApi\Attributes\Operation;
 use Vyuldashev\LaravelOpenApi\Attributes\PathItem;
+use Vyuldashev\LaravelOpenApi\Attributes\Response;
 
 #[Prefix('profiles/celeb_{username}')]
 #[PathItem]
@@ -25,6 +27,7 @@ class ProfileController extends Controller
      */
     #[Get('/')]
     #[Operation(tags: ['Profile'])]
+    #[Response(factory: ProfileResponse::class, statusCode: 200)]
     public function get(User $username): ProfileResource
     {
         return new ProfileResource($username);
@@ -39,6 +42,7 @@ class ProfileController extends Controller
      */
     #[Post('follow', middleware: 'auth')]
     #[Operation(tags: ['Profile'], security: 'BearerToken')]
+    #[Response(factory: ProfileResponse::class, statusCode: 200)]
     public function follow(User $username): ProfileResource
     {
         return new ProfileResource($username);
@@ -53,6 +57,7 @@ class ProfileController extends Controller
      */
     #[Delete('follow', middleware: 'auth')]
     #[Operation(tags: ['Profile'], security: 'BearerToken')]
+    #[Response(factory: ProfileResponse::class, statusCode: 200)]
     public function unfollow(User $username): ProfileResource
     {
         return new ProfileResource($username);

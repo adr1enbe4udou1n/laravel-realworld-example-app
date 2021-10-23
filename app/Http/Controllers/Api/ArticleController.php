@@ -10,6 +10,11 @@ use App\Http\Resources\SingleArticleResource;
 use App\Models\Article;
 use App\OpenApi\Parameters\ListArticlesParameters;
 use App\OpenApi\Parameters\ListFeedParameters;
+use App\OpenApi\RequestBodies\NewArticleRequestBody;
+use App\OpenApi\RequestBodies\UpdateArticleRequestBody;
+use App\OpenApi\Responses\ErrorValidationResponse;
+use App\OpenApi\Responses\MultipleArticlesResponse;
+use App\OpenApi\Responses\SingleArticleResponse;
 use Spatie\RouteAttributes\Attributes\Delete;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Post;
@@ -18,6 +23,8 @@ use Spatie\RouteAttributes\Attributes\Put;
 use Vyuldashev\LaravelOpenApi\Attributes\Operation;
 use Vyuldashev\LaravelOpenApi\Attributes\Parameters;
 use Vyuldashev\LaravelOpenApi\Attributes\PathItem;
+use Vyuldashev\LaravelOpenApi\Attributes\RequestBody;
+use Vyuldashev\LaravelOpenApi\Attributes\Response;
 
 #[Prefix('articles')]
 #[PathItem]
@@ -31,6 +38,7 @@ class ArticleController extends Controller
     #[Get('/')]
     #[Operation(tags: ['Articles'])]
     #[Parameters(factory: ListArticlesParameters::class)]
+    #[Response(factory: MultipleArticlesResponse::class, statusCode: 200)]
     public function list(): MultipleArticlesResource
     {
         return new MultipleArticlesResource(null);
@@ -44,6 +52,7 @@ class ArticleController extends Controller
     #[Get('/feed', middleware: 'auth')]
     #[Operation(tags: ['Articles'], security: 'BearerToken')]
     #[Parameters(factory: ListFeedParameters::class)]
+    #[Response(factory: MultipleArticlesResponse::class, statusCode: 200)]
     public function feed(): MultipleArticlesResource
     {
         return new MultipleArticlesResource(null);
@@ -58,6 +67,7 @@ class ArticleController extends Controller
      */
     #[Get('/{slug}')]
     #[Operation(tags: ['Articles'])]
+    #[Response(factory: SingleArticleResponse::class, statusCode: 200)]
     public function get(Article $slug): SingleArticleResource
     {
         return new SingleArticleResource($slug);
@@ -70,6 +80,9 @@ class ArticleController extends Controller
      */
     #[Post('/', middleware: 'auth')]
     #[Operation(tags: ['Articles'], security: 'BearerToken')]
+    #[RequestBody(factory: NewArticleRequestBody::class)]
+    #[Response(factory: SingleArticleResponse::class, statusCode: 200)]
+    #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
     public function create(NewArticleRequest $request): SingleArticleResource
     {
         return new SingleArticleResource(null);
@@ -84,6 +97,9 @@ class ArticleController extends Controller
      */
     #[Put('/{slug}', middleware: 'auth')]
     #[Operation(tags: ['Articles'], security: 'BearerToken')]
+    #[RequestBody(factory: UpdateArticleRequestBody::class)]
+    #[Response(factory: SingleArticleResponse::class, statusCode: 200)]
+    #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
     public function update(Article $slug, UpdateArticleRequest $request): SingleArticleResource
     {
         return new SingleArticleResource($slug);
@@ -111,6 +127,7 @@ class ArticleController extends Controller
      */
     #[Post('/{slug}/favorite', middleware: 'auth')]
     #[Operation(tags: ['Favorites'], security: 'BearerToken')]
+    #[Response(factory: SingleArticleResponse::class, statusCode: 200)]
     public function favorite(Article $slug): SingleArticleResource
     {
         return new SingleArticleResource($slug);
@@ -125,6 +142,7 @@ class ArticleController extends Controller
      */
     #[Delete('{slug}/favorite', middleware: 'auth')]
     #[Operation(tags: ['Favorites'], security: 'BearerToken')]
+    #[Response(factory: SingleArticleResponse::class, statusCode: 200)]
     public function unfavorite(Article $slug): SingleArticleResource
     {
         return new SingleArticleResource($slug);

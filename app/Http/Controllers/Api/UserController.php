@@ -7,7 +7,9 @@ use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\NewUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
+use App\OpenApi\RequestBodies\LoginUserRequestBody;
 use App\OpenApi\RequestBodies\NewUserRequestBody;
+use App\OpenApi\RequestBodies\UpdateUserRequestBody;
 use App\OpenApi\Responses\ErrorValidationResponse;
 use App\OpenApi\Responses\UserResponse;
 use Spatie\RouteAttributes\Attributes\Get;
@@ -43,7 +45,9 @@ class UserController extends Controller
      */
     #[Post('users/login')]
     #[Operation(tags: ['User and Authentication'])]
-    #[Response(factory: UserResponse::class)]
+    #[RequestBody(factory: LoginUserRequestBody::class)]
+    #[Response(factory: UserResponse::class, statusCode: 200)]
+    #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
     public function login(LoginUserRequest $request): UserResource
     {
         return new UserResource(null);
@@ -56,7 +60,7 @@ class UserController extends Controller
      */
     #[Get('user', middleware: 'auth')]
     #[Operation(tags: ['User and Authentication'], security: 'BearerToken')]
-    #[Response(factory: UserResponse::class)]
+    #[Response(factory: UserResponse::class, statusCode: 200)]
     public function current(): UserResource
     {
         return new UserResource(null);
@@ -69,7 +73,9 @@ class UserController extends Controller
      */
     #[Put('user', middleware: 'auth')]
     #[Operation(tags: ['User and Authentication'], security: 'BearerToken')]
-    #[Response(factory: UserResponse::class)]
+    #[RequestBody(factory: UpdateUserRequestBody::class)]
+    #[Response(factory: UserResponse::class, statusCode: 200)]
+    #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
     public function update(UpdateUserRequest $request): UserResource
     {
         return new UserResource(null);
