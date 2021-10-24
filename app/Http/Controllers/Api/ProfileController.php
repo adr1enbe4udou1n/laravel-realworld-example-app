@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ProfileResource;
 use App\Models\User;
 use App\OpenApi\Responses\ProfileResponse;
+use Auth;
 use Spatie\RouteAttributes\Attributes\Delete;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Post;
@@ -45,6 +46,8 @@ class ProfileController extends Controller
     #[Response(factory: ProfileResponse::class, statusCode: 200)]
     public function follow(User $username): ProfileResource
     {
+        $username->followers()->attach(Auth::id());
+
         return new ProfileResource($username);
     }
 
@@ -60,6 +63,8 @@ class ProfileController extends Controller
     #[Response(factory: ProfileResponse::class, statusCode: 200)]
     public function unfollow(User $username): ProfileResource
     {
+        $username->followers()->detach(Auth::id());
+
         return new ProfileResource($username);
     }
 }
