@@ -10,6 +10,8 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
  */
 class MultipleArticlesResource extends ResourceCollection
 {
+    public static $wrap = 'articles';
+
     /**
      * Transform the resource collection into an array.
      *

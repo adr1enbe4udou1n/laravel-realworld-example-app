@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Arr;
 
 class UpdateArticleRequest extends FormRequest
 {
@@ -26,5 +27,10 @@ class UpdateArticleRequest extends FormRequest
         return [
             //
         ];
+    }
+
+    public function validationData()
+    {
+        return Arr::wrap($this->input('article'));
     }
 }

@@ -52,6 +52,7 @@ class Article extends Model
         'title',
         'description',
         'body',
+        'slug',
     ];
 
     public function author()
@@ -87,7 +88,9 @@ class Article extends Model
     protected static function booted()
     {
         static::creating(function (self $article) {
-            $article->slug = Str::slug($article->title);
+            if (! $article->slug) {
+                $article->slug = Str::slug($article->title);
+            }
         });
     }
 }

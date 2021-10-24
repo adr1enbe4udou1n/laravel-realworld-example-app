@@ -10,6 +10,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
  */
 class SingleCommentResource extends JsonResource
 {
+    public static $wrap = 'comment';
+
     /**
      * Transform the resource into an array.
      *

@@ -10,6 +10,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
  */
 class SingleArticleResource extends JsonResource
 {
+    public static $wrap = 'article';
+
     /**
      * Transform the resource into an array.
      *
@@ -19,6 +21,17 @@ class SingleArticleResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'title' => $this->resource->title,
+            'slug' => $this->resource->slug,
+            'description' => $this->resource->description,
+            'body' => $this->resource->body,
+            'createdAt' => $this->resource->created_at,
+            'updatedAt' => $this->resource->updated_at,
+            'author' => new ProfileResource($this->resource->author),
+            'tagList' => new TagsResource($this->resource->tags()->orderBy('name')->get()),
+            'favorited' => false,
+            'favoritesCount' => 0,
+        ];
     }
 }

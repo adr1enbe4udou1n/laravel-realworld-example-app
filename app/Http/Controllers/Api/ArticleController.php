@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateArticleRequest;
 use App\Http\Resources\MultipleArticlesResource;
 use App\Http\Resources\SingleArticleResource;
 use App\Models\Article;
+use App\Models\Tag;
 use App\OpenApi\Parameters\ListArticlesParameters;
 use App\OpenApi\Parameters\ListFeedParameters;
 use App\OpenApi\RequestBodies\NewArticleRequestBody;
@@ -15,6 +16,7 @@ use App\OpenApi\RequestBodies\UpdateArticleRequestBody;
 use App\OpenApi\Responses\ErrorValidationResponse;
 use App\OpenApi\Responses\MultipleArticlesResponse;
 use App\OpenApi\Responses\SingleArticleResponse;
+use Auth;
 use Spatie\RouteAttributes\Attributes\Delete;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Post;
@@ -85,7 +87,18 @@ class ArticleController extends Controller
     #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
     public function create(NewArticleRequest $request): SingleArticleResource
     {
-        return new SingleArticleResource(null);
+        $article = Article::make($request->input('article'));
+
+        $article->author()->associate(Auth::user());
+
+        $article->save();
+
+        $tags = collect($request->input('article.tagList'))
+            ->map(fn (string $t) => Tag::firstOrCreate(['name' => $t]))
+        ;
+        $article->tags()->attach($tags->pluck('id'));
+
+        return new SingleArticleResource($article);
     }
 
     /**
