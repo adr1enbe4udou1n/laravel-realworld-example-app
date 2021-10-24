@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\NewUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
@@ -13,9 +12,13 @@ use App\OpenApi\RequestBodies\NewUserRequestBody;
 use App\OpenApi\RequestBodies\UpdateUserRequestBody;
 use App\OpenApi\Responses\ErrorValidationResponse;
 use App\OpenApi\Responses\UserResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Post;
 use Spatie\RouteAttributes\Attributes\Put;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Vyuldashev\LaravelOpenApi\Attributes\Operation;
 use Vyuldashev\LaravelOpenApi\Attributes\PathItem;
 use Vyuldashev\LaravelOpenApi\Attributes\RequestBody;
@@ -52,9 +55,15 @@ class UserController extends Controller
     #[RequestBody(factory: LoginUserRequestBody::class)]
     #[Response(factory: UserResponse::class, statusCode: 200)]
     #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
-    public function login(LoginUserRequest $request): UserResource
+    public function login(Request $request): UserResource
     {
-        return new UserResource(null);
+        $user = User::firstWhere(['email' => $request->input('user.email')]);
+
+        if (! $user || ! Hash::check($request->input('user.password'), $user->password)) {
+            throw new BadRequestHttpException('Bad credentials');
+        }
+
+        return new UserResource($user);
     }
 
     /**
@@ -67,7 +76,7 @@ class UserController extends Controller
     #[Response(factory: UserResponse::class, statusCode: 200)]
     public function current(): UserResource
     {
-        return new UserResource(null);
+        return new UserResource(Auth::user());
     }
 
     /**

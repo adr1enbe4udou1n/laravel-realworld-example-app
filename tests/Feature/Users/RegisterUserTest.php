@@ -3,12 +3,12 @@
 use App\Models\User;
 use App\Support\Jwt;
 use function Pest\Laravel\assertDatabaseHas;
-use function Pest\Laravel\post;
+use function Pest\Laravel\postJson;
 
 it('cannot register with invalid data', function ($data, $errors) {
-    post('api/users', [
+    postJson('api/users', [
         'user' => $data,
-    ])->assertSessionHasErrors($errors);
+    ])->assertJsonValidationErrors($errors);
 })->with([
     [
         [
@@ -35,17 +35,17 @@ it('cannot register with invalid data', function ($data, $errors) {
 it('cannot register twice', function () {
     User::factory()->john()->create();
 
-    post('api/users', [
+    postJson('api/users', [
         'user' => [
             'email' => 'john.doe@example.com',
             'username' => 'John Doe',
             'password' => 'password',
         ],
-    ])->assertSessionHasErrors(['email']);
+    ])->assertJsonValidationErrors(['email']);
 });
 
 it('can register', function () {
-    $content = post('api/users', [
+    $content = postJson('api/users', [
         'user' => [
             'email' => 'john.doe@example.com',
             'username' => 'John Doe',
