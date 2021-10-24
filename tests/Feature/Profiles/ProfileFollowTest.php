@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use function Pest\Laravel\actingAs;
+use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\deleteJson;
 use function Pest\Laravel\postJson;
 
@@ -35,6 +36,8 @@ it('can follow profile', function () {
             'following' => true,
         ],
     ]);
+
+    assertDatabaseCount('follower_user', 1);
 });
 
 it('can unfollow profile', function () {
@@ -55,4 +58,6 @@ it('can unfollow profile', function () {
             'following' => false,
         ],
     ]);
+
+    assertDatabaseCount('follower_user', 0);
 });
