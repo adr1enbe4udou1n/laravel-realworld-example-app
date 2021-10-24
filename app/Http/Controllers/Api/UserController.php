@@ -7,6 +7,7 @@ use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\NewUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
+use App\Models\User;
 use App\OpenApi\RequestBodies\LoginUserRequestBody;
 use App\OpenApi\RequestBodies\NewUserRequestBody;
 use App\OpenApi\RequestBodies\UpdateUserRequestBody;
@@ -35,7 +36,10 @@ class UserController extends Controller
     #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
     public function register(NewUserRequest $request): UserResource
     {
-        return new UserResource(null);
+        $user = $request->newUser();
+        $user->save();
+
+        return new UserResource($user);
     }
 
     /**

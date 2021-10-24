@@ -2,10 +2,17 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
+use App\Support\Jwt;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @property User $resource
+ */
 class UserResource extends JsonResource
 {
+    public static $wrap = 'user';
+
     /**
      * Transform the resource into an array.
      *
@@ -15,6 +22,12 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'username' => $this->resource->name,
+            'email' => $this->resource->email,
+            'bio' => $this->resource->bio,
+            'image' => $this->resource->image,
+            'token' => app(Jwt::class)->generate($this->resource),
+        ];
     }
 }

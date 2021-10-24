@@ -4,23 +4,27 @@ it('guest cannot create article', function () {
 })->skip();
 
 it('cannot create article with invalid data', function ($data) {
-})->with([[
+})->with([
     [
-        'title' => '',
-        'description' => 'Test Description',
-        'body' => 'Test Body',
+        [
+            'title' => '',
+            'description' => 'Test Description',
+            'body' => 'Test Body',
+        ],
+    ], [
+        [
+            'title' => 'Test Title',
+            'description' => '',
+            'body' => 'Test Body',
+        ],
+    ], [
+        [
+            'title' => 'Test Title',
+            'description' => 'Test Description',
+            'body' => '',
+        ],
     ],
-    [
-        'title' => 'Test Title',
-        'description' => '',
-        'body' => 'Test Body',
-    ],
-    [
-        'title' => 'Test Title',
-        'description' => 'Test Description',
-        'body' => '',
-    ],
-]])->skip();
+])->skip();
 
 it('cannot create article with same title', function () {
 })->skip();

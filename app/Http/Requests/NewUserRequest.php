@@ -2,7 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class NewUserRequest extends FormRequest
 {
@@ -13,7 +17,7 @@ class NewUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +28,23 @@ class NewUserRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'email' => ['required', 'email', Rule::unique('users')],
+            'username' => ['required'],
+            'password' => ['required', 'min:8'],
         ];
+    }
+
+    public function newUser()
+    {
+        return User::make([
+            'name' => $this->input('user.username'),
+            'email' => $this->input('user.email'),
+            'password' => Hash::make($this->input('user.password')),
+        ]);
+    }
+
+    public function validationData()
+    {
+        return Arr::wrap($this->input('user'));
     }
 }

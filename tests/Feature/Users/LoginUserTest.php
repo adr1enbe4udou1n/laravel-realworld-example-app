@@ -1,12 +1,14 @@
 <?php
 
 it('user cannot login with invalid data', function ($credentials) {
-})->with([[
+})->with([
     [
-        'email' => 'jane.doe@example.com',
-        'password' => 'password',
+        [
+            'email' => 'jane.doe@example.com',
+            'password' => 'password',
+        ],
     ],
-]])->skip();
+])->skip();
 
 it('user can login', function () {
 })->skip();

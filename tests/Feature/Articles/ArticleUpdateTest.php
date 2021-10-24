@@ -7,13 +7,15 @@ it('cannot update non existent article', function () {
 })->skip();
 
 it('cannot update article with invalid data', function ($data) {
-})->with([[
+})->with([
     [
-        'title' => 'Test Title',
-        'description' => 'Test Description',
-        'body' => '',
+        [
+            'title' => 'Test Title',
+            'description' => 'Test Description',
+            'body' => '',
+        ],
     ],
-]])->skip();
+])->skip();
 
 it('cannot update article of other author', function () {
 })->skip();
