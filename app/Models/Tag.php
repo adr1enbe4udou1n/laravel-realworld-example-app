@@ -27,6 +27,15 @@ class Tag extends Model
 
     public $timestamps = false;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
+    protected $fillable = [
+        'name',
+    ];
+
     public function articles()
     {
         return $this->belongsToMany(Article::class);

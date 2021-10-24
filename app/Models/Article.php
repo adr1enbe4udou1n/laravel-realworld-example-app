@@ -43,6 +43,17 @@ class Article extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
+    protected $fillable = [
+        'title',
+        'description',
+        'body',
+    ];
+
     public function author()
     {
         return $this->belongsTo(User::class, 'author_id');

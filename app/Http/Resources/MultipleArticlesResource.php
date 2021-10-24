@@ -2,8 +2,12 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Article;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
+/**
+ * @param Article[] $resource
+ */
 class MultipleArticlesResource extends ResourceCollection
 {
     /**
