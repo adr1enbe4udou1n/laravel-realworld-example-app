@@ -14,7 +14,6 @@ use App\OpenApi\Responses\ErrorValidationResponse;
 use App\OpenApi\Responses\UserResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Post;
 use Spatie\RouteAttributes\Attributes\Put;
@@ -57,13 +56,11 @@ class UserController extends Controller
     #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
     public function login(Request $request): UserResource
     {
-        $user = User::firstWhere(['email' => $request->input('user.email')]);
-
-        if (! $user || ! Hash::check($request->input('user.password'), $user->password)) {
+        if (! Auth::attempt($request->user)) {
             throw new BadRequestHttpException('Bad credentials');
         }
 
-        return new UserResource($user);
+        return new UserResource(Auth::user());
     }
 
     /**

@@ -2,44 +2,62 @@
 
 namespace App\Support;
 
-use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Auth\GuardHelpers;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\UserProvider;
+use Illuminate\Http\Request;
 
 class JwtGuard implements Guard
 {
-    private UserProvider $userProvider;
-    private Authenticatable $user;
+    use GuardHelpers;
 
-    public function __construct(UserProvider $user)
-    {
-        $this->userProvider = $user;
-    }
+    private Request $request;
 
-    public function check()
+    public function __construct(UserProvider $provider, Request $request)
     {
-    }
-
-    public function guest()
-    {
+        $this->provider = $provider;
+        $this->request = $request;
     }
 
     public function user()
     {
-        return $this->user;
-    }
+        if (null !== $this->user) {
+            return $this->user;
+        }
 
-    public function id()
-    {
-        return $this->user->getAuthIdentifier();
+        $user = null;
+
+        $token = explode(' ', $this->request->header('Authorization'))[1] ?? null;
+
+        if (! empty($token)) {
+            $plain = app(Jwt::class)->parse($token);
+
+            $id = $plain->claims()->get('uid');
+
+            $user = $this->provider->retrieveById($id);
+        }
+
+        return $this->user = $user;
     }
 
     public function validate(array $credentials = [])
     {
+        $user = $this->provider->retrieveByCredentials($credentials);
+
+        return $user && $this->provider->validateCredentials(
+            $user,
+            $credentials
+        );
     }
 
-    public function setUser(Authenticatable $user)
+    public function attempt(array $credentials = [])
     {
-        $this->user = $user;
+        if ($this->validate($credentials)) {
+            $this->user = $this->provider->retrieveByCredentials($credentials);
+
+            return true;
+        }
+
+        return false;
     }
 }
