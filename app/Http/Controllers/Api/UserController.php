@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\NewUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
-use App\Models\User;
 use App\OpenApi\RequestBodies\LoginUserRequestBody;
 use App\OpenApi\RequestBodies\NewUserRequestBody;
 use App\OpenApi\RequestBodies\UpdateUserRequestBody;
