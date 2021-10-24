@@ -88,6 +88,9 @@ class UserController extends Controller
     #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
     public function update(UpdateUserRequest $request): UserResource
     {
-        return new UserResource(null);
+        $user = $request->updatedUser();
+        $user->save();
+
+        return new UserResource($user);
     }
 }
