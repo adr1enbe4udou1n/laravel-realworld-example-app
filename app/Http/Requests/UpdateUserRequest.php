@@ -31,8 +31,8 @@ class UpdateUserRequest extends FormRequest
         $user = Auth::user();
 
         return [
-            'email' => ['required', 'email', Rule::unique('users')->ignoreModel($user)],
-            'username' => ['required'],
+            'email' => ['sometimes', 'required', 'email', Rule::unique('users')->ignoreModel($user)],
+            'username' => ['sometimes', 'required'],
         ];
     }
 
@@ -41,12 +41,11 @@ class UpdateUserRequest extends FormRequest
         /** @var User */
         $user = Auth::user();
 
-        return $user->fill([
-            'name' => $this->input('user.username'),
-            'email' => $this->input('user.email'),
-            'bio' => $this->input('user.bio'),
-            'image' => $this->input('user.image'),
-        ]);
+        if ($this->input('user.username')) {
+            $user->name = $this->input('user.username');
+        }
+
+        return $user->fill($this->input('user'));
     }
 
     public function validationData()
