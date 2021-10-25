@@ -106,7 +106,7 @@ class ArticleController extends Controller
     #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
     public function create(NewArticleRequest $request): SingleArticleResource
     {
-        $article = Article::make($request->input('article'));
+        $article = new Article($request->input('article'));
 
         $article->author()->associate(Auth::user());
 

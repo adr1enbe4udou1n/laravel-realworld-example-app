@@ -36,7 +36,7 @@ class NewUserRequest extends FormRequest
 
     public function newUser()
     {
-        return User::make([
+        return new User([
             'name' => $this->input('user.username'),
             'email' => $this->input('user.email'),
             'password' => Hash::make($this->input('user.password')),

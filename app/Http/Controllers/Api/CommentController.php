@@ -55,7 +55,7 @@ class CommentController extends Controller
     #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
     public function create(Article $slug, NewCommentRequest $request): SingleCommentResource
     {
-        $comment = Comment::make($request->input('comment'));
+        $comment = new Comment($request->input('comment'));
 
         $comment->author()->associate(Auth::user());
         $comment->article()->associate($slug);
