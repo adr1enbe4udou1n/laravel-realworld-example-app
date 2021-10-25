@@ -15,7 +15,7 @@ it('cannot create comment to non existent article', function () {
     actingAs($user);
 
     postJson('api/articles/test-title/comments')->assertNotFound();
-})->skip();
+});
 
 it('cannot create comment with invalid data', function ($data, $errors) {
     /** @var User */

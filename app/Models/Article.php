@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Str;
 
 /**
@@ -40,8 +39,8 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Eloquent\Builder|Article whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Article whereUpdatedAt($value)
  * @method static Builder|Article byAuthor($author)
- * @method static Builder|Article byFavorited($author)
- * @method static Builder|Article byTag($author)
+ * @method static Builder|Article byFavorited($user)
+ * @method static Builder|Article byTag($tag)
  * @method static Builder|Article followedAuthor(\Illuminate\Foundation\Auth\User $user)
  * @mixin \Eloquent
  */
@@ -93,22 +92,28 @@ class Article extends Model
 
     public function scopeByAuthor(Builder $query, $author)
     {
-        return $query->where('votes', '>', 100);
+        if ($author) {
+            return $query->whereRelation('author', 'name', 'ilike', "%{$author}%");
+        }
     }
 
-    public function scopeByFavorited(Builder $query, $author)
+    public function scopeByFavorited(Builder $query, $user)
     {
-        return $query->where('votes', '>', 100);
+        if ($user) {
+            return $query->whereRelation('favoritedBy', 'name', 'ilike', "%{$user}%");
+        }
     }
 
-    public function scopeByTag(Builder $query, $author)
+    public function scopeByTag(Builder $query, $tag)
     {
-        return $query->where('votes', '>', 100);
+        if ($tag) {
+            return $query->whereRelation('tags', 'name', 'ilike', "%{$tag}%");
+        }
     }
 
-    public function scopeFollowedAuthor($query, User $user)
+    public function scopeFollowedAuthor(Builder $query, User $user)
     {
-        return $query->where('votes', '>', 100);
+        return $query->whereRelation('author.followers', 'id', '=', $user->id);
     }
 
     protected static function booted()

@@ -52,6 +52,16 @@ function createArticles()
     /** @var User */
     $jane = User::factory()->jane()->create();
 
+    $jane->followers()->attach($john->id);
+
+    $johnFavoritedArticles = [
+        'jane-article-1',
+        'jane-article-2',
+        'jane-article-4',
+        'jane-article-8',
+        'jane-article-16',
+    ];
+
     Article::factory(30)->for($john, 'author')
         ->sequence(fn (Sequence $sequence) => ['title' => "John Article {$sequence->index}"])
         ->create([
@@ -66,6 +76,12 @@ function createArticles()
             'description' => 'Test Description',
             'body' => 'Test Body',
         ])
-        ->transform(fn (Article $article) => $article->tags()->attach([$tag1->id, $tag2->id, $janeTag->id]))
+        ->transform(function (Article $article) use ($tag1, $tag2, $janeTag, $johnFavoritedArticles, $john) {
+            $article->tags()->attach([$tag1->id, $tag2->id, $janeTag->id]);
+
+            if (in_array($article->slug, $johnFavoritedArticles)) {
+                $article->favoritedBy()->attach($john->id);
+            }
+        })
     ;
 }
