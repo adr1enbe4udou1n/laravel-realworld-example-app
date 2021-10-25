@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Str;
 
 /**
@@ -37,6 +39,10 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Eloquent\Builder|Article whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Article whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Article whereUpdatedAt($value)
+ * @method static Builder|Article byAuthor($author)
+ * @method static Builder|Article byFavorited($author)
+ * @method static Builder|Article byTag($author)
+ * @method static Builder|Article followedAuthor(\Illuminate\Foundation\Auth\User $user)
  * @mixin \Eloquent
  */
 class Article extends Model
@@ -83,6 +89,26 @@ class Article extends Model
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    public function scopeByAuthor(Builder $query, $author)
+    {
+        return $query->where('votes', '>', 100);
+    }
+
+    public function scopeByFavorited(Builder $query, $author)
+    {
+        return $query->where('votes', '>', 100);
+    }
+
+    public function scopeByTag(Builder $query, $author)
+    {
+        return $query->where('votes', '>', 100);
+    }
+
+    public function scopeFollowedAuthor($query, User $user)
+    {
+        return $query->where('votes', '>', 100);
     }
 
     protected static function booted()

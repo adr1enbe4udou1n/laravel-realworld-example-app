@@ -44,13 +44,16 @@ class ArticleController extends Controller
     #[Response(factory: MultipleArticlesResponse::class, statusCode: 200)]
     public function list(Request $request): MultipleArticlesResource
     {
-        $articles = Article::orderByDesc('id')
-            ->offset($request->offset)
-            ->limit($request->limit)
-            ->get()
-        ;
+        $articles = Article::query();
 
-        return new MultipleArticlesResource($articles);
+        return new MultipleArticlesResource(
+            (clone $articles)
+                ->orderByDesc('id')
+                ->offset($request->offset)
+                ->limit($request->limit)
+                ->get(),
+            $articles->count()
+        );
     }
 
     /**
@@ -64,7 +67,16 @@ class ArticleController extends Controller
     #[Response(factory: MultipleArticlesResponse::class, statusCode: 200)]
     public function feed(Request $request): MultipleArticlesResource
     {
-        return new MultipleArticlesResource(null);
+        $articles = Article::query();
+
+        return new MultipleArticlesResource(
+            (clone $articles)
+                ->orderByDesc('id')
+                ->offset($request->offset)
+                ->limit($request->limit)
+                ->get(),
+            $articles->count()
+        );
     }
 
     /**

@@ -5,9 +5,6 @@ namespace App\Http\Resources;
 use App\Models\Tag;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-/**
- * @param Tag[] $resource
- */
 class TagsResource extends ResourceCollection
 {
     public static $wrap = 'tags';
@@ -21,6 +18,6 @@ class TagsResource extends ResourceCollection
      */
     public function toArray($request)
     {
-        return collect($this->resource)->map(fn (Tag $t) => $t->name);
+        return $this->collection->map(fn (Tag $t) => $t->name);
     }
 }

@@ -2,15 +2,26 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Article;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-/**
- * @param Article[] $resource
- */
 class MultipleArticlesResource extends ResourceCollection
 {
     public static $wrap = 'articles';
+
+    public $count = 0;
+
+    /**
+     * Create a new resource instance.
+     *
+     * @param mixed $resource
+     * @param mixed $count
+     */
+    public function __construct($resource, $count)
+    {
+        parent::__construct($resource);
+
+        $this->count = $count;
+    }
 
     /**
      * Transform the resource collection into an array.
@@ -21,6 +32,13 @@ class MultipleArticlesResource extends ResourceCollection
      */
     public function toArray($request)
     {
-        return SingleArticleResource::collection($this->resource);
+        return SingleArticleResource::collection($this->collection);
+    }
+
+    public function with($request)
+    {
+        return [
+            'articlesCount' => $this->count,
+        ];
     }
 }

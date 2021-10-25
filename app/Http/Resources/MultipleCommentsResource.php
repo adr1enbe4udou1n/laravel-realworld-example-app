@@ -2,12 +2,8 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Comment;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-/**
- * @param Comment[] $resource
- */
 class MultipleCommentsResource extends ResourceCollection
 {
     public static $wrap = 'comments';
@@ -21,6 +17,6 @@ class MultipleCommentsResource extends ResourceCollection
      */
     public function toArray($request)
     {
-        return SingleCommentResource::collection($this->resource);
+        return SingleCommentResource::collection($this->collection);
     }
 }

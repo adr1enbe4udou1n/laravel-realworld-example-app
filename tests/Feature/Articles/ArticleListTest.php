@@ -23,11 +23,34 @@ it('can paginate articles', function () {
                 'favoritesCount' => 0,
             ],
         ],
+        'articlesCount' => 50,
     ])->assertJsonCount(10, 'articles');
 });
 
 it('can filter articles by author', function () {
-})->skip();
+    // createArticles();
+
+    // getJson('api/articles?limit=0&offset=10&author=john')->assertOk()->assertJson([
+    //     'articles' => [
+    //         [
+    //             'title' => 'John Article 29',
+    //             'slug' => 'john-article-29',
+    //             'description' => 'Test Description',
+    //             'body' => 'Test Body',
+    //             'author' => [
+    //                 'username' => 'John Doe',
+    //                 'bio' => 'John Bio',
+    //                 'image' => 'https://randomuser.me/api/portraits/men/1.jpg',
+    //                 'following' => false,
+    //             ],
+    //             'tagList' => ['John Tag', 'Tag 1', 'Tag 2'],
+    //             'favorited' => false,
+    //             'favoritesCount' => 0,
+    //         ],
+    //     ],
+    //     'articlesCount' => 30,
+    // ])->assertJsonCount(10, 'articles');
+});
 
 it('can filter articles by favorited', function () {
 })->skip();
