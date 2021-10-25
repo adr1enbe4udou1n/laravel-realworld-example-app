@@ -1,13 +1,44 @@
 <?php
 
+use App\Models\Article;
+use App\Models\User;
+use function Pest\Laravel\actingAs;
+use function Pest\Laravel\assertDatabaseCount;
+use function Pest\Laravel\deleteJson;
+
 it('guest cannot delete article', function () {
-})->skip();
+    deleteJson('api/articles/test-title')->assertUnauthorized();
+});
 
 it('cannot delete non existent article', function () {
-})->skip();
+    /** @var User */
+    $user = User::factory()->john()->create();
+    actingAs($user);
+
+    deleteJson('api/articles/test-title')->assertNotFound();
+});
 
 it('cannot delete article of other author', function () {
-})->skip();
+    /** @var User */
+    $jane = User::factory()->jane()->create();
+
+    Article::factory()->for($jane, 'author')->create(['title' => 'Test Title']);
+
+    /** @var User */
+    $john = User::factory()->john()->create();
+    actingAs($john);
+
+    deleteJson('api/articles/test-title')->assertForbidden();
+});
 
 it('can delete own article with all comments', function () {
-})->skip();
+    /** @var User */
+    $user = User::factory()->john()->create();
+    actingAs($user);
+
+    Article::factory()->for($user, 'author')->create(['title' => 'Test Title']);
+
+    deleteJson('api/articles/test-title')->assertNoContent();
+
+    assertDatabaseCount('articles', 0);
+});

@@ -12,6 +12,7 @@ use App\OpenApi\RequestBodies\NewCommentRequestBody;
 use App\OpenApi\Responses\ErrorValidationResponse;
 use App\OpenApi\Responses\MultipleCommentsResponse;
 use App\OpenApi\Responses\SingleCommentResponse;
+use Illuminate\Support\Facades\Auth;
 use Spatie\RouteAttributes\Attributes\Delete;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Post;
@@ -37,7 +38,7 @@ class CommentController extends Controller
     #[Response(factory: MultipleCommentsResponse::class, statusCode: 200)]
     public function list(Article $slug): MultipleCommentsResource
     {
-        return new MultipleCommentsResource(null);
+        return new MultipleCommentsResource($slug->comments()->orderByDesc('id')->get());
     }
 
     /**
@@ -54,7 +55,13 @@ class CommentController extends Controller
     #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
     public function create(Article $slug, NewCommentRequest $request): SingleCommentResource
     {
-        return new SingleCommentResource(null);
+        $comment = Comment::make($request->input('comment'));
+
+        $comment->author()->associate(Auth::user());
+        $comment->article()->associate($slug);
+        $comment->save();
+
+        return new SingleCommentResource($comment);
     }
 
     /**
@@ -65,9 +72,14 @@ class CommentController extends Controller
      * @param Article $slug      Slug of the article that you want to delete a comment for
      * @param Comment $commentId ID of the comment you want to delete
      */
-    #[Delete('/{commentId}', middleware: 'auth')]
+    #[Delete('/{commentId}', middleware: ['auth', 'can:delete,commentId'])]
     #[Operation(tags: ['Comments'], security: 'BearerToken')]
     public function delete(Article $slug, Comment $commentId)
     {
+        abort_if($slug->id !== $commentId->article_id, 403);
+
+        $commentId->delete();
+
+        return response()->noContent();
     }
 }

@@ -25,7 +25,9 @@ class UpdateArticleRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => ['sometimes', 'required'],
+            'description' => ['sometimes', 'required'],
+            'body' => ['sometimes', 'required'],
         ];
     }
 

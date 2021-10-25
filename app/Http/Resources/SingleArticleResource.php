@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use App\Models\Article;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * @property Article $resource
@@ -30,8 +31,8 @@ class SingleArticleResource extends JsonResource
             'updatedAt' => $this->resource->updated_at,
             'author' => new ProfileResource($this->resource->author),
             'tagList' => new TagsResource($this->resource->tags()->orderBy('name')->get()),
-            'favorited' => false,
-            'favoritesCount' => 0,
+            'favorited' => Auth::check() ? $this->resource->favoritedBy()->where('id', Auth::id())->exists() : false,
+            'favoritesCount' => $this->resource->favoritedBy()->count(),
         ];
     }
 }

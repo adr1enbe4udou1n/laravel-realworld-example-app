@@ -21,6 +21,6 @@ class MultipleCommentsResource extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return SingleCommentResource::collection($this->resource);
     }
 }

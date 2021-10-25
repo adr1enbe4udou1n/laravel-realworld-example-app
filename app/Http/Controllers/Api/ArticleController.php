@@ -16,7 +16,7 @@ use App\OpenApi\RequestBodies\UpdateArticleRequestBody;
 use App\OpenApi\Responses\ErrorValidationResponse;
 use App\OpenApi\Responses\MultipleArticlesResponse;
 use App\OpenApi\Responses\SingleArticleResponse;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Spatie\RouteAttributes\Attributes\Delete;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Post;
@@ -108,13 +108,15 @@ class ArticleController extends Controller
      *
      * @param Article $slug Slug of the article to update
      */
-    #[Put('/{slug}', middleware: 'auth')]
+    #[Put('/{slug}', middleware: ['auth', 'can:update,slug'])]
     #[Operation(tags: ['Articles'], security: 'BearerToken')]
     #[RequestBody(factory: UpdateArticleRequestBody::class)]
     #[Response(factory: SingleArticleResponse::class, statusCode: 200)]
     #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
     public function update(Article $slug, UpdateArticleRequest $request): SingleArticleResource
     {
+        $slug->update($request->input('article'));
+
         return new SingleArticleResource($slug);
     }
 
@@ -125,10 +127,13 @@ class ArticleController extends Controller
      *
      * @param Article $slug Slug of the article to delete
      */
-    #[Delete('/{slug}', middleware: 'auth')]
+    #[Delete('/{slug}', middleware: ['auth', 'can:update,slug'])]
     #[Operation(tags: ['Articles'], security: 'BearerToken')]
     public function delete(Article $slug)
     {
+        $slug->delete();
+
+        return response()->noContent();
     }
 
     /**
@@ -143,6 +148,8 @@ class ArticleController extends Controller
     #[Response(factory: SingleArticleResponse::class, statusCode: 200)]
     public function favorite(Article $slug): SingleArticleResource
     {
+        $slug->favoritedBy()->attach(Auth::id());
+
         return new SingleArticleResource($slug);
     }
 
@@ -158,6 +165,8 @@ class ArticleController extends Controller
     #[Response(factory: SingleArticleResponse::class, statusCode: 200)]
     public function unfavorite(Article $slug): SingleArticleResource
     {
+        $slug->favoritedBy()->detach(Auth::id());
+
         return new SingleArticleResource($slug);
     }
 }

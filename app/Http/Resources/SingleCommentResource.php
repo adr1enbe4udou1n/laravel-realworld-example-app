@@ -21,6 +21,12 @@ class SingleCommentResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->resource->id,
+            'body' => $this->resource->body,
+            'createdAt' => $this->resource->created_at,
+            'updatedAt' => $this->resource->updated_at,
+            'author' => new ProfileResource($this->resource->author),
+        ];
     }
 }
