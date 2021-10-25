@@ -11,6 +11,11 @@
 |
 */
 
+use App\Models\Article;
+use App\Models\Tag;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Sequence;
+
 uses(Tests\TestCase::class)->in('Feature');
 
 /*
@@ -35,7 +40,32 @@ uses(Tests\TestCase::class)->in('Feature');
 |
 */
 
-function something()
+function createArticles()
 {
-    // ..
+    $tag1 = Tag::create(['name' => 'Tag 1']);
+    $tag2 = Tag::create(['name' => 'Tag 2']);
+    $johnTag = Tag::create(['name' => 'John Tag']);
+    $janeTag = Tag::create(['name' => 'Jane Tag']);
+
+    /** @var User */
+    $john = User::factory()->john()->create();
+    /** @var User */
+    $jane = User::factory()->jane()->create();
+
+    Article::factory(30)->for($john, 'author')
+        ->sequence(fn (Sequence $sequence) => ['title' => "John Article {$sequence->index}"])
+        ->create([
+            'description' => 'Test Description',
+            'body' => 'Test Body',
+        ])
+        ->transform(fn (Article $article) => $article->tags()->attach([$tag1->id, $tag2->id, $johnTag->id]))
+    ;
+    Article::factory(20)->for($jane, 'author')
+        ->sequence(fn (Sequence $sequence) => ['title' => "Jane Article {$sequence->index}"])
+        ->create([
+            'description' => 'Test Description',
+            'body' => 'Test Body',
+        ])
+        ->transform(fn (Article $article) => $article->tags()->attach([$tag1->id, $tag2->id, $janeTag->id]))
+    ;
 }

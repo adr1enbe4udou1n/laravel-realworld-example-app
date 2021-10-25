@@ -31,5 +31,5 @@ it('can list all comments of article', function () {
                 ],
             ],
         ],
-    ]);
+    ])->assertJsonCount(10, 'comments');
 });

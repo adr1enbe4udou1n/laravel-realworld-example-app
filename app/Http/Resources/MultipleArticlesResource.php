@@ -21,6 +21,6 @@ class MultipleArticlesResource extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return SingleArticleResource::collection($this->resource);
     }
 }

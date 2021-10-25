@@ -16,6 +16,7 @@ use App\OpenApi\RequestBodies\UpdateArticleRequestBody;
 use App\OpenApi\Responses\ErrorValidationResponse;
 use App\OpenApi\Responses\MultipleArticlesResponse;
 use App\OpenApi\Responses\SingleArticleResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\RouteAttributes\Attributes\Delete;
 use Spatie\RouteAttributes\Attributes\Get;
@@ -41,9 +42,15 @@ class ArticleController extends Controller
     #[Operation(tags: ['Articles'])]
     #[Parameters(factory: ListArticlesParameters::class)]
     #[Response(factory: MultipleArticlesResponse::class, statusCode: 200)]
-    public function list(): MultipleArticlesResource
+    public function list(Request $request): MultipleArticlesResource
     {
-        return new MultipleArticlesResource(null);
+        $articles = Article::orderByDesc('id')
+            ->offset($request->offset)
+            ->limit($request->limit)
+            ->get()
+        ;
+
+        return new MultipleArticlesResource($articles);
     }
 
     /**
@@ -55,7 +62,7 @@ class ArticleController extends Controller
     #[Operation(tags: ['Articles'], security: 'BearerToken')]
     #[Parameters(factory: ListFeedParameters::class)]
     #[Response(factory: MultipleArticlesResponse::class, statusCode: 200)]
-    public function feed(): MultipleArticlesResource
+    public function feed(Request $request): MultipleArticlesResource
     {
         return new MultipleArticlesResource(null);
     }
