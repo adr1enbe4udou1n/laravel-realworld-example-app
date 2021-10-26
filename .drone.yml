@@ -18,6 +18,7 @@ steps:
   environment:
     DATABASE_URL: postgresql://main:main@db/main?serverVersion=14&charset=utf8
   commands:
+  - rm .env.testing
   - composer install
   - composer format -- --dry-run
   - composer analyse

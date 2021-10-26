@@ -45,5 +45,3 @@ This project is fully tested via **Pest**, just run `php artisan test` for launc
 ## License
 
 This project is open-sourced software licensed under the [MIT license](https://adr1enbe4udou1n.mit-license.org).
-
-Test
