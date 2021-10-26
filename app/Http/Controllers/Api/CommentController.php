@@ -11,6 +11,7 @@ use App\Models\Comment;
 use App\OpenApi\RequestBodies\NewCommentRequestBody;
 use App\OpenApi\Responses\ErrorValidationResponse;
 use App\OpenApi\Responses\MultipleCommentsResponse;
+use App\OpenApi\Responses\NoContentResponse;
 use App\OpenApi\Responses\SingleCommentResponse;
 use Illuminate\Support\Facades\Auth;
 use Spatie\RouteAttributes\Attributes\Delete;
@@ -74,6 +75,7 @@ class CommentController extends Controller
      */
     #[Delete('/{commentId}', middleware: ['auth', 'can:delete,commentId'])]
     #[Operation(tags: ['Comments'], security: 'BearerToken')]
+    #[Response(factory: NoContentResponse::class, statusCode: 204)]
     public function delete(Article $slug, Comment $commentId)
     {
         abort_if($slug->id !== $commentId->article_id, 403);

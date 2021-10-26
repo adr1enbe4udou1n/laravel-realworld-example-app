@@ -15,6 +15,7 @@ use App\OpenApi\RequestBodies\NewArticleRequestBody;
 use App\OpenApi\RequestBodies\UpdateArticleRequestBody;
 use App\OpenApi\Responses\ErrorValidationResponse;
 use App\OpenApi\Responses\MultipleArticlesResponse;
+use App\OpenApi\Responses\NoContentResponse;
 use App\OpenApi\Responses\SingleArticleResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -158,6 +159,7 @@ class ArticleController extends Controller
      */
     #[Delete('/{slug}', middleware: ['auth', 'can:update,slug'])]
     #[Operation(tags: ['Articles'], security: 'BearerToken')]
+    #[Response(factory: NoContentResponse::class, statusCode: 204)]
     public function delete(Article $slug)
     {
         $slug->delete();
