@@ -15,6 +15,7 @@ use App\Models\Article;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Sequence;
+use Illuminate\Support\Facades\DB;
 
 uses(Tests\TestCase::class)->in('Feature');
 
@@ -39,6 +40,23 @@ uses(Tests\TestCase::class)->in('Feature');
 | global functions to help you to reduce the number of lines of code in your test files.
 |
 */
+
+function assertSqlQueriesCountEqual(int $count, Closure $closure = null)
+{
+    if ($closure) {
+        DB::enableQueryLog();
+
+        $closure();
+    }
+
+    // dump(DB::getQueryLog());
+
+    expect(count(DB::getQueryLog()))->toBe($count);
+
+    if ($closure) {
+        DB::flushQueryLog();
+    }
+}
 
 function createArticles()
 {

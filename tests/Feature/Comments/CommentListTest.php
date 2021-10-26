@@ -4,6 +4,8 @@ use App\Models\Article;
 use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Sequence;
+use Illuminate\Support\Facades\DB;
+use function Pest\Laravel\actingAs;
 use function Pest\Laravel\getJson;
 
 it('cannot list all comments of non existent article', function () {
@@ -19,17 +21,24 @@ it('can list all comments of article', function () {
         ->create()
     ;
 
-    getJson('api/articles/test-title/comments')->assertOk()->assertJson([
-        'comments' => [
-            [
-                'body' => 'John Comment 9',
-                'author' => [
-                    'username' => 'John Doe',
-                    'bio' => 'John Bio',
-                    'image' => 'https://randomuser.me/api/portraits/men/1.jpg',
-                    'following' => false,
+    actingAs($user);
+
+    DB::enableQueryLog();
+
+    assertSqlQueriesCountEqual(
+        4,
+        fn () => getJson('api/articles/test-title/comments')->assertOk()->assertJson([
+            'comments' => [
+                [
+                    'body' => 'John Comment 9',
+                    'author' => [
+                        'username' => 'John Doe',
+                        'bio' => 'John Bio',
+                        'image' => 'https://randomuser.me/api/portraits/men/1.jpg',
+                        'following' => false,
+                    ],
                 ],
             ],
-        ],
-    ])->assertJsonCount(10, 'comments');
+        ])->assertJsonCount(10, 'comments')
+    );
 });

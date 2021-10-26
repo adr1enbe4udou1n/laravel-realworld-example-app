@@ -30,9 +30,9 @@ class SingleArticleResource extends JsonResource
             'createdAt' => $this->resource->created_at,
             'updatedAt' => $this->resource->updated_at,
             'author' => new ProfileResource($this->resource->author),
-            'tagList' => new TagsResource($this->resource->tags()->orderBy('name')->get()),
-            'favorited' => Auth::check() ? $this->resource->favoritedBy()->where('id', Auth::id())->exists() : false,
-            'favoritesCount' => $this->resource->favoritedBy()->count(),
+            'tagList' => new TagsResource($this->resource->tags->sortBy('name')),
+            'favorited' => Auth::check() ? $this->resource->favoritedBy->contains('id', Auth::id()) : false,
+            'favoritesCount' => $this->resource->favorited_by_count,
         ];
     }
 }

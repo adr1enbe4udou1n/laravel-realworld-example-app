@@ -45,6 +45,8 @@ class ArticleController extends Controller
     public function list(Request $request): MultipleArticlesResource
     {
         $articles = Article::query()
+            ->with('author', 'tags', 'favoritedBy')
+            ->withCount('favoritedBy')
             ->byAuthor($request->author)
             ->byFavorited($request->favorited)
             ->byTag($request->tag)
@@ -71,7 +73,11 @@ class ArticleController extends Controller
     #[Response(factory: MultipleArticlesResponse::class, statusCode: 200)]
     public function feed(Request $request): MultipleArticlesResource
     {
-        $articles = Article::query()->followedAuthor(Auth::user());
+        $articles = Article::query()
+            ->with('author', 'tags', 'favoritedBy')
+            ->withCount('favoritedBy')
+            ->followedAuthor(Auth::user())
+        ;
 
         return new MultipleArticlesResource(
             (clone $articles)
@@ -95,7 +101,7 @@ class ArticleController extends Controller
     #[Response(factory: SingleArticleResponse::class, statusCode: 200)]
     public function get(Article $slug): SingleArticleResource
     {
-        return new SingleArticleResource($slug);
+        return new SingleArticleResource($slug->loadCount('favoritedBy'));
     }
 
     /**
@@ -121,7 +127,7 @@ class ArticleController extends Controller
         ;
         $article->tags()->attach($tags->pluck('id'));
 
-        return new SingleArticleResource($article);
+        return new SingleArticleResource($article->loadCount('favoritedBy'));
     }
 
     /**
@@ -140,7 +146,7 @@ class ArticleController extends Controller
     {
         $slug->update($request->input('article'));
 
-        return new SingleArticleResource($slug);
+        return new SingleArticleResource($slug->loadCount('favoritedBy'));
     }
 
     /**
@@ -173,7 +179,7 @@ class ArticleController extends Controller
     {
         $slug->favoritedBy()->attach(Auth::id());
 
-        return new SingleArticleResource($slug);
+        return new SingleArticleResource($slug->loadCount('favoritedBy'));
     }
 
     /**
@@ -190,6 +196,6 @@ class ArticleController extends Controller
     {
         $slug->favoritedBy()->detach(Auth::id());
 
-        return new SingleArticleResource($slug);
+        return new SingleArticleResource($slug->loadCount('favoritedBy'));
     }
 }

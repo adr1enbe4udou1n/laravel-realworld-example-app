@@ -38,7 +38,7 @@ class CommentController extends Controller
     #[Response(factory: MultipleCommentsResponse::class, statusCode: 200)]
     public function list(Article $slug): MultipleCommentsResource
     {
-        return new MultipleCommentsResource($slug->comments()->orderByDesc('id')->get());
+        return new MultipleCommentsResource($slug->comments()->with('author.followers')->orderByDesc('id')->get());
     }
 
     /**

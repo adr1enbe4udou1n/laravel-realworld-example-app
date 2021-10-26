@@ -26,7 +26,7 @@ class ProfileResource extends JsonResource
             'username' => $this->resource->name,
             'bio' => $this->resource->bio,
             'image' => $this->resource->image,
-            'following' => Auth::check() ? $this->resource->followers()->where('id', Auth::id())->exists() : false,
+            'following' => Auth::check() ? $this->resource->followers->contains('id', Auth::id()) : false,
         ];
     }
 }
