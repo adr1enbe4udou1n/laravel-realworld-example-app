@@ -10,6 +10,8 @@ COPY storage storage/
 COPY vendor vendor/
 COPY artisan composer.json composer.lock ./
 
+RUN chown -R www-data:www-data bootstrap/cache storage
+
 EXPOSE 9000
 
 CMD ["php-fpm"]
