@@ -27,20 +27,20 @@ php artisan migrate:fresh --seed # migrate and seed
 php artisan serve
 ```
 
-And that's all, go to <http://localhost:8000/api> for full swagger documentation
+And that's all, go to <http://localhost:8000/api> for full swagger documentation !
 
 ### Validate API with Newman
 
 Launch follow scripts for validating realworld schema, note as **you must start with purged database** before run next commands :
 
 ```sh
-php -S localhost:8000 -t public
+php artisan serve
 npx newman run postman.json --global-var "APIURL=http://localhost:8000/api" --global-var="USERNAME=johndoe" --global-var="EMAIL=john.doe@example.com" --global-var="PASSWORD=password"
 ```
 
 ### Full test suite
 
-This project is fully tested via Pest, just run `php artisan test` for launching it.
+This project is fully tested via **Pest**, just run `php artisan test` for launching it. Install **pcov** extension for coverage testing.
 
 ## License
 
