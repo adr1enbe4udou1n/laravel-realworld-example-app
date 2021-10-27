@@ -59,7 +59,7 @@ class ArticleController extends Controller
             (clone $articles)
                 ->orderByDesc('id')
                 ->offset($request->offset)
-                ->limit(min($request->query('limit', self::MAX_LIMIT), self::MAX_LIMIT))
+                ->limit(min($request->query('limit', (string) self::MAX_LIMIT), self::MAX_LIMIT))
                 ->get(),
             $articles->count()
         );
@@ -86,7 +86,7 @@ class ArticleController extends Controller
             (clone $articles)
                 ->orderByDesc('id')
                 ->offset($request->offset)
-                ->limit(min($request->query('limit', self::MAX_LIMIT), self::MAX_LIMIT))
+                ->limit(min($request->query('limit', (string) self::MAX_LIMIT), self::MAX_LIMIT))
                 ->get(),
             $articles->count()
         );
