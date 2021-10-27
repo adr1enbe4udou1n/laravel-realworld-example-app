@@ -34,6 +34,8 @@ use Vyuldashev\LaravelOpenApi\Attributes\Response;
 #[PathItem]
 class ArticleController extends Controller
 {
+    public const MAX_LIMIT = 20;
+
     /**
      * Get recent articles globally.
      *
@@ -57,7 +59,7 @@ class ArticleController extends Controller
             (clone $articles)
                 ->orderByDesc('id')
                 ->offset($request->offset)
-                ->limit(min($request->limit, 20))
+                ->limit(min($request->query('limit', self::MAX_LIMIT), self::MAX_LIMIT))
                 ->get(),
             $articles->count()
         );
@@ -84,7 +86,7 @@ class ArticleController extends Controller
             (clone $articles)
                 ->orderByDesc('id')
                 ->offset($request->offset)
-                ->limit(min($request->limit, 20))
+                ->limit(min($request->query('limit', self::MAX_LIMIT), self::MAX_LIMIT))
                 ->get(),
             $articles->count()
         );
