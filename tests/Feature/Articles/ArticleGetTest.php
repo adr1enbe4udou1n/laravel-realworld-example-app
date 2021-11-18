@@ -18,8 +18,6 @@ it('can get article', function () {
     $user = User::factory()->john()->create();
     Article::factory()->for($user, 'author')->create(['title' => 'Test Title']);
 
-    actingAs($user);
-
     getJson('api/articles/test-title')->assertOk()->assertJson([
         'article' => [
             'title' => 'Test Title',

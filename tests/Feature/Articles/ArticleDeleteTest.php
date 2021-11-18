@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Article;
+use App\Models\Comment;
 use App\Models\User;
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseCount;
@@ -33,12 +34,23 @@ it('cannot delete article of other author', function () {
 
 it('can delete own article with all comments', function () {
     /** @var User */
-    $user = User::factory()->john()->create();
-    actingAs($user);
+    $john = User::factory()->john()->create();
+    $jane = User::factory()->jane()->create();
+    actingAs($john);
 
-    Article::factory()->for($user, 'author')->create(['title' => 'Test Title']);
+    Article::factory()
+        ->for($john, 'author')
+        ->has(
+            Comment::factory()->for($john, 'author'),
+        )
+        ->has(
+            Comment::factory()->for($jane, 'author'),
+        )
+        ->create(['title' => 'Test Title'])
+    ;
 
     deleteJson('api/articles/test-title')->assertNoContent();
 
     assertDatabaseCount('articles', 0);
+    assertDatabaseCount('comments', 0);
 });
