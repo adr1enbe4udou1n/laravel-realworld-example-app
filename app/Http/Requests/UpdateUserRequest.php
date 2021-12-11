@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use App\Models\User;
-use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class UpdateUserRequest extends FormRequest
