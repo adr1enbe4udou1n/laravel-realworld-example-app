@@ -1,5 +1,7 @@
 FROM registry.okami101.io/adr1enbe4udou1n/laravel-realworld
 
+WORKDIR /var/www/html
+
 COPY app app/
 COPY bootstrap bootstrap/
 COPY config config/
@@ -10,8 +12,6 @@ COPY storage storage/
 COPY vendor vendor/
 COPY artisan composer.json composer.lock ./
 
-RUN chown -R www-data:www-data bootstrap/cache storage
-
-EXPOSE 9000
+EXPOSE 8000
 
 CMD ["php", "artisan", "octane:start", "--server=swoole"]
