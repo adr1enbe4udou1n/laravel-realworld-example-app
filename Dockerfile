@@ -12,6 +12,8 @@ COPY storage storage/
 COPY vendor vendor/
 COPY artisan composer.json composer.lock ./
 
-EXPOSE 8000
+RUN chown -R www-data:www-data bootstrap/cache storage
 
-CMD ["php", "artisan", "octane:start", "--server=swoole"]
+EXPOSE 9000
+
+CMD ["php-fpm"]
