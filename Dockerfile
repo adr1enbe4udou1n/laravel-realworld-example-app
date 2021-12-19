@@ -14,4 +14,4 @@ RUN chown -R www-data:www-data bootstrap/cache storage
 
 EXPOSE 9000
 
-CMD ["php", "artisan", "octane:start", "--server=roadrunnerwtf"]
+CMD ["php", "artisan", "octane:start", "--server=roadrunner"]
