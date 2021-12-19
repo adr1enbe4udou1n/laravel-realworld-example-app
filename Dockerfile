@@ -14,4 +14,4 @@ RUN chown -R www-data:www-data bootstrap/cache storage
 
 EXPOSE 9000
 
-CMD ["php-fpm"]
+CMD ["php", "artisan", "octane:start"]
