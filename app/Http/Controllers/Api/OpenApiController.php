@@ -10,7 +10,7 @@ use Vyuldashev\LaravelOpenApi\Generator;
 
 class OpenApiController
 {
-    #[Get('/swagger.json')]
+    #[Get('/docs.json')]
     public function show(Generator $generator): OpenApi
     {
         $doc = $generator->generate();
