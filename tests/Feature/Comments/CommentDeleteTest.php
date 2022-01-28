@@ -32,11 +32,13 @@ it('cannot delete non existent comment', function () {
 it('cannot delete comment of other author', function () {
     /** @var User */
     $jane = User::factory()->jane()->create();
+
     /** @var User */
     $john = User::factory()->john()->create();
 
     /** @var Article */
     $article = Article::factory()->for($jane, 'author')->create(['title' => 'Test Title']);
+
     /** @var Comment */
     $comment = Comment::factory()->for($jane, 'author')->for($article)->create(['body' => 'Jane Comment']);
 
@@ -51,6 +53,7 @@ it('cannot delete comment with bad article', function () {
 
     /** @var Article */
     $article = Article::factory()->for($user, 'author')->create(['title' => 'Test Title']);
+
     /** @var Comment */
     $comment = Comment::factory()->for($user, 'author')->for($article)->create(['body' => 'John Comment']);
 
@@ -64,11 +67,13 @@ it('cannot delete comment with bad article', function () {
 it('can delete all comments of own article', function () {
     /** @var User */
     $jane = User::factory()->jane()->create();
+
     /** @var User */
     $john = User::factory()->john()->create();
 
     /** @var Article */
     $article = Article::factory()->for($john, 'author')->create(['title' => 'Test Title']);
+
     /** @var Comment */
     $comment = Comment::factory()->for($jane, 'author')->for($article)->create(['body' => 'Jane Comment']);
 
@@ -82,11 +87,13 @@ it('can delete all comments of own article', function () {
 it('can delete own comment', function () {
     /** @var User */
     $jane = User::factory()->jane()->create();
+
     /** @var User */
     $john = User::factory()->john()->create();
 
     /** @var Article */
     $article = Article::factory()->for($jane, 'author')->create(['title' => 'Test Title']);
+
     /** @var Comment */
     $comment = Comment::factory()->for($john, 'author')->for($article)->create(['body' => 'John Comment']);
 

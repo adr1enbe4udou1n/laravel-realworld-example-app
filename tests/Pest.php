@@ -67,6 +67,7 @@ function createArticles()
 
     /** @var User */
     $john = User::factory()->john()->create();
+
     /** @var User */
     $jane = User::factory()->jane()->create();
 
