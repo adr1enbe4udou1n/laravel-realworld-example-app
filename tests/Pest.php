@@ -15,6 +15,7 @@ use App\Models\Article;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Sequence;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 uses(Tests\TestCase::class)->in('Feature');
@@ -87,7 +88,10 @@ function createArticles()
             'description' => 'Test Description',
             'body' => 'Test Body',
         ])
-        ->transform(fn (Article $article) => $article->tags()->attach([$tag1->id, $tag2->id, $johnTag->id]))
+        ->transform(function (Model $article) use ($tag1, $tag2, $johnTag) {
+            /** @var Article $article */
+            return $article->tags()->attach([$tag1->id, $tag2->id, $johnTag->id]);
+        })
     ;
     Article::factory(20)->for($jane, 'author')
         ->sequence(fn (Sequence $sequence) => ['title' => "Jane Article {$sequence->index}"])
@@ -95,12 +99,15 @@ function createArticles()
             'description' => 'Test Description',
             'body' => 'Test Body',
         ])
-        ->transform(function (Article $article) use ($tag1, $tag2, $janeTag, $johnFavoritedArticles, $john) {
+        ->transform(function (Model $article) use ($tag1, $tag2, $janeTag, $johnFavoritedArticles, $john) {
+            /** @var Article $article */
             $article->tags()->attach([$tag1->id, $tag2->id, $janeTag->id]);
 
             if (in_array($article->slug, $johnFavoritedArticles)) {
                 $article->favoritedBy()->attach($john->id);
             }
+
+            return $article;
         })
     ;
 }
