@@ -64,10 +64,6 @@
         ],
         "test": [
             "@php artisan test --coverage --min=90"
-        ],
-        "test:watch": [
-            "Composer\\Config::disableProcessTimeout",
-            "phpunit-watcher watch"
         ]
     },
     "extra": {
