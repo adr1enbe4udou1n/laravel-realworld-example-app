@@ -1,4 +1,4 @@
-FROM registry.okami101.io/adr1enbe4udou1n/laravel-realworld
+FROM registry.okami101.io/adr1enbe4udou1n/php-swoole:8.1
 
 WORKDIR /var/www/html
 
