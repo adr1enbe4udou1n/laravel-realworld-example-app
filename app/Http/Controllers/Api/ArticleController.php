@@ -47,8 +47,7 @@ class ArticleController extends Controller
     #[Response(factory: MultipleArticlesResponse::class, statusCode: 200)]
     public function list(Request $request): MultipleArticlesResource
     {
-        $articles = Article::query()
-            ->with('author', 'tags', 'favoritedBy')
+        $articles = Article::with('author', 'tags', 'favoritedBy')
             ->withCount('favoritedBy')
             ->byAuthor($request->author)
             ->byFavorited($request->favorited)
@@ -76,8 +75,7 @@ class ArticleController extends Controller
     #[Response(factory: MultipleArticlesResponse::class, statusCode: 200)]
     public function feed(Request $request): MultipleArticlesResource
     {
-        $articles = Article::query()
-            ->with('author', 'tags', 'favoritedBy')
+        $articles = Article::with('author', 'tags', 'favoritedBy')
             ->withCount('favoritedBy')
             ->followedAuthor(Auth::user())
         ;
