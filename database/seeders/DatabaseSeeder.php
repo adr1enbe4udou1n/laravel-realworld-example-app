@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
             ->create()
             ->each(
                 function (Article $article) use ($users, $tags) {
-                    $article->tags()->sync($tags->random(random_int(2, 4)));
+                    $article->tags()->sync($tags->random(random_int(1, 3)));
                     $article->favoritedBy()->sync($users->random(random_int(1, 10)));
                 }
             )
