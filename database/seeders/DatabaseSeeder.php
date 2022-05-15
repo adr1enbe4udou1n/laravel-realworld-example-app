@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             ->for(fn () => $users->random(), 'author')
             ->has(
                 Comment::factory(random_int(5, 10))
-                    ->for($users->random(), 'author')
+                    ->for(fn () => $users->random(), 'author')
             )
             ->create()
             ->each(
