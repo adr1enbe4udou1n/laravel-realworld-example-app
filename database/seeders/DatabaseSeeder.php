@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         $tags = Tag::factory(30)->create();
 
         Article::factory(500)
-            ->for($users->random(), 'author')
+            ->for(fn () => $users->random(), 'author')
             ->has(
                 Comment::factory(random_int(5, 10))
                     ->for($users->random(), 'author')
