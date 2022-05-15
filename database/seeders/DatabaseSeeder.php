@@ -23,21 +23,21 @@ class DatabaseSeeder extends Seeder
 
         $tags = Tag::factory(30)->create();
 
-        Article::factory(500)
+        $articles = Article::factory(500)
             ->sequence(fn () => ['author_id' => $users->random()->getKey()])
             ->create()
             ->each(
                 function (Article $article) use ($users, $tags) {
-                    $article->comments()->createMany(
-                        Comment::factory(random_int(5, 10))
-                            ->sequence(fn () => ['author_id' => $users->random()->getKey()])
-                            ->raw()
-                    );
-
                     $article->tags()->sync($tags->random(random_int(2, 4)));
                     $article->favoritedBy()->sync($users->random(random_int(1, 10)));
                 }
             )
+        ;
+
+        Comment::factory(5000)
+            ->sequence(fn () => ['article_id' => $articles->random()->getKey()])
+            ->sequence(fn () => ['author_id' => $users->random()->getKey()])
+            ->create()
         ;
     }
 }
