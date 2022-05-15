@@ -21,12 +21,15 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $gender = $this->faker->randomElement(['men', 'women']);
+        $number = $this->faker->numberBetween(1, 99);
+
         return [
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'bio' => $this->faker->paragraph(),
-            'image' => $this->faker->url(),
+            'image' => "https://randomuser.me/api/portraits/{$gender}/{$number}.jpg",
         ];
     }
 
