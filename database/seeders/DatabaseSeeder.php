@@ -18,26 +18,26 @@ class DatabaseSeeder extends Seeder
         $users = User::factory(50)->create();
 
         $users->each(
-            fn (User $user) => $user->followers()->sync($users->random(random_int(1, 3)))
+            fn (User $user) => $user->followers()->sync($users->random(random_int(0, 5)))
         );
 
         $tags = Tag::factory(30)->create();
 
-        $articles = Article::factory(500)
+        Article::factory(500)
             ->sequence(fn () => ['author_id' => $users->random()->getKey()])
             ->create()
             ->each(
                 function (Article $article) use ($users, $tags) {
-                    $article->tags()->sync($tags->random(random_int(1, 3)));
-                    $article->favoritedBy()->sync($users->random(random_int(1, 10)));
+                    $article->comments()->createMany(
+                        Comment::factory(random_int(0, 10))
+                            ->sequence(fn () => ['author_id' => $users->random()->getKey()])
+                            ->raw()
+                    );
+
+                    $article->tags()->sync($tags->random(random_int(0, 3)));
+                    $article->favoritedBy()->sync($users->random(random_int(0, 5)));
                 }
             )
-        ;
-
-        Comment::factory(5000)
-            ->sequence(fn () => ['article_id' => $articles->random()->getKey()])
-            ->sequence(fn () => ['author_id' => $users->random()->getKey()])
-            ->create()
         ;
     }
 }
