@@ -19,6 +19,9 @@ class TagsResponseSchema extends SchemaFactory implements Reusable
     public function build(): SchemaContract
     {
         return Schema::object('TagsResponse')
+            ->required(
+                'tags',
+            )
             ->properties(
                 Schema::array('tags')->items(Schema::string())->default(null),
             )

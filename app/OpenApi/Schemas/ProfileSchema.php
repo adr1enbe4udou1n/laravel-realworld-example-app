@@ -19,6 +19,12 @@ class ProfileSchema extends SchemaFactory implements Reusable
     public function build(): SchemaContract
     {
         return Schema::object('Profile')
+            ->required(
+                'bio',
+                'following',
+                'image',
+                'username',
+            )
             ->properties(
                 Schema::string('username')->default(null),
                 Schema::string('bio')->default(null),

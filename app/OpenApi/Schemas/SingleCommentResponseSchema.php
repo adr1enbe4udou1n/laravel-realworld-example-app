@@ -19,6 +19,9 @@ class SingleCommentResponseSchema extends SchemaFactory implements Reusable
     public function build(): SchemaContract
     {
         return Schema::object('SingleCommentResponse')
+            ->required(
+                'comment',
+            )
             ->properties(
                 CommentSchema::ref('comment')
             )

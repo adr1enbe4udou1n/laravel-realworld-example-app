@@ -19,6 +19,9 @@ class SingleArticleResponseSchema extends SchemaFactory implements Reusable
     public function build(): SchemaContract
     {
         return Schema::object('SingleArticleResponse')
+            ->required(
+                'article',
+            )
             ->properties(
                 ArticleSchema::ref('article')
             )

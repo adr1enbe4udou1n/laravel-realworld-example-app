@@ -19,6 +19,9 @@ class LoginUserRequestSchema extends SchemaFactory implements Reusable
     public function build(): SchemaContract
     {
         return Schema::object('LoginUserRequest')
+            ->required(
+                'user',
+            )
             ->properties(
                 LoginUserSchema::ref('user')
             )

@@ -19,6 +19,9 @@ class NewUserRequestSchema extends SchemaFactory implements Reusable
     public function build(): SchemaContract
     {
         return Schema::object('NewUserRequest')
+            ->required(
+                'user',
+            )
             ->properties(
                 NewUserSchema::ref('user')
             )

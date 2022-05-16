@@ -19,6 +19,9 @@ class NewCommentRequestSchema extends SchemaFactory implements Reusable
     public function build(): SchemaContract
     {
         return Schema::object('NewCommentRequest')
+            ->required(
+                'comment',
+            )
             ->properties(
                 NewCommentSchema::ref('comment')
             )

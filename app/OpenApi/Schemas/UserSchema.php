@@ -19,6 +19,13 @@ class UserSchema extends SchemaFactory implements Reusable
     public function build(): SchemaContract
     {
         return Schema::object('User')
+            ->required(
+                'bio',
+                'email',
+                'image',
+                'token',
+                'username',
+            )
             ->properties(
                 Schema::string('username')->default(null),
                 Schema::string('email')->default(null),

@@ -19,6 +19,9 @@ class MultipleCommentsResponseSchema extends SchemaFactory implements Reusable
     public function build(): SchemaContract
     {
         return Schema::object('MultipleCommentsResponse')
+            ->required(
+                'comments',
+            )
             ->properties(
                 Schema::array('comments')->items(CommentSchema::ref())->default(null),
             )

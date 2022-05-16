@@ -19,6 +19,9 @@ class NewCommentSchema extends SchemaFactory implements Reusable
     public function build(): SchemaContract
     {
         return Schema::object('NewComment')
+            ->required(
+                'body',
+            )
             ->properties(
                 Schema::string('body')
             )

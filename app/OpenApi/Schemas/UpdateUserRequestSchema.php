@@ -19,6 +19,9 @@ class UpdateUserRequestSchema extends SchemaFactory implements Reusable
     public function build(): SchemaContract
     {
         return Schema::object('UpdateUserRequest')
+            ->required(
+                'user',
+            )
             ->properties(
                 UpdateUserSchema::ref('user')
             )

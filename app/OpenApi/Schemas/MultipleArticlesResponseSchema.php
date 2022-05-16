@@ -19,6 +19,10 @@ class MultipleArticlesResponseSchema extends SchemaFactory implements Reusable
     public function build(): SchemaContract
     {
         return Schema::object('MultipleArticlesResponse')
+            ->required(
+                'articles',
+                'articlesCount',
+            )
             ->properties(
                 Schema::array('articles')->items(ArticleSchema::ref())->default(null),
                 Schema::integer('articlesCount')

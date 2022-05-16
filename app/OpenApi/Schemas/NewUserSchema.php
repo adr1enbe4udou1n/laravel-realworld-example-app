@@ -19,6 +19,11 @@ class NewUserSchema extends SchemaFactory implements Reusable
     public function build(): SchemaContract
     {
         return Schema::object('NewUser')
+            ->required(
+                'email',
+                'password',
+                'username',
+            )
             ->properties(
                 Schema::string('email')->default(null),
                 Schema::string('password')->default(null),

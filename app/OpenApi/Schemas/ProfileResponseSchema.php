@@ -19,6 +19,9 @@ class ProfileResponseSchema extends SchemaFactory implements Reusable
     public function build(): SchemaContract
     {
         return Schema::object('ProfileResponse')
+            ->required(
+                'profile',
+            )
             ->properties(
                 ProfileSchema::ref('profile')
             )

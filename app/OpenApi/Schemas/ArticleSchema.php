@@ -19,6 +19,18 @@ class ArticleSchema extends SchemaFactory implements Reusable
     public function build(): SchemaContract
     {
         return Schema::object('Article')
+            ->required(
+                'author',
+                'body',
+                'createdAt',
+                'description',
+                'favorited',
+                'favoritesCount',
+                'slug',
+                'tagList',
+                'title',
+                'updatedAt'
+            )
             ->properties(
                 Schema::string('title'),
                 Schema::string('slug'),

@@ -19,6 +19,9 @@ class UpdateArticleRequestSchema extends SchemaFactory implements Reusable
     public function build(): SchemaContract
     {
         return Schema::object('UpdateArticleRequest')
+            ->required(
+                'article',
+            )
             ->properties(
                 UpdateArticleSchema::ref('article')
             )

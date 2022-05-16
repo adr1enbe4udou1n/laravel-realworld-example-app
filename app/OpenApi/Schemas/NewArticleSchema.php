@@ -19,6 +19,11 @@ class NewArticleSchema extends SchemaFactory implements Reusable
     public function build(): SchemaContract
     {
         return Schema::object('NewArticle')
+            ->required(
+                'body',
+                'description',
+                'title',
+            )
             ->properties(
                 Schema::string('title')->default(null),
                 Schema::string('description')->default(null),

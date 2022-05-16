@@ -19,6 +19,10 @@ class LoginUserSchema extends SchemaFactory implements Reusable
     public function build(): SchemaContract
     {
         return Schema::object('LoginUser')
+            ->required(
+                'email',
+                'password',
+            )
             ->properties(
                 Schema::string('email')->default(null),
                 Schema::string('password')->default(null),
