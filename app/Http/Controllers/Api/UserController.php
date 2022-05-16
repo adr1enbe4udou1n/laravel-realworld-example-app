@@ -31,7 +31,7 @@ class UserController extends Controller
      * Register a new user
      */
     #[Post('users')]
-    #[Operation(tags: ['User and Authentication'])]
+    #[Operation('CreateUser', tags: ['User and Authentication'])]
     #[RequestBody(factory: NewUserRequestBody::class)]
     #[Response(factory: UserResponse::class, statusCode: 200)]
     #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
@@ -49,7 +49,7 @@ class UserController extends Controller
      * Login for existing user
      */
     #[Post('users/login')]
-    #[Operation(tags: ['User and Authentication'])]
+    #[Operation('Login', tags: ['User and Authentication'])]
     #[RequestBody(factory: LoginUserRequestBody::class)]
     #[Response(factory: UserResponse::class, statusCode: 200)]
     #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
@@ -68,7 +68,7 @@ class UserController extends Controller
      * Gets the currently logged-in user
      */
     #[Get('user', middleware: 'auth')]
-    #[Operation(tags: ['User and Authentication'], security: 'BearerToken')]
+    #[Operation('GetCurrentUser', tags: ['User and Authentication'], security: 'BearerToken')]
     #[Response(factory: UserResponse::class, statusCode: 200)]
     public function current(): UserResource
     {
@@ -81,7 +81,7 @@ class UserController extends Controller
      * Updated user information for current user
      */
     #[Put('user', middleware: 'auth')]
-    #[Operation(tags: ['User and Authentication'], security: 'BearerToken')]
+    #[Operation('UpdateCurrentUser', tags: ['User and Authentication'], security: 'BearerToken')]
     #[RequestBody(factory: UpdateUserRequestBody::class)]
     #[Response(factory: UserResponse::class, statusCode: 200)]
     #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]

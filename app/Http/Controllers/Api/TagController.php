@@ -22,7 +22,7 @@ class TagController extends Controller
      * Get tags. Auth not required
      */
     #[Get('/')]
-    #[Operation(tags: ['Tags'])]
+    #[Operation('GetTags', tags: ['Tags'])]
     #[Response(factory: TagsResponse::class, statusCode: 200)]
     public function list(): TagsResource
     {

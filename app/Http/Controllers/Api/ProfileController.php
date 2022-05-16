@@ -27,7 +27,7 @@ class ProfileController extends Controller
      * @param User $username Username of the profile to get
      */
     #[Get('/')]
-    #[Operation(tags: ['Profile'])]
+    #[Operation('GetProfileByUsername', tags: ['Profile'])]
     #[Response(factory: ProfileResponse::class, statusCode: 200)]
     public function get(User $username): ProfileResource
     {
@@ -42,7 +42,7 @@ class ProfileController extends Controller
      * @param User $username Username of the profile you want to follow
      */
     #[Post('follow', middleware: 'auth')]
-    #[Operation(tags: ['Profile'], security: 'BearerToken')]
+    #[Operation('FollowUserByUsername', tags: ['Profile'], security: 'BearerToken')]
     #[Response(factory: ProfileResponse::class, statusCode: 200)]
     public function follow(User $username): ProfileResource
     {
@@ -59,7 +59,7 @@ class ProfileController extends Controller
      * @param User $username Username of the profile you want to unfollow
      */
     #[Delete('follow', middleware: 'auth')]
-    #[Operation(tags: ['Profile'], security: 'BearerToken')]
+    #[Operation('UnfollowUserByUsername', tags: ['Profile'], security: 'BearerToken')]
     #[Response(factory: ProfileResponse::class, statusCode: 200)]
     public function unfollow(User $username): ProfileResource
     {

@@ -42,7 +42,7 @@ class ArticleController extends Controller
      * Get most recent articles globally. Use query parameters to filter results. Auth is optional
      */
     #[Get('/')]
-    #[Operation(tags: ['Articles'])]
+    #[Operation('GetArticles', tags: ['Articles'])]
     #[Parameters(factory: ListArticlesParameters::class)]
     #[Response(factory: MultipleArticlesResponse::class, statusCode: 200)]
     public function list(Request $request): MultipleArticlesResource
@@ -70,7 +70,7 @@ class ArticleController extends Controller
      * Get most recent articles from users you follow. Use query parameters to limit. Auth is required
      */
     #[Get('/feed', middleware: 'auth')]
-    #[Operation(tags: ['Articles'], security: 'BearerToken')]
+    #[Operation('GetArticlesFeed', tags: ['Articles'], security: 'BearerToken')]
     #[Parameters(factory: ListFeedParameters::class)]
     #[Response(factory: MultipleArticlesResponse::class, statusCode: 200)]
     public function feed(Request $request): MultipleArticlesResource
@@ -98,7 +98,7 @@ class ArticleController extends Controller
      * @param Article $slug Slug of the article to get
      */
     #[Get('/{slug}')]
-    #[Operation(tags: ['Articles'])]
+    #[Operation('GetArticle', tags: ['Articles'])]
     #[Response(factory: SingleArticleResponse::class, statusCode: 200)]
     public function get(Article $slug): SingleArticleResource
     {
@@ -111,7 +111,7 @@ class ArticleController extends Controller
      * Create an article. Auth is required
      */
     #[Post('/', middleware: 'auth')]
-    #[Operation(tags: ['Articles'], security: 'BearerToken')]
+    #[Operation('CreateArticle', tags: ['Articles'], security: 'BearerToken')]
     #[RequestBody(factory: NewArticleRequestBody::class)]
     #[Response(factory: SingleArticleResponse::class, statusCode: 200)]
     #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
@@ -139,7 +139,7 @@ class ArticleController extends Controller
      * @param Article $slug Slug of the article to update
      */
     #[Put('/{slug}', middleware: ['auth', 'can:update,slug'])]
-    #[Operation(tags: ['Articles'], security: 'BearerToken')]
+    #[Operation('UpdateArticle', tags: ['Articles'], security: 'BearerToken')]
     #[RequestBody(factory: UpdateArticleRequestBody::class)]
     #[Response(factory: SingleArticleResponse::class, statusCode: 200)]
     #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
@@ -158,7 +158,7 @@ class ArticleController extends Controller
      * @param Article $slug Slug of the article to delete
      */
     #[Delete('/{slug}', middleware: ['auth', 'can:update,slug'])]
-    #[Operation(tags: ['Articles'], security: 'BearerToken')]
+    #[Operation('DeleteArticle', tags: ['Articles'], security: 'BearerToken')]
     #[Response(factory: NoContentResponse::class, statusCode: 204)]
     public function delete(Article $slug)
     {
@@ -175,7 +175,7 @@ class ArticleController extends Controller
      * @param Article $slug Slug of the article that you want to favorite
      */
     #[Post('/{slug}/favorite', middleware: 'auth')]
-    #[Operation(tags: ['Favorites'], security: 'BearerToken')]
+    #[Operation('CreateArticleFavorite', tags: ['Favorites'], security: 'BearerToken')]
     #[Response(factory: SingleArticleResponse::class, statusCode: 200)]
     public function favorite(Article $slug): SingleArticleResource
     {
@@ -192,7 +192,7 @@ class ArticleController extends Controller
      * @param Article $slug Slug of the article that you want to unfavorite
      */
     #[Delete('{slug}/favorite', middleware: 'auth')]
-    #[Operation(tags: ['Favorites'], security: 'BearerToken')]
+    #[Operation('DeleteArticleFavorite', tags: ['Favorites'], security: 'BearerToken')]
     #[Response(factory: SingleArticleResponse::class, statusCode: 200)]
     public function unfavorite(Article $slug): SingleArticleResource
     {

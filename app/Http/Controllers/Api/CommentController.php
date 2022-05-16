@@ -35,7 +35,7 @@ class CommentController extends Controller
      * @param Article $slug Slug of the article that you want to get comments for
      */
     #[Get('/')]
-    #[Operation(tags: ['Comments'])]
+    #[Operation('GetArticleComments', tags: ['Comments'])]
     #[Response(factory: MultipleCommentsResponse::class, statusCode: 200)]
     public function list(Article $slug): MultipleCommentsResource
     {
@@ -50,7 +50,7 @@ class CommentController extends Controller
      * @param Article $slug Slug of the article that you want to create a comment for
      */
     #[Post('/', middleware: 'auth')]
-    #[Operation(tags: ['Comments'], security: 'BearerToken')]
+    #[Operation('CreateArticleComment', tags: ['Comments'], security: 'BearerToken')]
     #[RequestBody(factory: NewCommentRequestBody::class)]
     #[Response(factory: SingleCommentResponse::class, statusCode: 200)]
     #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
@@ -74,7 +74,7 @@ class CommentController extends Controller
      * @param Comment $commentId ID of the comment you want to delete
      */
     #[Delete('/{commentId}', middleware: ['auth', 'can:delete,commentId'])]
-    #[Operation(tags: ['Comments'], security: 'BearerToken')]
+    #[Operation('DeleteArticleComment', tags: ['Comments'], security: 'BearerToken')]
     #[Response(factory: NoContentResponse::class, statusCode: 204)]
     public function delete(Article $slug, Comment $commentId)
     {
