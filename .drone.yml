@@ -74,7 +74,6 @@ steps:
         from_secret: kube_token
     commands:
       - kubectl rollout restart deployments/laravel -n conduit
-      - kubectl rollout restart deployments/laravel-web -n conduit
 
 volumes:
   - name: cache
