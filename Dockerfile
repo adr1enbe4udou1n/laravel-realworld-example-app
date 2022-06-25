@@ -1,6 +1,6 @@
 FROM registry.okami101.io/adr1enbe4udou1n/php-swoole:8.1
 
-WORKDIR /var/www/html
+WORKDIR /app
 
 COPY app app/
 COPY bootstrap bootstrap/
