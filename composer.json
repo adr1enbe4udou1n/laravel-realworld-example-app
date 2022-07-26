@@ -56,15 +56,6 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
-        ],
-        "format": [
-            "pint --test"
-        ],
-        "analyse": [
-            "phpstan analyse --ansi"
-        ],
-        "test": [
-            "@php artisan test --coverage --min=90"
         ]
     },
     "extra": {
