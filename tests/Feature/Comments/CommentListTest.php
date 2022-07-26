@@ -5,6 +5,7 @@ use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Support\Facades\DB;
+
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\getJson;
 

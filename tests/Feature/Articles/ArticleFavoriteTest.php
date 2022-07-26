@@ -2,6 +2,7 @@
 
 use App\Models\Article;
 use App\Models\User;
+
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\deleteJson;
 use function Pest\Laravel\postJson;

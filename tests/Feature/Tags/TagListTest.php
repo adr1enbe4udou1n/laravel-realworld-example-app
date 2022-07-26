@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Tag;
+
 use function Pest\Laravel\getJson;
 
 it('can list all tags', function () {
