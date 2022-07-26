@@ -13,7 +13,6 @@ class MultipleCommentsResponse extends ResponseFactory
     {
         return Response::ok()
             ->description('Success')
-            ->content(MediaType::json()->schema(MultipleCommentsResponseSchema::ref()))
-        ;
+            ->content(MediaType::json()->schema(MultipleCommentsResponseSchema::ref()));
     }
 }

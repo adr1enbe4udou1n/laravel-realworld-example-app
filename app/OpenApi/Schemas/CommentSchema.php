@@ -32,7 +32,6 @@ class CommentSchema extends SchemaFactory implements Reusable
                 Schema::string('createdAt')->format(Schema::FORMAT_DATE_TIME),
                 Schema::string('updatedAt')->format(Schema::FORMAT_DATE_TIME),
                 ProfileSchema::ref('author'),
-            )
-        ;
+            );
     }
 }

@@ -42,7 +42,6 @@ class ArticleSchema extends SchemaFactory implements Reusable
                 ProfileSchema::ref('author'),
                 Schema::boolean('favorited'),
                 Schema::integer('favoritesCount'),
-            )
-        ;
+            );
     }
 }

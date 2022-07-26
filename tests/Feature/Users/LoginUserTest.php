@@ -2,7 +2,6 @@
 
 use App\Models\User;
 use App\Support\Jwt;
-
 use function Pest\Laravel\postJson;
 
 it('user cannot login with invalid data', function ($credentials) {

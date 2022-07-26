@@ -24,7 +24,6 @@ class UserResponseSchema extends SchemaFactory implements Reusable
             )
             ->properties(
                 UserSchema::ref('user')
-            )
-        ;
+            );
     }
 }

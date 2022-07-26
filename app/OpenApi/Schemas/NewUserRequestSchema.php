@@ -24,7 +24,6 @@ class NewUserRequestSchema extends SchemaFactory implements Reusable
             )
             ->properties(
                 NewUserSchema::ref('user')
-            )
-        ;
+            );
     }
 }

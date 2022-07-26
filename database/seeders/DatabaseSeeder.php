@@ -37,7 +37,6 @@ class DatabaseSeeder extends Seeder
                     $article->tags()->sync($tags->random(random_int(0, 3)));
                     $article->favoritedBy()->sync($users->random(random_int(0, 5)));
                 }
-            )
-        ;
+            );
     }
 }

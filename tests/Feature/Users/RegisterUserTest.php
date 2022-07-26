@@ -2,7 +2,6 @@
 
 use App\Models\User;
 use App\Support\Jwt;
-
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\postJson;
 

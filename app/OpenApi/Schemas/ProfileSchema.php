@@ -30,7 +30,6 @@ class ProfileSchema extends SchemaFactory implements Reusable
                 Schema::string('bio')->default(null),
                 Schema::string('image')->default(null),
                 Schema::boolean('following')->default(false),
-            )
-        ;
+            );
     }
 }

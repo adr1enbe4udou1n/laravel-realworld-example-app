@@ -23,7 +23,6 @@ class UpdateArticleSchema extends SchemaFactory implements Reusable
                 Schema::string('title')->default(null),
                 Schema::string('description')->default(null),
                 Schema::string('body')->default(null),
-            )
-        ;
+            );
     }
 }

@@ -13,7 +13,6 @@ class TagsResponse extends ResponseFactory
     {
         return Response::ok()
             ->description('Success')
-            ->content(MediaType::json()->schema(TagsResponseSchema::ref()))
-        ;
+            ->content(MediaType::json()->schema(TagsResponseSchema::ref()));
     }
 }

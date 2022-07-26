@@ -28,7 +28,6 @@ class NewUserSchema extends SchemaFactory implements Reusable
                 Schema::string('email')->default(null),
                 Schema::string('password')->default(null),
                 Schema::string('username')->default(null),
-            )
-        ;
+            );
     }
 }

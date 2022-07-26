@@ -14,7 +14,6 @@ class BearerToken extends SecuritySchemeFactory
             ->scheme('bearer')
             ->bearerFormat('JWT')
             ->name('Authorization')
-            ->in(SecurityScheme::IN_HEADER)
-        ;
+            ->in(SecurityScheme::IN_HEADER);
     }
 }

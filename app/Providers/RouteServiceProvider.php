@@ -37,11 +37,9 @@ class RouteServiceProvider extends ServiceProvider
 
                         (new RouteRegistrar(app(Router::class)))
                             ->useRootNamespace(app()->getNamespace())
-                            ->registerDirectory(app_path('Http/Controllers/Api'))
-                        ;
+                            ->registerDirectory(app_path('Http/Controllers/Api'));
                     }
-                )
-            ;
+                );
         });
     }
 

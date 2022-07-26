@@ -26,7 +26,6 @@ class MultipleArticlesResponseSchema extends SchemaFactory implements Reusable
             ->properties(
                 Schema::array('articles')->items(ArticleSchema::ref())->default(null),
                 Schema::integer('articlesCount')
-            )
-        ;
+            );
     }
 }

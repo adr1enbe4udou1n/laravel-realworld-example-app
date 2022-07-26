@@ -24,7 +24,6 @@ class NewArticleRequestSchema extends SchemaFactory implements Reusable
             )
             ->properties(
                 NewArticleSchema::ref('article')
-            )
-        ;
+            );
     }
 }

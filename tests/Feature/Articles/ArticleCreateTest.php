@@ -3,7 +3,6 @@
 use App\Models\Article;
 use App\Models\Tag;
 use App\Models\User;
-
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\assertDatabaseHas;
@@ -54,8 +53,7 @@ it('cannot create article with same title', function () {
         ->for($user, 'author')
         ->create([
             'title' => 'Test Title',
-        ])
-    ;
+        ]);
 
     actingAs($user);
 

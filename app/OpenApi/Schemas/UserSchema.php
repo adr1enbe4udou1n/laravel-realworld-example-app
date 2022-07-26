@@ -32,7 +32,6 @@ class UserSchema extends SchemaFactory implements Reusable
                 Schema::string('bio')->default(null),
                 Schema::string('image')->default(null),
                 Schema::string('token')->default(null),
-            )
-        ;
+            );
     }
 }

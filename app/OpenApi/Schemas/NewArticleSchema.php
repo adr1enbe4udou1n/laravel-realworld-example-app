@@ -29,7 +29,6 @@ class NewArticleSchema extends SchemaFactory implements Reusable
                 Schema::string('description')->default(null),
                 Schema::string('body')->default(null),
                 Schema::array('tagList')->items(Schema::string())->default(null),
-            )
-        ;
+            );
     }
 }

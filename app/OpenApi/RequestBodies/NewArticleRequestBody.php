@@ -15,7 +15,6 @@ class NewArticleRequestBody extends RequestBodyFactory
             ->description('Article to create')
             ->content(
                 MediaType::json()->schema(NewArticleRequestSchema::ref())
-            )
-        ;
+            );
     }
 }

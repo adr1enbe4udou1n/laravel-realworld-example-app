@@ -13,7 +13,6 @@ class ProfileResponse extends ResponseFactory
     {
         return Response::ok()
             ->description('Success')
-            ->content(MediaType::json()->schema(ProfileResponseSchema::ref()))
-        ;
+            ->content(MediaType::json()->schema(ProfileResponseSchema::ref()));
     }
 }

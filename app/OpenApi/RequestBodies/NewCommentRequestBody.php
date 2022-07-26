@@ -15,7 +15,6 @@ class NewCommentRequestBody extends RequestBodyFactory
             ->description('Comment you want to create')
             ->content(
                 MediaType::json()->schema(NewCommentRequestSchema::ref())
-            )
-        ;
+            );
     }
 }

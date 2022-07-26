@@ -5,7 +5,6 @@ use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Support\Facades\DB;
-
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\getJson;
 
@@ -19,8 +18,7 @@ it('can list all comments of article', function () {
     $article = Article::factory()->for($user, 'author')->create(['title' => 'Test Title']);
     Comment::factory(10)->for($user, 'author')->for($article)
         ->sequence(fn (Sequence $sequence) => ['body' => "John Comment {$sequence->index}"])
-        ->create()
-    ;
+        ->create();
 
     actingAs($user);
 

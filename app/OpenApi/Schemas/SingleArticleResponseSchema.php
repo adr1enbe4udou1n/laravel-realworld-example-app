@@ -24,7 +24,6 @@ class SingleArticleResponseSchema extends SchemaFactory implements Reusable
             )
             ->properties(
                 ArticleSchema::ref('article')
-            )
-        ;
+            );
     }
 }

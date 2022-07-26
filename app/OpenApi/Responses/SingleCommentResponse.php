@@ -13,7 +13,6 @@ class SingleCommentResponse extends ResponseFactory
     {
         return Response::ok()
             ->description('Success')
-            ->content(MediaType::json()->schema(SingleCommentResponseSchema::ref()))
-        ;
+            ->content(MediaType::json()->schema(SingleCommentResponseSchema::ref()));
     }
 }

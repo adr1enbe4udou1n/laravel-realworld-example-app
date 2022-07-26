@@ -24,7 +24,6 @@ class LoginUserRequestSchema extends SchemaFactory implements Reusable
             )
             ->properties(
                 LoginUserSchema::ref('user')
-            )
-        ;
+            );
     }
 }

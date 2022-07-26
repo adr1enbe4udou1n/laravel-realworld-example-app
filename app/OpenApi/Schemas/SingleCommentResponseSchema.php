@@ -24,7 +24,6 @@ class SingleCommentResponseSchema extends SchemaFactory implements Reusable
             )
             ->properties(
                 CommentSchema::ref('comment')
-            )
-        ;
+            );
     }
 }

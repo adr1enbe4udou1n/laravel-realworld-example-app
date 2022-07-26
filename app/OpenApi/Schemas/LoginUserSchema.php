@@ -26,7 +26,6 @@ class LoginUserSchema extends SchemaFactory implements Reusable
             ->properties(
                 Schema::string('email')->default(null),
                 Schema::string('password')->default(null),
-            )
-        ;
+            );
     }
 }

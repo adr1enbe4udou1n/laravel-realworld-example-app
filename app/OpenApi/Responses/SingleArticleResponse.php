@@ -13,7 +13,6 @@ class SingleArticleResponse extends ResponseFactory
     {
         return Response::ok()
             ->description('Success')
-            ->content(MediaType::json()->schema(SingleArticleResponseSchema::ref()))
-        ;
+            ->content(MediaType::json()->schema(SingleArticleResponseSchema::ref()));
     }
 }

@@ -24,7 +24,6 @@ class ProfileResponseSchema extends SchemaFactory implements Reusable
             )
             ->properties(
                 ProfileSchema::ref('profile')
-            )
-        ;
+            );
     }
 }

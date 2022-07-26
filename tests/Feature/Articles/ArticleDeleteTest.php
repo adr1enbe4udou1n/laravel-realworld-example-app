@@ -3,7 +3,6 @@
 use App\Models\Article;
 use App\Models\Comment;
 use App\Models\User;
-
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\deleteJson;
@@ -47,8 +46,7 @@ it('can delete own article with all comments', function () {
         ->has(
             Comment::factory()->for($jane, 'author'),
         )
-        ->create(['title' => 'Test Title'])
-    ;
+        ->create(['title' => 'Test Title']);
 
     deleteJson('api/articles/test-title')->assertNoContent();
 

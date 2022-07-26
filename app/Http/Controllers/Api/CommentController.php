@@ -32,7 +32,7 @@ class CommentController extends Controller
      *
      * Get the comments for an article. Auth is optional
      *
-     * @param Article $slug Slug of the article that you want to get comments for
+     * @param  Article  $slug Slug of the article that you want to get comments for
      */
     #[Get('/')]
     #[Operation('GetArticleComments', tags: ['Comments'])]
@@ -47,7 +47,7 @@ class CommentController extends Controller
      *
      * Create a comment for an article. Auth is required
      *
-     * @param Article $slug Slug of the article that you want to create a comment for
+     * @param  Article  $slug Slug of the article that you want to create a comment for
      */
     #[Post('/', middleware: 'auth')]
     #[Operation('CreateArticleComment', tags: ['Comments'], security: 'BearerToken')]
@@ -70,8 +70,8 @@ class CommentController extends Controller
      *
      * Delete a comment for an article. Auth is required
      *
-     * @param Article $slug      Slug of the article that you want to delete a comment for
-     * @param Comment $commentId ID of the comment you want to delete
+     * @param  Article  $slug      Slug of the article that you want to delete a comment for
+     * @param  Comment  $commentId ID of the comment you want to delete
      */
     #[Delete('/{commentId}', middleware: ['auth', 'can:delete,commentId'])]
     #[Operation('DeleteArticleComment', tags: ['Comments'], security: 'BearerToken')]

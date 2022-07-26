@@ -47,8 +47,7 @@ class Jwt
             ->withClaim('uid', $user->getAuthIdentifier())
             ->withClaim('email', $user->email)
             ->getToken($this->configuration->signer(), $this->configuration->signingKey())
-            ->toString()
-        ;
+            ->toString();
     }
 
     public function parse(string $token): Plain

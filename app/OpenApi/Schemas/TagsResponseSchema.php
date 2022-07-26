@@ -24,7 +24,6 @@ class TagsResponseSchema extends SchemaFactory implements Reusable
             )
             ->properties(
                 Schema::array('tags')->items(Schema::string())->default(null),
-            )
-        ;
+            );
     }
 }

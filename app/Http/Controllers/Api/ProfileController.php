@@ -24,7 +24,7 @@ class ProfileController extends Controller
      *
      * Get a profile of a user of the system. Auth is optional
      *
-     * @param User $username Username of the profile to get
+     * @param  User  $username Username of the profile to get
      */
     #[Get('/')]
     #[Operation('GetProfileByUsername', tags: ['Profile'])]
@@ -39,7 +39,7 @@ class ProfileController extends Controller
      *
      * Follow a user by username
      *
-     * @param User $username Username of the profile you want to follow
+     * @param  User  $username Username of the profile you want to follow
      */
     #[Post('follow', middleware: 'auth')]
     #[Operation('FollowUserByUsername', tags: ['Profile'], security: 'BearerToken')]
@@ -56,7 +56,7 @@ class ProfileController extends Controller
      *
      * Unfollow a user by username
      *
-     * @param User $username Username of the profile you want to unfollow
+     * @param  User  $username Username of the profile you want to unfollow
      */
     #[Delete('follow', middleware: 'auth')]
     #[Operation('UnfollowUserByUsername', tags: ['Profile'], security: 'BearerToken')]

@@ -24,7 +24,6 @@ class NewCommentSchema extends SchemaFactory implements Reusable
             )
             ->properties(
                 Schema::string('body')
-            )
-        ;
+            );
     }
 }

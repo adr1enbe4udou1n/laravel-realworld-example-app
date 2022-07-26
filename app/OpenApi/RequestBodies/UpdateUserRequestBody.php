@@ -15,7 +15,6 @@ class UpdateUserRequestBody extends RequestBodyFactory
             ->description('User details to update. At least one field is required.')
             ->content(
                 MediaType::json()->schema(UpdateUserRequestSchema::ref())
-            )
-        ;
+            );
     }
 }

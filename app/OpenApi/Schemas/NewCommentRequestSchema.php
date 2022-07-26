@@ -24,7 +24,6 @@ class NewCommentRequestSchema extends SchemaFactory implements Reusable
             )
             ->properties(
                 NewCommentSchema::ref('comment')
-            )
-        ;
+            );
     }
 }

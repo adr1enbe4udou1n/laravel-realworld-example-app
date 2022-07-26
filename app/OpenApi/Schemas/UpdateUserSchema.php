@@ -24,7 +24,6 @@ class UpdateUserSchema extends SchemaFactory implements Reusable
                 Schema::string('email')->default(null),
                 Schema::string('bio')->default(null),
                 Schema::string('image')->default(null),
-            )
-        ;
+            );
     }
 }

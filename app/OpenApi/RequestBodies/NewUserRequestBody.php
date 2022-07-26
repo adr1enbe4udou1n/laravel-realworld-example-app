@@ -15,7 +15,6 @@ class NewUserRequestBody extends RequestBodyFactory
             ->description('Details of the new user to register')
             ->content(
                 MediaType::json()->schema(NewUserRequestSchema::ref())
-            )
-        ;
+            );
     }
 }

@@ -14,7 +14,6 @@ class UserResponse extends ResponseFactory implements Reusable
     {
         return Response::ok()
             ->description('Success')
-            ->content(MediaType::json()->schema(UserResponseSchema::ref()))
-        ;
+            ->content(MediaType::json()->schema(UserResponseSchema::ref()));
     }
 }

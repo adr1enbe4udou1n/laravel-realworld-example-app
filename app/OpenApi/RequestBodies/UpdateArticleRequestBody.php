@@ -15,7 +15,6 @@ class UpdateArticleRequestBody extends RequestBodyFactory
             ->description('Article to update')
             ->content(
                 MediaType::json()->schema(UpdateArticleRequestSchema::ref())
-            )
-        ;
+            );
     }
 }

@@ -2,7 +2,6 @@
 
 use App\Models\User;
 use App\Support\Jwt;
-
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\getJson;
 use function Pest\Laravel\withHeaders;

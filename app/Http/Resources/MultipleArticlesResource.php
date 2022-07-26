@@ -13,8 +13,8 @@ class MultipleArticlesResource extends ResourceCollection
     /**
      * Create a new resource instance.
      *
-     * @param mixed $resource
-     * @param mixed $count
+     * @param  mixed  $resource
+     * @param  mixed  $count
      */
     public function __construct($resource, $count)
     {
@@ -26,8 +26,7 @@ class MultipleArticlesResource extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param \Illuminate\Http\Request $request
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)

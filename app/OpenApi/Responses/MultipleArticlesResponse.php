@@ -13,7 +13,6 @@ class MultipleArticlesResponse extends ResponseFactory
     {
         return Response::ok()
             ->description('Success')
-            ->content(MediaType::json()->schema(MultipleArticlesResponseSchema::ref()))
-        ;
+            ->content(MediaType::json()->schema(MultipleArticlesResponseSchema::ref()));
     }
 }

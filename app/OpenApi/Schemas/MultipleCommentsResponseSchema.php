@@ -24,7 +24,6 @@ class MultipleCommentsResponseSchema extends SchemaFactory implements Reusable
             )
             ->properties(
                 Schema::array('comments')->items(CommentSchema::ref())->default(null),
-            )
-        ;
+            );
     }
 }
