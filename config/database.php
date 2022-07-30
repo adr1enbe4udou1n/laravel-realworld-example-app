@@ -77,9 +77,10 @@ return [
             'schema' => 'public',
             'sslmode' => 'prefer',
             'read' => [
-                'host' => array_merge([
-                    env('DB_HOST', '127.0.0.1')
-                ], explode(',', env('DB_READ_HOSTS', ''))),
+                'host' => array_filter([
+                    env('DB_HOST', '127.0.0.1'),
+                    env('DB_REPLICA_HOST', false),
+                ]),
             ],
             'write' => [
                 'host' => [
