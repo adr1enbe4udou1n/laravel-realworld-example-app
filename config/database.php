@@ -77,7 +77,9 @@ return [
             'schema' => 'public',
             'sslmode' => 'prefer',
             'read' => [
-                'host' => explode(',', env('DB_READ_HOSTS', env('DB_HOST', '127.0.0.1'))),
+                'host' => array_merge([
+                    env('DB_HOST', '127.0.0.1')
+                ], explode(',', env('DB_READ_HOSTS', ''))),
             ],
             'write' => [
                 'host' => [
