@@ -79,6 +79,9 @@ return [
             'read' => [
                 'host' => explode(',', env('DB_READ_HOSTS', '')),
             ],
+            'write' => [
+                'host' => [],
+            ],
         ],
 
         'sqlsrv' => [
