@@ -77,7 +77,7 @@ return [
             'schema' => 'public',
             'sslmode' => 'prefer',
             'read' => [
-                'host' => explode(',', env('DB_READ_HOSTS')),
+                'host' => explode(',', env('DB_READ_HOSTS', '')),
             ],
         ],
 
