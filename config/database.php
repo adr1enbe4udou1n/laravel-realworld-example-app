@@ -76,6 +76,9 @@ return [
             'prefix_indexes' => true,
             'schema' => 'public',
             'sslmode' => 'prefer',
+            'read' => [
+                'host' => explode(',', env('DB_READ_HOSTS')),
+            ],
         ],
 
         'sqlsrv' => [
