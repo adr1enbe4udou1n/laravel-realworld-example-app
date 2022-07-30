@@ -77,10 +77,12 @@ return [
             'schema' => 'public',
             'sslmode' => 'prefer',
             'read' => [
-                'host' => explode(',', env('DB_READ_HOSTS', '')),
+                'host' => explode(',', env('DB_READ_HOSTS', env('DB_HOST', '127.0.0.1'))),
             ],
             'write' => [
-                'host' => [],
+                'host' => [
+                    env('DB_HOST', '127.0.0.1'),
+                ],
             ],
         ],
 
