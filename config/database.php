@@ -77,10 +77,9 @@ return [
             'schema' => 'public',
             'sslmode' => 'prefer',
             'read' => [
-                'host' => array_filter([
-                    env('DB_HOST', '127.0.0.1'),
-                    env('DB_REPLICA_HOST', false),
-                ]),
+                'host' => [
+                    env('DB_RO_HOST', env('DB_HOST', '127.0.0.1')),
+                ],
             ],
             'write' => [
                 'host' => [
