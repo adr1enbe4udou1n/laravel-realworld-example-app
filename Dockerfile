@@ -18,5 +18,5 @@ COPY storage storage/
 COPY vendor vendor/
 COPY artisan composer.json composer.lock ./
 
-RUN chown -R www-data:www-data storage
+RUN chown -R www-data:www-data storage bootstrap/cache
 RUN a2enmod rewrite
