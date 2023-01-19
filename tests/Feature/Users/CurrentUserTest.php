@@ -25,6 +25,7 @@ it('user can fetch infos', function () {
 });
 
 it('user can fetch infos with valid token', function () {
+    /** @var User */
     $user = User::factory()->john()->create();
     $token = app(Jwt::class)->generate($user);
 
