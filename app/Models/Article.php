@@ -43,6 +43,7 @@ use Illuminate\Support\Str;
  * @method static Builder|Article byFavorited($user)
  * @method static Builder|Article byTag($tag)
  * @method static Builder|Article followedAuthor(\Illuminate\Foundation\Auth\User $user)
+ *
  * @mixin \Eloquent
  */
 class Article extends Model

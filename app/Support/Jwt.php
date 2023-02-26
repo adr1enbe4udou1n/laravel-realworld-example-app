@@ -4,61 +4,61 @@ namespace App\Support;
 
 use App\Models\User;
 use DateTimeImmutable;
-use Lcobucci\Clock\SystemClock;
-use Lcobucci\JWT\Configuration;
-use Lcobucci\JWT\Signer\Hmac\Sha256;
+use Lcobucci\JWT\Encoding\CannotDecodeContent;
+use Lcobucci\JWT\Encoding\ChainedFormatter;
+use Lcobucci\JWT\Encoding\JoseEncoder;
+use Lcobucci\JWT\Signer;
+use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\Signer\Key\InMemory;
-use Lcobucci\JWT\Token\Plain;
-use Lcobucci\JWT\Validation\Constraint\SignedWith;
-use Lcobucci\JWT\Validation\Constraint\StrictValidAt;
+use Lcobucci\JWT\Signer\Rsa\Sha256;
+use Lcobucci\JWT\Token\Builder;
+use Lcobucci\JWT\Token\InvalidTokenStructure;
+use Lcobucci\JWT\Token\Parser;
+use Lcobucci\JWT\Token\UnsupportedHeaderFound;
+use Lcobucci\JWT\UnencryptedToken;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class Jwt
 {
-    private $configuration;
+    private readonly Builder $tokenBuilder;
+
+    private readonly Signer $algorithm;
+
+    private readonly Key $signingKey;
 
     public function __construct()
     {
-        $this->configuration = Configuration::forSymmetricSigner(
-            new Sha256(),
-            InMemory::plainText(config('jwt.secret_key'))
-        );
-
-        $now = new DateTimeImmutable();
-
-        $this->configuration->setValidationConstraints(
-            new SignedWith(
-                new Sha256(),
-                InMemory::plainText(config('jwt.secret_key'))
-            ),
-            new StrictValidAt(SystemClock::fromUTC())
-        );
+        $this->tokenBuilder = (new Builder(new JoseEncoder(), ChainedFormatter::default()));
+        $this->algorithm = new Sha256();
+        $this->signingKey = InMemory::plainText(config('jwt.secret_key'));
     }
 
     public function generate(User $user): string
     {
         $now = new DateTimeImmutable();
 
-        return $this->configuration->builder()
+        return $this->tokenBuilder
             ->issuedBy(config('app.url'))
             ->issuedAt($now)
             ->canOnlyBeUsedAfter($now)
             ->expiresAt($now->modify(config('jwt.expire')))
             ->withClaim('uid', $user->getAuthIdentifier())
             ->withClaim('email', $user->email)
-            ->getToken($this->configuration->signer(), $this->configuration->signingKey())
+            ->getToken($this->algorithm, $this->signingKey)
             ->toString();
     }
 
-    public function parse(string $token): Plain
+    public function parse(string $token): UnencryptedToken
     {
-        $token = $this->configuration->parser()->parse($token);
+        $parser = new Parser(new JoseEncoder());
 
-        $constraints = $this->configuration->validationConstraints();
-
-        if (! $this->configuration->validator()->validate($token, ...$constraints)) {
+        try {
+            $token = $parser->parse($token);
+        } catch (CannotDecodeContent|InvalidTokenStructure|UnsupportedHeaderFound $e) {
             throw new BadRequestHttpException('Invalid token !');
         }
+
+        assert($token instanceof UnencryptedToken);
 
         return $token;
     }
