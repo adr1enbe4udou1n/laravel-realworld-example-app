@@ -5,13 +5,13 @@ use function Pest\Laravel\actingAs;
 use function Pest\Laravel\getJson;
 
 it('cannot get non existent profile', function () {
-    getJson('api/profiles/celeb_John Doe')->assertNotFound();
+    getJson('api/profiles/John Doe')->assertNotFound();
 });
 
 it('can get profile', function () {
     User::factory()->john()->create();
 
-    getJson('api/profiles/celeb_John Doe')->assertOk()->assertJson([
+    getJson('api/profiles/John Doe')->assertOk()->assertJson([
         'profile' => [
             'username' => 'John Doe',
             'bio' => 'John Bio',
@@ -31,7 +31,7 @@ it('can get followed profile', function () {
 
     actingAs($jane);
 
-    getJson('api/profiles/celeb_John Doe')->assertOk()->assertJson([
+    getJson('api/profiles/John Doe')->assertOk()->assertJson([
         'profile' => [
             'username' => 'John Doe',
             'bio' => 'John Bio',

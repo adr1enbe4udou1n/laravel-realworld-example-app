@@ -9,7 +9,7 @@ use function Pest\Laravel\postJson;
 it('guest cannot follow profile', function () {
     User::factory()->john()->create();
 
-    postJson('api/profiles/celeb_John Doe/follow')->assertUnauthorized();
+    postJson('api/profiles/John Doe/follow')->assertUnauthorized();
 });
 
 it('cannot follow non existent profile', function () {
@@ -17,7 +17,7 @@ it('cannot follow non existent profile', function () {
     $user = User::factory()->john()->create();
     actingAs($user);
 
-    postJson('api/profiles/celeb_Jane Doe/follow')->assertNotFound();
+    postJson('api/profiles/Jane Doe/follow')->assertNotFound();
 });
 
 it('can follow profile', function () {
@@ -28,7 +28,7 @@ it('can follow profile', function () {
 
     actingAs($john);
 
-    postJson('api/profiles/celeb_Jane Doe/follow')->assertOk()->assertJson([
+    postJson('api/profiles/Jane Doe/follow')->assertOk()->assertJson([
         'profile' => [
             'username' => 'Jane Doe',
             'bio' => 'Jane Bio',
@@ -50,7 +50,7 @@ it('can unfollow profile', function () {
 
     actingAs($john);
 
-    deleteJson('api/profiles/celeb_Jane Doe/follow')->assertOk()->assertJson([
+    deleteJson('api/profiles/Jane Doe/follow')->assertOk()->assertJson([
         'profile' => [
             'username' => 'Jane Doe',
             'bio' => 'Jane Bio',

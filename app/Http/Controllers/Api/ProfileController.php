@@ -15,7 +15,7 @@ use Vyuldashev\LaravelOpenApi\Attributes\Operation;
 use Vyuldashev\LaravelOpenApi\Attributes\PathItem;
 use Vyuldashev\LaravelOpenApi\Attributes\Response;
 
-#[Prefix('profiles/celeb_{username}')]
+#[Prefix('profiles/{username}')]
 #[PathItem]
 class ProfileController extends Controller
 {
