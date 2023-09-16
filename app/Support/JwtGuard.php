@@ -21,7 +21,7 @@ class JwtGuard implements Guard
 
     public function user()
     {
-        if (null !== $this->user) {
+        if ($this->user !== null) {
             return $this->user;
         }
 
