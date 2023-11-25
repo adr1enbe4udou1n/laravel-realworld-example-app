@@ -3916,16 +3916,16 @@
         },
         {
             "name": "spatie/laravel-route-attributes",
-            "version": "1.19.0",
+            "version": "1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-route-attributes.git",
-                "reference": "3c9f932910252c92dd59e867b140cb04a46187f7"
+                "reference": "4769a0723613386ff38bc63ab9ab6f85e56634cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-route-attributes/zipball/3c9f932910252c92dd59e867b140cb04a46187f7",
-                "reference": "3c9f932910252c92dd59e867b140cb04a46187f7",
+                "url": "https://api.github.com/repos/spatie/laravel-route-attributes/zipball/4769a0723613386ff38bc63ab9ab6f85e56634cb",
+                "reference": "4769a0723613386ff38bc63ab9ab6f85e56634cb",
                 "shasum": ""
             },
             "require": {
@@ -3971,7 +3971,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-route-attributes/issues",
-                "source": "https://github.com/spatie/laravel-route-attributes/tree/1.19.0"
+                "source": "https://github.com/spatie/laravel-route-attributes/tree/1.20.0"
             },
             "funding": [
                 {
@@ -3983,7 +3983,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2023-08-09T09:46:54+00:00"
+            "time": "2023-11-24T09:12:48+00:00"
         },
         {
             "name": "symfony/console",
