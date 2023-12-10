@@ -42,7 +42,7 @@ uses(Tests\TestCase::class)->in('Feature');
 |
 */
 
-function assertSqlQueriesCountEqual(int $count, Closure $closure = null)
+function assertSqlQueriesCountEqual(int $count, ?Closure $closure = null)
 {
     if ($closure) {
         DB::enableQueryLog();
