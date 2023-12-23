@@ -18,13 +18,13 @@ class DatabaseSeeder extends Seeder
         $users = User::factory(50)->create();
 
         $users->each(
-            fn(User $user) => $user->followers()->sync($users->random(random_int(0, 5)))
+            fn (User $user) => $user->followers()->sync($users->random(random_int(0, 5)))
         );
 
         $tags = Tag::factory(30)->create();
 
         $articles = Article::factory(500)
-            ->sequence(fn() => ['author_id' => $users->random()->getKey()])
+            ->sequence(fn () => ['author_id' => $users->random()->getKey()])
             ->create()
             ->each(
                 function (Article $article) use ($users, $tags) {
@@ -34,8 +34,8 @@ class DatabaseSeeder extends Seeder
             );
 
         Comment::factory(5000)
-            ->sequence(fn() => ['author_id' => $users->random()->getKey()])
-            ->sequence(fn() => ['article_id' => $articles->random()->getKey()])
+            ->sequence(fn () => ['author_id' => $users->random()->getKey()])
+            ->sequence(fn () => ['article_id' => $articles->random()->getKey()])
             ->create();
     }
 }
