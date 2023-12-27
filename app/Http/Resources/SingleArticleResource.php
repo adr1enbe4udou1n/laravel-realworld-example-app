@@ -31,7 +31,7 @@ class SingleArticleResource extends JsonResource
             'author' => new ProfileResource($this->resource->author),
             'tagList' => new TagsResource($this->resource->tags->sortBy('name')),
             'favorited' => Auth::check() ? $this->resource->favoritedBy->contains('id', Auth::id()) : false,
-            'favoritesCount' => $this->resource->favorited_by_count,
+            'favoritesCount' => $this->resource->favoritedBy->count(),
         ];
     }
 }
