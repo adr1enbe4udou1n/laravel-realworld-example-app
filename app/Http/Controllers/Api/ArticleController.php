@@ -48,6 +48,7 @@ class ArticleController extends Controller
     public function list(Request $request): MultipleArticlesResource
     {
         $articles = Article::with('author', 'tags', 'favoritedBy')
+            ->withCount('favoritedBy')
             ->byAuthor($request->author)
             ->byFavorited($request->favorited)
             ->byTag($request->tag);
@@ -74,6 +75,7 @@ class ArticleController extends Controller
     public function feed(Request $request): MultipleArticlesResource
     {
         $articles = Article::with('author', 'tags', 'favoritedBy')
+            ->withCount('favoritedBy')
             ->followedAuthor(Auth::user());
 
         return new MultipleArticlesResource(
@@ -120,7 +122,7 @@ class ArticleController extends Controller
         $article->save();
 
         $tags = collect($request->input('article.tagList'))
-            ->map(fn (string $t) => Tag::firstOrCreate(['name' => $t]));
+            ->map(fn(string $t) => Tag::firstOrCreate(['name' => $t]));
         $article->tags()->attach($tags->pluck('id'));
 
         return new SingleArticleResource($article->loadCount('favoritedBy'));
