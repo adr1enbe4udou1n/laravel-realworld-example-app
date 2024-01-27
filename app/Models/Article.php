@@ -11,21 +11,21 @@ use Illuminate\Support\Str;
 /**
  * App\Models\Article.
  *
- * @property int                                                            $id
- * @property int                                                            $author_id
- * @property string                                                         $title
- * @property string                                                         $slug
- * @property string                                                         $description
- * @property string                                                         $body
- * @property null|\Illuminate\Support\Carbon                                $created_at
- * @property null|\Illuminate\Support\Carbon                                $updated_at
- * @property \App\Models\User                                               $author
+ * @property int $id
+ * @property int $author_id
+ * @property string $title
+ * @property string $slug
+ * @property string $description
+ * @property string $body
+ * @property null|\Illuminate\Support\Carbon $created_at
+ * @property null|\Illuminate\Support\Carbon $updated_at
+ * @property \App\Models\User $author
  * @property \App\Models\Comment[]|\Illuminate\Database\Eloquent\Collection $comments
- * @property null|int                                                       $comments_count
- * @property \App\Models\User[]|\Illuminate\Database\Eloquent\Collection    $favoritedBy
- * @property null|int                                                       $favorited_by_count
- * @property \App\Models\Tag[]|\Illuminate\Database\Eloquent\Collection     $tags
- * @property null|int                                                       $tags_count
+ * @property null|int $comments_count
+ * @property \App\Models\User[]|\Illuminate\Database\Eloquent\Collection $favoritedBy
+ * @property null|int $favorited_by_count
+ * @property \App\Models\Tag[]|\Illuminate\Database\Eloquent\Collection $tags
+ * @property null|int $tags_count
  *
  * @method static \Database\Factories\ArticleFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Article newModelQuery()

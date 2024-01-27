@@ -8,14 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Comment.
  *
- * @property int                             $id
- * @property int                             $author_id
- * @property int                             $article_id
- * @property string                          $body
+ * @property int $id
+ * @property int $author_id
+ * @property int $article_id
+ * @property string $body
  * @property null|\Illuminate\Support\Carbon $created_at
  * @property null|\Illuminate\Support\Carbon $updated_at
- * @property \App\Models\Article             $article
- * @property \App\Models\User                $author
+ * @property \App\Models\Article $article
+ * @property \App\Models\User $author
  *
  * @method static \Database\Factories\CommentFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment newModelQuery()

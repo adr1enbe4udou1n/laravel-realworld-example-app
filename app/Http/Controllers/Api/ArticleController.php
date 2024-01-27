@@ -91,7 +91,7 @@ class ArticleController extends Controller
      *
      * Get an article. Auth not required
      *
-     * @param  Article  $slug Slug of the article to get
+     * @param  Article  $slug  Slug of the article to get
      */
     #[Get('/{slug}')]
     #[Operation('GetArticle', tags: ['Articles'])]
@@ -131,7 +131,7 @@ class ArticleController extends Controller
      *
      * Update an article. Auth is required
      *
-     * @param  Article  $slug Slug of the article to update
+     * @param  Article  $slug  Slug of the article to update
      */
     #[Put('/{slug}', middleware: ['auth', 'can:update,slug'])]
     #[Operation('UpdateArticle', tags: ['Articles'], security: 'BearerToken')]
@@ -150,7 +150,7 @@ class ArticleController extends Controller
      *
      * Delete an article. Auth is required
      *
-     * @param  Article  $slug Slug of the article to delete
+     * @param  Article  $slug  Slug of the article to delete
      */
     #[Delete('/{slug}', middleware: ['auth', 'can:update,slug'])]
     #[Operation('DeleteArticle', tags: ['Articles'], security: 'BearerToken')]
@@ -167,7 +167,7 @@ class ArticleController extends Controller
      *
      * Favorite an article. Auth is required
      *
-     * @param  Article  $slug Slug of the article that you want to favorite
+     * @param  Article  $slug  Slug of the article that you want to favorite
      */
     #[Post('/{slug}/favorite', middleware: 'auth')]
     #[Operation('CreateArticleFavorite', tags: ['Favorites'], security: 'BearerToken')]
@@ -184,7 +184,7 @@ class ArticleController extends Controller
      *
      * Unfavorite an article. Auth is required
      *
-     * @param  Article  $slug Slug of the article that you want to unfavorite
+     * @param  Article  $slug  Slug of the article that you want to unfavorite
      */
     #[Delete('{slug}/favorite', middleware: 'auth')]
     #[Operation('DeleteArticleFavorite', tags: ['Favorites'], security: 'BearerToken')]

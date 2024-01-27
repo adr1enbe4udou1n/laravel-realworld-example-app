@@ -8,20 +8,20 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 /**
  * App\Models\User.
  *
- * @property int                                                            $id
- * @property string                                                         $name
- * @property string                                                         $email
- * @property null|string                                                    $password
- * @property null|string                                                    $bio
- * @property null|string                                                    $image
- * @property null|\Illuminate\Support\Carbon                                $created_at
- * @property null|\Illuminate\Support\Carbon                                $updated_at
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property null|string $password
+ * @property null|string $bio
+ * @property null|string $image
+ * @property null|\Illuminate\Support\Carbon $created_at
+ * @property null|\Illuminate\Support\Carbon $updated_at
  * @property \App\Models\Article[]|\Illuminate\Database\Eloquent\Collection $favoriteArticles
- * @property null|int                                                       $favorite_articles_count
- * @property \Illuminate\Database\Eloquent\Collection|User[]                $followers
- * @property null|int                                                       $followers_count
- * @property \Illuminate\Database\Eloquent\Collection|User[]                $following
- * @property null|int                                                       $following_count
+ * @property null|int $favorite_articles_count
+ * @property \Illuminate\Database\Eloquent\Collection|User[] $followers
+ * @property null|int $followers_count
+ * @property \Illuminate\Database\Eloquent\Collection|User[] $following
+ * @property null|int $following_count
  *
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
