@@ -4,7 +4,36 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Arr;
+use OpenApi\Attributes as OA;
 
+#[OA\Schema(
+    schema: "UpdateArticle",
+    type: "object",
+    properties: [
+        new OA\Property(
+            property: "title",
+            type: "string"
+        ),
+        new OA\Property(
+            property: "description",
+            type: "string"
+        ),
+        new OA\Property(
+            property: "body",
+            type: "string"
+        ),
+    ]
+)]
+#[OA\Schema(
+    schema: "UpdateArticleRequest",
+    type: "object",
+    properties: [
+        new OA\Property(
+            property: "article",
+            ref: "#/components/schemas/UpdateArticle",
+        ),
+    ]
+)]
 class UpdateArticleRequest extends FormRequest
 {
     /**

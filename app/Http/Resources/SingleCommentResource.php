@@ -10,16 +10,6 @@ use OpenApi\Attributes as OA;
  * @property Comment $resource
  */
 #[OA\Schema(
-    schema: "SingleCommentResponse",
-    type: "object",
-    properties: [
-        new OA\Property(
-            property: "comment",
-            ref: "#/components/schemas/Comment"
-        )
-    ]
-)]
-#[OA\Schema(
     schema: "Comment",
     type: "object",
     properties: [
@@ -44,6 +34,16 @@ use OpenApi\Attributes as OA;
         new OA\Property(
             property: "author",
             ref: "#/components/schemas/Profile"
+        )
+    ]
+)]
+#[OA\Schema(
+    schema: "SingleCommentResponse",
+    type: "object",
+    properties: [
+        new OA\Property(
+            property: "comment",
+            ref: "#/components/schemas/Comment"
         )
     ]
 )]

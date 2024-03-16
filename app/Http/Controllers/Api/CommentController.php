@@ -67,12 +67,16 @@ class CommentController extends Controller
         required: true,
         description: 'Slug of the article that you want to create a comment for',
     )]
+    #[OA\RequestBody(
+        required: true,
+        description: 'Comment you want to create',
+        content: new OA\JsonContent(ref: NewCommentRequest::class)
+    )]
     #[OA\Response(
         response: 200,
         description: 'Success',
         content: new OA\JsonContent(ref: SingleCommentResource::class)
     )]
-    // #[RequestBody(factory: NewCommentRequestBody::class)]
     // #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
     public function create(Article $slug, NewCommentRequest $request): SingleCommentResource
     {

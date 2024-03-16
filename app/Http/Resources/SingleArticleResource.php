@@ -11,16 +11,6 @@ use OpenApi\Attributes as OA;
  * @property Article $resource
  */
 #[OA\Schema(
-    schema: "SingleArticleResponse",
-    type: "object",
-    properties: [
-        new OA\Property(
-            property: "article",
-            ref: "#/components/schemas/Article"
-        )
-    ]
-)]
-#[OA\Schema(
     schema: "Article",
     type: "object",
     properties: [
@@ -67,6 +57,16 @@ use OpenApi\Attributes as OA;
         new OA\Property(
             property: "favoritesCount",
             type: "integer"
+        )
+    ]
+)]
+#[OA\Schema(
+    schema: "SingleArticleResponse",
+    type: "object",
+    properties: [
+        new OA\Property(
+            property: "article",
+            ref: "#/components/schemas/Article"
         )
     ]
 )]

@@ -113,12 +113,16 @@ class ArticleController extends Controller
      */
     #[Post('/', middleware: 'auth')]
     #[OA\Post(path: '/articles', operationId: 'CreateArticle', tags: ['Articles'], security: ['BearerToken'])]
+    #[OA\RequestBody(
+        required: true,
+        description: 'Article to create',
+        content: new OA\JsonContent(ref: NewArticleRequest::class)
+    )]
     #[OA\Response(
         response: 200,
         description: 'Success',
         content: new OA\JsonContent(ref: SingleArticleResource::class)
     )]
-    // #[RequestBody(factory: NewArticleRequestBody::class)]
     // #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
     public function create(NewArticleRequest $request): SingleArticleResource
     {
@@ -150,12 +154,16 @@ class ArticleController extends Controller
         required: true,
         description: 'Slug of the article to update'
     )]
+    #[OA\RequestBody(
+        required: true,
+        description: 'Article to update',
+        content: new OA\JsonContent(ref: UpdateArticleRequest::class)
+    )]
     #[OA\Response(
         response: 200,
         description: 'Success',
         content: new OA\JsonContent(ref: SingleArticleResource::class)
     )]
-    // #[RequestBody(factory: UpdateArticleRequestBody::class)]
     // #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
     public function update(Article $slug, UpdateArticleRequest $request): SingleArticleResource
     {

@@ -7,7 +7,36 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use OpenApi\Attributes as OA;
 
+#[OA\Schema(
+    schema: "NewUser",
+    type: "object",
+    properties: [
+        new OA\Property(
+            property: "email",
+            type: "string"
+        ),
+        new OA\Property(
+            property: "username",
+            type: "string"
+        ),
+        new OA\Property(
+            property: "password",
+            type: "string"
+        ),
+    ]
+)]
+#[OA\Schema(
+    schema: "NewUserRequest",
+    type: "object",
+    properties: [
+        new OA\Property(
+            property: "user",
+            ref: "#/components/schemas/NewUser",
+        ),
+    ]
+)]
 class NewUserRequest extends FormRequest
 {
     /**

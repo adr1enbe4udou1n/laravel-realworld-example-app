@@ -40,13 +40,24 @@
                 "summary": "Create an article.",
                 "description": "Create an article. Auth is required",
                 "operationId": "CreateArticle",
+                "requestBody": {
+                    "description": "Article to create",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NewArticleRequest"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Success",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Article"
+                                    "$ref": "#/components/schemas/SingleArticleResponse"
                                 }
                             }
                         }
@@ -108,7 +119,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Article"
+                                    "$ref": "#/components/schemas/SingleArticleResponse"
                                 }
                             }
                         }
@@ -130,13 +141,24 @@
                         "required": true
                     }
                 ],
+                "requestBody": {
+                    "description": "Article to update",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateArticleRequest"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Success",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Article"
+                                    "$ref": "#/components/schemas/SingleArticleResponse"
                                 }
                             }
                         }
@@ -197,7 +219,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Article"
+                                    "$ref": "#/components/schemas/SingleArticleResponse"
                                 }
                             }
                         }
@@ -230,7 +252,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Article"
+                                    "$ref": "#/components/schemas/SingleArticleResponse"
                                 }
                             }
                         }
@@ -287,13 +309,24 @@
                         "required": true
                     }
                 ],
+                "requestBody": {
+                    "description": "Comment you want to create",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NewCommentRequest"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Success",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Comment"
+                                    "$ref": "#/components/schemas/SingleCommentResponse"
                                 }
                             }
                         }
@@ -362,7 +395,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Profile"
+                                    "$ref": "#/components/schemas/ProfileResponse"
                                 }
                             }
                         }
@@ -392,7 +425,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Profile"
+                                    "$ref": "#/components/schemas/ProfileResponse"
                                 }
                             }
                         }
@@ -425,7 +458,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Profile"
+                                    "$ref": "#/components/schemas/ProfileResponse"
                                 }
                             }
                         }
@@ -468,13 +501,24 @@
                 "summary": "Register a new user.",
                 "description": "Register a new user",
                 "operationId": "CreateUser",
+                "requestBody": {
+                    "description": "Details of the new user to register",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NewUserRequest"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Success",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/User"
+                                    "$ref": "#/components/schemas/UserResponse"
                                 }
                             }
                         }
@@ -490,13 +534,24 @@
                 "summary": "Existing user login.",
                 "description": "Login for existing user",
                 "operationId": "Login",
+                "requestBody": {
+                    "description": "Credentials to use",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginUserRequest"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Success",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/User"
+                                    "$ref": "#/components/schemas/UserResponse"
                                 }
                             }
                         }
@@ -518,7 +573,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/User"
+                                    "$ref": "#/components/schemas/UserResponse"
                                 }
                             }
                         }
@@ -537,13 +592,24 @@
                 "summary": "Update current user.",
                 "description": "Updated user information for current user",
                 "operationId": "UpdateCurrentUser",
+                "requestBody": {
+                    "description": "User details to update. At least one field is required.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateUserRequest"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Success",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/User"
+                                    "$ref": "#/components/schemas/UserResponse"
                                 }
                             }
                         }
@@ -559,6 +625,138 @@
     },
     "components": {
         "schemas": {
+            "LoginUser": {
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "LoginUserRequest": {
+                "properties": {
+                    "user": {
+                        "$ref": "#/components/schemas/LoginUser"
+                    }
+                },
+                "type": "object"
+            },
+            "NewArticle": {
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "body": {
+                        "type": "string"
+                    },
+                    "tagList": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "NewArticleRequest": {
+                "properties": {
+                    "article": {
+                        "$ref": "#/components/schemas/NewArticle"
+                    }
+                },
+                "type": "object"
+            },
+            "NewComment": {
+                "properties": {
+                    "body": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "NewCommentRequest": {
+                "properties": {
+                    "comment": {
+                        "$ref": "#/components/schemas/NewComment"
+                    }
+                },
+                "type": "object"
+            },
+            "NewUser": {
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "username": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "NewUserRequest": {
+                "properties": {
+                    "user": {
+                        "$ref": "#/components/schemas/NewUser"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateArticle": {
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "body": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateArticleRequest": {
+                "properties": {
+                    "article": {
+                        "$ref": "#/components/schemas/UpdateArticle"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateUser": {
+                "properties": {
+                    "username": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "bio": {
+                        "type": "string"
+                    },
+                    "image": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateUserRequest": {
+                "properties": {
+                    "user": {
+                        "$ref": "#/components/schemas/UpdateUser"
+                    }
+                },
+                "type": "object"
+            },
             "MultipleArticlesResponse": {
                 "properties": {
                     "articles": {
@@ -584,14 +782,6 @@
                 },
                 "type": "object"
             },
-            "ProfileResponse": {
-                "properties": {
-                    "profile": {
-                        "$ref": "#/components/schemas/Profile"
-                    }
-                },
-                "type": "object"
-            },
             "Profile": {
                 "properties": {
                     "username": {
@@ -610,10 +800,10 @@
                 },
                 "type": "object"
             },
-            "SingleArticleResponse": {
+            "ProfileResponse": {
                 "properties": {
-                    "article": {
-                        "$ref": "#/components/schemas/Article"
+                    "profile": {
+                        "$ref": "#/components/schemas/Profile"
                     }
                 },
                 "type": "object"
@@ -659,10 +849,10 @@
                 },
                 "type": "object"
             },
-            "SingleCommentResponse": {
+            "SingleArticleResponse": {
                 "properties": {
-                    "comment": {
-                        "$ref": "#/components/schemas/Comment"
+                    "article": {
+                        "$ref": "#/components/schemas/Article"
                     }
                 },
                 "type": "object"
@@ -689,6 +879,14 @@
                 },
                 "type": "object"
             },
+            "SingleCommentResponse": {
+                "properties": {
+                    "comment": {
+                        "$ref": "#/components/schemas/Comment"
+                    }
+                },
+                "type": "object"
+            },
             "TagsResponse": {
                 "properties": {
                     "tags": {
@@ -696,14 +894,6 @@
                         "items": {
                             "type": "string"
                         }
-                    }
-                },
-                "type": "object"
-            },
-            "UserResponse": {
-                "properties": {
-                    "user": {
-                        "$ref": "#/components/schemas/User"
                     }
                 },
                 "type": "object"
@@ -724,6 +914,14 @@
                     },
                     "token": {
                         "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "UserResponse": {
+                "properties": {
+                    "user": {
+                        "$ref": "#/components/schemas/User"
                     }
                 },
                 "type": "object"

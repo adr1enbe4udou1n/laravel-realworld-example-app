@@ -11,16 +11,6 @@ use OpenApi\Attributes as OA;
  * @property User $resource
  */
 #[OA\Schema(
-    schema: "UserResponse",
-    type: "object",
-    properties: [
-        new OA\Property(
-            property: "user",
-            ref: "#/components/schemas/User"
-        )
-    ]
-)]
-#[OA\Schema(
     schema: "User",
     type: "object",
     properties: [
@@ -43,6 +33,16 @@ use OpenApi\Attributes as OA;
         new OA\Property(
             property: "token",
             type: "string"
+        )
+    ]
+)]
+#[OA\Schema(
+    schema: "UserResponse",
+    type: "object",
+    properties: [
+        new OA\Property(
+            property: "user",
+            ref: "#/components/schemas/User"
         )
     ]
 )]

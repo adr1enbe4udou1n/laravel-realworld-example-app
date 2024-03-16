@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\NewUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Post;
@@ -23,12 +23,16 @@ class UserController extends Controller
      */
     #[Post('users')]
     #[OA\Post(path: '/users', operationId: 'CreateUser', tags: ['User and Authentication'])]
+    #[OA\RequestBody(
+        required: true,
+        description: 'Details of the new user to register',
+        content: new OA\JsonContent(ref: NewUserRequest::class)
+    )]
     #[OA\Response(
         response: 200,
         description: 'Success',
         content: new OA\JsonContent(ref: UserResource::class)
     )]
-    // #[RequestBody(factory: NewUserRequestBody::class)]
     // #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
     public function register(NewUserRequest $request): UserResource
     {
@@ -45,14 +49,18 @@ class UserController extends Controller
      */
     #[Post('users/login')]
     #[OA\Post(path: '/users/login', operationId: 'Login', tags: ['User and Authentication'])]
+    #[OA\RequestBody(
+        required: true,
+        description: 'Credentials to use',
+        content: new OA\JsonContent(ref: LoginUserRequest::class)
+    )]
     #[OA\Response(
         response: 200,
         description: 'Success',
         content: new OA\JsonContent(ref: UserResource::class)
     )]
-    // #[RequestBody(factory: LoginUserRequestBody::class)]
     // #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
-    public function login(Request $request): UserResource
+    public function login(LoginUserRequest $request): UserResource
     {
         if (! Auth::attempt($request->user)) {
             throw new BadRequestHttpException('Bad credentials');
@@ -85,12 +93,16 @@ class UserController extends Controller
      */
     #[Put('user', middleware: 'auth')]
     #[OA\Put(path: '/user', operationId: 'UpdateCurrentUser', tags: ['User and Authentication'], security: ['BearerToken'])]
+    #[OA\RequestBody(
+        required: true,
+        description: 'User details to update. At least one field is required.',
+        content: new OA\JsonContent(ref: UpdateUserRequest::class)
+    )]
     #[OA\Response(
         response: 200,
         description: 'Success',
         content: new OA\JsonContent(ref: UserResource::class)
     )]
-    // #[RequestBody(factory: UpdateUserRequestBody::class)]
     // #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
     public function update(UpdateUserRequest $request): UserResource
     {

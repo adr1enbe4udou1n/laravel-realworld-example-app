@@ -2,31 +2,38 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use OpenApi\Attributes as OA;
 
 #[OA\Schema(
-    schema: "NewComment",
+    schema: "LoginUser",
     type: "object",
     properties: [
         new OA\Property(
-            property: "body",
+            property: "email",
+            type: "string"
+        ),
+        new OA\Property(
+            property: "password",
             type: "string"
         ),
     ]
 )]
 #[OA\Schema(
-    schema: "NewCommentRequest",
+    schema: "LoginUserRequest",
     type: "object",
     properties: [
         new OA\Property(
-            property: "comment",
-            ref: "#/components/schemas/NewComment",
+            property: "user",
+            ref: "#/components/schemas/LoginUser",
         ),
     ]
 )]
-class NewCommentRequest extends FormRequest
+class LoginUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -46,12 +53,13 @@ class NewCommentRequest extends FormRequest
     public function rules()
     {
         return [
-            'body' => 'required',
+            'email' => ['required', 'email'],
+            'password' => ['required'],
         ];
     }
 
     public function validationData()
     {
-        return Arr::wrap($this->input('comment'));
+        return Arr::wrap($this->input('user'));
     }
 }

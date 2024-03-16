@@ -11,16 +11,6 @@ use OpenApi\Attributes as OA;
  * @property User $resource
  */
 #[OA\Schema(
-    schema: "ProfileResponse",
-    type: "object",
-    properties: [
-        new OA\Property(
-            property: "profile",
-            ref: "#/components/schemas/Profile"
-        )
-    ]
-)]
-#[OA\Schema(
     schema: "Profile",
     type: "object",
     properties: [
@@ -40,6 +30,16 @@ use OpenApi\Attributes as OA;
             property: "following",
             type: "boolean",
             default: false
+        )
+    ]
+)]
+#[OA\Schema(
+    schema: "ProfileResponse",
+    type: "object",
+    properties: [
+        new OA\Property(
+            property: "profile",
+            ref: "#/components/schemas/Profile"
         )
     ]
 )]

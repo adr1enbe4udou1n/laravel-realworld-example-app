@@ -6,7 +6,41 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use OpenApi\Attributes as OA;
 
+#[OA\Schema(
+    schema: "NewArticle",
+    type: "object",
+    properties: [
+        new OA\Property(
+            property: "title",
+            type: "string"
+        ),
+        new OA\Property(
+            property: "description",
+            type: "string"
+        ),
+        new OA\Property(
+            property: "body",
+            type: "string"
+        ),
+        new OA\Property(
+            property: "tagList",
+            type: "array",
+            items: new OA\Items(type: "string"),
+        ),
+    ]
+)]
+#[OA\Schema(
+    schema: "NewArticleRequest",
+    type: "object",
+    properties: [
+        new OA\Property(
+            property: "article",
+            ref: "#/components/schemas/NewArticle",
+        ),
+    ]
+)]
 class NewArticleRequest extends FormRequest
 {
     /**

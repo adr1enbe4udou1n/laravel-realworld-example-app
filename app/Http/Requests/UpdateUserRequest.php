@@ -7,7 +7,40 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use OpenApi\Attributes as OA;
 
+#[OA\Schema(
+    schema: "UpdateUser",
+    type: "object",
+    properties: [
+        new OA\Property(
+            property: "username",
+            type: "string"
+        ),
+        new OA\Property(
+            property: "email",
+            type: "string"
+        ),
+        new OA\Property(
+            property: "bio",
+            type: "string"
+        ),
+        new OA\Property(
+            property: "image",
+            type: "string"
+        ),
+    ]
+)]
+#[OA\Schema(
+    schema: "UpdateUserRequest",
+    type: "object",
+    properties: [
+        new OA\Property(
+            property: "user",
+            ref: "#/components/schemas/UpdateUser",
+        ),
+    ]
+)]
 class UpdateUserRequest extends FormRequest
 {
     /**
