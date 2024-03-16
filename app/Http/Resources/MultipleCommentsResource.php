@@ -6,14 +6,14 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 use OpenApi\Attributes as OA;
 
 #[OA\Schema(
-    schema: "MultipleCommentsResponse",
-    type: "object",
+    schema: 'MultipleCommentsResponse',
+    type: 'object',
     properties: [
         new OA\Property(
-            property: "comments",
-            type: "array",
-            items: new OA\Items(ref: "#/components/schemas/Comment")
-        )
+            property: 'comments',
+            type: 'array',
+            items: new OA\Items(ref: '#/components/schemas/Comment')
+        ),
     ]
 )]
 class MultipleCommentsResource extends ResourceCollection

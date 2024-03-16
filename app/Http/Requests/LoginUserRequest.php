@@ -5,31 +5,29 @@ namespace App\Http\Requests;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rule;
 use OpenApi\Attributes as OA;
 
 #[OA\Schema(
-    schema: "LoginUser",
-    type: "object",
+    schema: 'LoginUser',
+    type: 'object',
     properties: [
         new OA\Property(
-            property: "email",
-            type: "string"
+            property: 'email',
+            type: 'string'
         ),
         new OA\Property(
-            property: "password",
-            type: "string"
+            property: 'password',
+            type: 'string'
         ),
     ]
 )]
 #[OA\Schema(
-    schema: "LoginUserRequest",
-    type: "object",
+    schema: 'LoginUserRequest',
+    type: 'object',
     properties: [
         new OA\Property(
-            property: "user",
-            ref: "#/components/schemas/LoginUser",
+            property: 'user',
+            ref: '#/components/schemas/LoginUser',
         ),
     ]
 )]

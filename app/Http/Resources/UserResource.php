@@ -11,39 +11,39 @@ use OpenApi\Attributes as OA;
  * @property User $resource
  */
 #[OA\Schema(
-    schema: "User",
-    type: "object",
+    schema: 'User',
+    type: 'object',
     properties: [
         new OA\Property(
-            property: "username",
-            type: "string"
+            property: 'username',
+            type: 'string'
         ),
         new OA\Property(
-            property: "email",
-            type: "string"
+            property: 'email',
+            type: 'string'
         ),
         new OA\Property(
-            property: "bio",
-            type: "string"
+            property: 'bio',
+            type: 'string'
         ),
         new OA\Property(
-            property: "image",
-            type: "string"
+            property: 'image',
+            type: 'string'
         ),
         new OA\Property(
-            property: "token",
-            type: "string"
-        )
+            property: 'token',
+            type: 'string'
+        ),
     ]
 )]
 #[OA\Schema(
-    schema: "UserResponse",
-    type: "object",
+    schema: 'UserResponse',
+    type: 'object',
     properties: [
         new OA\Property(
-            property: "user",
-            ref: "#/components/schemas/User"
-        )
+            property: 'user',
+            ref: '#/components/schemas/User'
+        ),
     ]
 )]
 class UserResource extends JsonResource

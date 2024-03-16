@@ -11,36 +11,36 @@ use OpenApi\Attributes as OA;
  * @property User $resource
  */
 #[OA\Schema(
-    schema: "Profile",
-    type: "object",
+    schema: 'Profile',
+    type: 'object',
     properties: [
         new OA\Property(
-            property: "username",
-            type: "string"
+            property: 'username',
+            type: 'string'
         ),
         new OA\Property(
-            property: "bio",
-            type: "string"
+            property: 'bio',
+            type: 'string'
         ),
         new OA\Property(
-            property: "image",
-            type: "string"
+            property: 'image',
+            type: 'string'
         ),
         new OA\Property(
-            property: "following",
-            type: "boolean",
+            property: 'following',
+            type: 'boolean',
             default: false
-        )
+        ),
     ]
 )]
 #[OA\Schema(
-    schema: "ProfileResponse",
-    type: "object",
+    schema: 'ProfileResponse',
+    type: 'object',
     properties: [
         new OA\Property(
-            property: "profile",
-            ref: "#/components/schemas/Profile"
-        )
+            property: 'profile',
+            ref: '#/components/schemas/Profile'
+        ),
     ]
 )]
 class ProfileResource extends JsonResource

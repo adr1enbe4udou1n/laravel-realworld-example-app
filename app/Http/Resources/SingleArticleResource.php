@@ -11,63 +11,63 @@ use OpenApi\Attributes as OA;
  * @property Article $resource
  */
 #[OA\Schema(
-    schema: "Article",
-    type: "object",
+    schema: 'Article',
+    type: 'object',
     properties: [
         new OA\Property(
-            property: "title",
-            type: "string"
+            property: 'title',
+            type: 'string'
         ),
         new OA\Property(
-            property: "slug",
-            type: "string"
+            property: 'slug',
+            type: 'string'
         ),
         new OA\Property(
-            property: "description",
-            type: "string"
+            property: 'description',
+            type: 'string'
         ),
         new OA\Property(
-            property: "body",
-            type: "string"
+            property: 'body',
+            type: 'string'
         ),
         new OA\Property(
-            property: "createdAt",
-            type: "string",
-            format: "date-time"
+            property: 'createdAt',
+            type: 'string',
+            format: 'date-time'
         ),
         new OA\Property(
-            property: "updatedAt",
-            type: "string",
-            format: "date-time"
+            property: 'updatedAt',
+            type: 'string',
+            format: 'date-time'
         ),
         new OA\Property(
-            property: "author",
-            ref: "#/components/schemas/Profile"
+            property: 'author',
+            ref: '#/components/schemas/Profile'
         ),
         new OA\Property(
-            property: "tagList",
-            type: "array",
-            items: new OA\Items(type: "string")
+            property: 'tagList',
+            type: 'array',
+            items: new OA\Items(type: 'string')
         ),
         new OA\Property(
-            property: "favorited",
-            type: "boolean",
+            property: 'favorited',
+            type: 'boolean',
             default: false
         ),
         new OA\Property(
-            property: "favoritesCount",
-            type: "integer"
-        )
+            property: 'favoritesCount',
+            type: 'integer'
+        ),
     ]
 )]
 #[OA\Schema(
-    schema: "SingleArticleResponse",
-    type: "object",
+    schema: 'SingleArticleResponse',
+    type: 'object',
     properties: [
         new OA\Property(
-            property: "article",
-            ref: "#/components/schemas/Article"
-        )
+            property: 'article',
+            ref: '#/components/schemas/Article'
+        ),
     ]
 )]
 class SingleArticleResource extends JsonResource

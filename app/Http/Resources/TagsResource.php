@@ -7,14 +7,14 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 use OpenApi\Attributes as OA;
 
 #[OA\Schema(
-    schema: "TagsResponse",
-    type: "object",
+    schema: 'TagsResponse',
+    type: 'object',
     properties: [
         new OA\Property(
-            property: "tags",
-            type: "array",
-            items: new OA\Items(type: "string")
-        )
+            property: 'tags',
+            type: 'array',
+            items: new OA\Items(type: 'string')
+        ),
     ]
 )]
 class TagsResource extends ResourceCollection

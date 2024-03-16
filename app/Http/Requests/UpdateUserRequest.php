@@ -10,34 +10,34 @@ use Illuminate\Validation\Rule;
 use OpenApi\Attributes as OA;
 
 #[OA\Schema(
-    schema: "UpdateUser",
-    type: "object",
+    schema: 'UpdateUser',
+    type: 'object',
     properties: [
         new OA\Property(
-            property: "username",
-            type: "string"
+            property: 'username',
+            type: 'string'
         ),
         new OA\Property(
-            property: "email",
-            type: "string"
+            property: 'email',
+            type: 'string'
         ),
         new OA\Property(
-            property: "bio",
-            type: "string"
+            property: 'bio',
+            type: 'string'
         ),
         new OA\Property(
-            property: "image",
-            type: "string"
+            property: 'image',
+            type: 'string'
         ),
     ]
 )]
 #[OA\Schema(
-    schema: "UpdateUserRequest",
-    type: "object",
+    schema: 'UpdateUserRequest',
+    type: 'object',
     properties: [
         new OA\Property(
-            property: "user",
-            ref: "#/components/schemas/UpdateUser",
+            property: 'user',
+            ref: '#/components/schemas/UpdateUser',
         ),
     ]
 )]

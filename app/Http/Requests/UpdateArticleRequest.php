@@ -7,30 +7,30 @@ use Illuminate\Support\Arr;
 use OpenApi\Attributes as OA;
 
 #[OA\Schema(
-    schema: "UpdateArticle",
-    type: "object",
+    schema: 'UpdateArticle',
+    type: 'object',
     properties: [
         new OA\Property(
-            property: "title",
-            type: "string"
+            property: 'title',
+            type: 'string'
         ),
         new OA\Property(
-            property: "description",
-            type: "string"
+            property: 'description',
+            type: 'string'
         ),
         new OA\Property(
-            property: "body",
-            type: "string"
+            property: 'body',
+            type: 'string'
         ),
     ]
 )]
 #[OA\Schema(
-    schema: "UpdateArticleRequest",
-    type: "object",
+    schema: 'UpdateArticleRequest',
+    type: 'object',
     properties: [
         new OA\Property(
-            property: "article",
-            ref: "#/components/schemas/UpdateArticle",
+            property: 'article',
+            ref: '#/components/schemas/UpdateArticle',
         ),
     ]
 )]

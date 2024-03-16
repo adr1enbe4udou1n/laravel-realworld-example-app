@@ -6,18 +6,18 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 use OpenApi\Attributes as OA;
 
 #[OA\Schema(
-    schema: "MultipleArticlesResponse",
-    type: "object",
+    schema: 'MultipleArticlesResponse',
+    type: 'object',
     properties: [
         new OA\Property(
-            property: "articles",
-            type: "array",
-            items: new OA\Items(ref: "#/components/schemas/Article")
+            property: 'articles',
+            type: 'array',
+            items: new OA\Items(ref: '#/components/schemas/Article')
         ),
         new OA\Property(
-            property: "articlesCount",
-            type: "integer"
-        )
+            property: 'articlesCount',
+            type: 'integer'
+        ),
     ]
 )]
 class MultipleArticlesResource extends ResourceCollection

@@ -10,41 +10,41 @@ use OpenApi\Attributes as OA;
  * @property Comment $resource
  */
 #[OA\Schema(
-    schema: "Comment",
-    type: "object",
+    schema: 'Comment',
+    type: 'object',
     properties: [
         new OA\Property(
-            property: "id",
-            type: "integer"
+            property: 'id',
+            type: 'integer'
         ),
         new OA\Property(
-            property: "body",
-            type: "string"
+            property: 'body',
+            type: 'string'
         ),
         new OA\Property(
-            property: "createdAt",
-            type: "string",
-            format: "date-time"
+            property: 'createdAt',
+            type: 'string',
+            format: 'date-time'
         ),
         new OA\Property(
-            property: "updatedAt",
-            type: "string",
-            format: "date-time"
+            property: 'updatedAt',
+            type: 'string',
+            format: 'date-time'
         ),
         new OA\Property(
-            property: "author",
-            ref: "#/components/schemas/Profile"
-        )
+            property: 'author',
+            ref: '#/components/schemas/Profile'
+        ),
     ]
 )]
 #[OA\Schema(
-    schema: "SingleCommentResponse",
-    type: "object",
+    schema: 'SingleCommentResponse',
+    type: 'object',
     properties: [
         new OA\Property(
-            property: "comment",
-            ref: "#/components/schemas/Comment"
-        )
+            property: 'comment',
+            ref: '#/components/schemas/Comment'
+        ),
     ]
 )]
 class SingleCommentResource extends JsonResource

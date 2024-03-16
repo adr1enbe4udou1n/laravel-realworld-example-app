@@ -9,11 +9,11 @@ use App\Http\Resources\SingleCommentResource;
 use App\Models\Article;
 use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
+use OpenApi\Attributes as OA;
 use Spatie\RouteAttributes\Attributes\Delete;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Post;
 use Spatie\RouteAttributes\Attributes\Prefix;
-use OpenApi\Attributes as OA;
 
 #[Prefix('articles/{slug}/comments')]
 class CommentController extends Controller
@@ -80,7 +80,7 @@ class CommentController extends Controller
     #[OA\Response(
         response: 422,
         description: 'Validation errors',
-        content: new OA\JsonContent(ref: "#/components/schemas/ErrorValidationResponse")
+        content: new OA\JsonContent(ref: '#/components/schemas/ErrorValidationResponse')
     )]
     public function create(Article $slug, NewCommentRequest $request): SingleCommentResource
     {

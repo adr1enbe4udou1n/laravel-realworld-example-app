@@ -8,11 +8,11 @@ use App\Http\Requests\NewUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
+use OpenApi\Attributes as OA;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Post;
 use Spatie\RouteAttributes\Attributes\Put;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use OpenApi\Attributes as OA;
 
 class UserController extends Controller
 {
@@ -36,7 +36,7 @@ class UserController extends Controller
     #[OA\Response(
         response: 422,
         description: 'Validation errors',
-        content: new OA\JsonContent(ref: "#/components/schemas/ErrorValidationResponse")
+        content: new OA\JsonContent(ref: '#/components/schemas/ErrorValidationResponse')
     )]
     public function register(NewUserRequest $request): UserResource
     {
@@ -66,7 +66,7 @@ class UserController extends Controller
     #[OA\Response(
         response: 422,
         description: 'Validation errors',
-        content: new OA\JsonContent(ref: "#/components/schemas/ErrorValidationResponse")
+        content: new OA\JsonContent(ref: '#/components/schemas/ErrorValidationResponse')
     )]
     public function login(LoginUserRequest $request): UserResource
     {
@@ -114,7 +114,7 @@ class UserController extends Controller
     #[OA\Response(
         response: 422,
         description: 'Validation errors',
-        content: new OA\JsonContent(ref: "#/components/schemas/ErrorValidationResponse")
+        content: new OA\JsonContent(ref: '#/components/schemas/ErrorValidationResponse')
     )]
     public function update(UpdateUserRequest $request): UserResource
     {

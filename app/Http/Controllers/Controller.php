@@ -26,21 +26,21 @@ use OpenApi\Attributes as OA;
     securityScheme: 'BearerToken'
 )]
 #[OA\Schema(
-    schema: "ErrorValidationResponse",
-    type: "object",
+    schema: 'ErrorValidationResponse',
+    type: 'object',
     properties: [
         new OA\Property(
-            property: "message",
-            type: "string"
+            property: 'message',
+            type: 'string'
         ),
         new OA\Property(
-            property: "errors",
-            type: "object",
+            property: 'errors',
+            type: 'object',
             additionalProperties: new OA\AdditionalProperties(
-                type: "array",
-                items: new OA\Items(type: "string")
+                type: 'array',
+                items: new OA\Items(type: 'string')
             )
-        )
+        ),
     ]
 )]
 class Controller extends BaseController

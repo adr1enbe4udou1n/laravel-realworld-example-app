@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TagsResource;
 use App\Models\Tag;
+use OpenApi\Attributes as OA;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Prefix;
-use OpenApi\Attributes as OA;
 
 #[Prefix('tags')]
 class TagController extends Controller

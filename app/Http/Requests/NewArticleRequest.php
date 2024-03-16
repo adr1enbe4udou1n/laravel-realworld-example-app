@@ -9,35 +9,35 @@ use Illuminate\Validation\Rule;
 use OpenApi\Attributes as OA;
 
 #[OA\Schema(
-    schema: "NewArticle",
-    type: "object",
+    schema: 'NewArticle',
+    type: 'object',
     properties: [
         new OA\Property(
-            property: "title",
-            type: "string"
+            property: 'title',
+            type: 'string'
         ),
         new OA\Property(
-            property: "description",
-            type: "string"
+            property: 'description',
+            type: 'string'
         ),
         new OA\Property(
-            property: "body",
-            type: "string"
+            property: 'body',
+            type: 'string'
         ),
         new OA\Property(
-            property: "tagList",
-            type: "array",
-            items: new OA\Items(type: "string"),
+            property: 'tagList',
+            type: 'array',
+            items: new OA\Items(type: 'string'),
         ),
     ]
 )]
 #[OA\Schema(
-    schema: "NewArticleRequest",
-    type: "object",
+    schema: 'NewArticleRequest',
+    type: 'object',
     properties: [
         new OA\Property(
-            property: "article",
-            ref: "#/components/schemas/NewArticle",
+            property: 'article',
+            ref: '#/components/schemas/NewArticle',
         ),
     ]
 )]

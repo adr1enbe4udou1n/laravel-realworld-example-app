@@ -7,22 +7,22 @@ use Illuminate\Support\Arr;
 use OpenApi\Attributes as OA;
 
 #[OA\Schema(
-    schema: "NewComment",
-    type: "object",
+    schema: 'NewComment',
+    type: 'object',
     properties: [
         new OA\Property(
-            property: "body",
-            type: "string"
+            property: 'body',
+            type: 'string'
         ),
     ]
 )]
 #[OA\Schema(
-    schema: "NewCommentRequest",
-    type: "object",
+    schema: 'NewCommentRequest',
+    type: 'object',
     properties: [
         new OA\Property(
-            property: "comment",
-            ref: "#/components/schemas/NewComment",
+            property: 'comment',
+            ref: '#/components/schemas/NewComment',
         ),
     ]
 )]
