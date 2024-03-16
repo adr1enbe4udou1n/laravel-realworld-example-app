@@ -20,6 +20,33 @@
                 "summary": "Get recent articles globally.",
                 "description": "Get most recent articles globally. Use query parameters to filter results. Auth is optional",
                 "operationId": "GetArticles",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit number of articles returned (default is 20)"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "Offset/skip number of articles (default is 0)"
+                    },
+                    {
+                        "name": "tag",
+                        "in": "query",
+                        "description": "Filter by tag"
+                    },
+                    {
+                        "name": "author",
+                        "in": "query",
+                        "description": "Filter by author (username)"
+                    },
+                    {
+                        "name": "favorited",
+                        "in": "query",
+                        "description": "Filter by favorites of a user (username)"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -88,6 +115,18 @@
                 "summary": "Get recent articles from users you follow.",
                 "description": "Get most recent articles from users you follow. Use query parameters to limit. Auth is required",
                 "operationId": "GetArticlesFeed",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit number of articles returned (default is 20)"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "Offset/skip number of articles (default is 0)"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",

@@ -30,12 +30,38 @@ class ArticleController extends Controller
      */
     #[Get('/')]
     #[OA\Get(path: '/articles', operationId: 'GetArticles', tags: ['Articles'])]
+    #[OA\Parameter(
+        name: 'limit',
+        in: 'query',
+        description: 'Limit number of articles returned (default is 20)',
+        schema: new OA\Schema(type: 'integer')
+    )]
+    #[OA\Parameter(
+        name: 'offset',
+        in: 'query',
+        description: 'Offset/skip number of articles (default is 0)',
+        schema: new OA\Schema(type: 'integer')
+    )]
+    #[OA\Parameter(
+        name: 'tag',
+        in: 'query',
+        description: 'Filter by tag',
+    )]
+    #[OA\Parameter(
+        name: 'author',
+        in: 'query',
+        description: 'Filter by author (username)',
+    )]
+    #[OA\Parameter(
+        name: 'favorited',
+        in: 'query',
+        description: 'Filter by favorites of a user (username)',
+    )]
     #[OA\Response(
         response: 200,
         description: 'Success',
         content: new OA\JsonContent(ref: MultipleArticlesResource::class)
     )]
-    // #[Parameters(factory: ListArticlesParameters::class)]
     public function list(Request $request): MultipleArticlesResource
     {
         $articles = Article::with('author', 'tags', 'favoritedBy')
@@ -60,12 +86,23 @@ class ArticleController extends Controller
      */
     #[Get('/feed', middleware: 'auth')]
     #[OA\Get(path: '/articles/feed', operationId: 'GetArticlesFeed', tags: ['Articles'], security: ['BearerToken'])]
+    #[OA\Parameter(
+        name: 'limit',
+        in: 'query',
+        description: 'Limit number of articles returned (default is 20)',
+        schema: new OA\Schema(type: 'integer')
+    )]
+    #[OA\Parameter(
+        name: 'offset',
+        in: 'query',
+        description: 'Offset/skip number of articles (default is 0)',
+        schema: new OA\Schema(type: 'integer')
+    )]
     #[OA\Response(
         response: 200,
         description: 'Success',
         content: new OA\JsonContent(ref: MultipleArticlesResource::class)
     )]
-    // #[Parameters(factory: ListFeedParameters::class)]
     public function feed(Request $request): MultipleArticlesResource
     {
         $articles = Article::with('author', 'tags', 'favoritedBy')
