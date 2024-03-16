@@ -1,5 +1,6 @@
 {
     "name": "laravel/laravel",
+    "version": "1.0.0",
     "type": "project",
     "description": "The Laravel Framework.",
     "keywords": [
@@ -10,24 +11,24 @@
     "require": {
         "php": "^8.2",
         "darkaonline/l5-swagger": "^8.6",
-        "guzzlehttp/guzzle": "^7.0.1",
         "itsgoingd/clockwork": "^5.1",
-        "laravel/framework": "^10.0",
-        "laravel/tinker": "^2.5",
+        "laravel/framework": "^11.0",
+        "laravel/tinker": "^2.9",
         "lcobucci/clock": "^3.0",
         "lcobucci/jwt": "^5.0",
         "spatie/laravel-route-attributes": "^1.9"
     },
     "require-dev": {
-        "barryvdh/laravel-ide-helper": "^2.10",
-        "fakerphp/faker": "^1.9.1",
+        "barryvdh/laravel-ide-helper": "^3.0",
+        "fakerphp/faker": "^1.23",
         "larastan/larastan": "^2.7",
-        "laravel/pint": "^1.1",
-        "mockery/mockery": "^1.4.4",
-        "nunomaduro/collision": "^7.0",
-        "pestphp/pest": "^2.0",
+        "laravel/pint": "^1.13",
+        "laravel/sail": "^1.26",
+        "mockery/mockery": "^1.6",
+        "nunomaduro/collision": "^8.0",
+        "pestphp/pest": "^2.34",
         "pestphp/pest-plugin-laravel": "^2.0",
-        "spatie/laravel-ignition": "^2.0"
+        "spatie/laravel-ignition": "^2.4"
     },
     "autoload": {
         "psr-4": {

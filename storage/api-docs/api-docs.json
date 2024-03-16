@@ -24,12 +24,18 @@
                     {
                         "name": "limit",
                         "in": "query",
-                        "description": "Limit number of articles returned (default is 20)"
+                        "description": "Limit number of articles returned (default is 20)",
+                        "schema": {
+                            "type": "integer"
+                        }
                     },
                     {
                         "name": "offset",
                         "in": "query",
-                        "description": "Offset/skip number of articles (default is 0)"
+                        "description": "Offset/skip number of articles (default is 0)",
+                        "schema": {
+                            "type": "integer"
+                        }
                     },
                     {
                         "name": "tag",
@@ -119,12 +125,18 @@
                     {
                         "name": "limit",
                         "in": "query",
-                        "description": "Limit number of articles returned (default is 20)"
+                        "description": "Limit number of articles returned (default is 20)",
+                        "schema": {
+                            "type": "integer"
+                        }
                     },
                     {
                         "name": "offset",
                         "in": "query",
-                        "description": "Offset/skip number of articles (default is 0)"
+                        "description": "Offset/skip number of articles (default is 0)",
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
                 ],
                 "responses": {
