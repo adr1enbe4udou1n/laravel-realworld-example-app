@@ -31,6 +31,12 @@ class CommentController extends Controller
         operationId: 'GetArticleComments',
         tags: ['Comments']
     )]
+    #[OA\Parameter(
+        name: 'slug',
+        in: 'path',
+        required: true,
+        description: 'Slug of the article that you want to get comments for',
+    )]
     #[OA\Response(
         response: 200,
         description: 'Success',
@@ -54,6 +60,12 @@ class CommentController extends Controller
         operationId: 'CreateArticleComment',
         tags: ['Comments'],
         security: ['BearerToken']
+    )]
+    #[OA\Parameter(
+        name: 'slug',
+        in: 'path',
+        required: true,
+        description: 'Slug of the article that you want to create a comment for',
     )]
     #[OA\Response(
         response: 200,
@@ -87,6 +99,18 @@ class CommentController extends Controller
         operationId: 'DeleteArticleComment',
         tags: ['Comments'],
         security: ['BearerToken']
+    )]
+    #[OA\Parameter(
+        name: 'slug',
+        in: 'path',
+        required: true,
+        description: 'Slug of the article that you want to delete a comment for',
+    )]
+    #[OA\Parameter(
+        name: 'commentId',
+        in: 'path',
+        required: true,
+        description: 'ID of the comment you want to delete',
     )]
     #[OA\Response(response: 204, description: 'Success')]
     public function delete(Article $slug, Comment $commentId)

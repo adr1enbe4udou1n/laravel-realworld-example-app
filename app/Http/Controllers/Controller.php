@@ -17,6 +17,14 @@ use OpenApi\Attributes as OA;
     url: '/api',
     description: 'Conduit API server'
 )]
+#[OA\SecurityScheme(
+    type: 'apiKey',
+    scheme: 'bearer',
+    in: 'header',
+    name: 'Authorization',
+    bearerFormat: 'JWT',
+    securityScheme: 'BearerToken'
+)]
 class Controller extends BaseController
 {
     use AuthorizesRequests;

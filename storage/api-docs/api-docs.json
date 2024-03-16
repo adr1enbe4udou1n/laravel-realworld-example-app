@@ -26,7 +26,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "App\\Http\\Resources\\MultipleArticlesResource"
+                                    "$ref": "#/components/schemas/MultipleArticlesResponse"
                                 }
                             }
                         }
@@ -46,7 +46,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "App\\Http\\Resources\\SingleArticleResource"
+                                    "$ref": "#/components/schemas/Article"
                                 }
                             }
                         }
@@ -73,7 +73,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "App\\Http\\Resources\\MultipleArticlesResource"
+                                    "$ref": "#/components/schemas/MultipleArticlesResponse"
                                 }
                             }
                         }
@@ -94,13 +94,21 @@
                 "summary": "Get an article.",
                 "description": "Get an article. Auth not required",
                 "operationId": "GetArticle",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Slug of the article to get",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "App\\Http\\Resources\\SingleArticleResource"
+                                    "$ref": "#/components/schemas/Article"
                                 }
                             }
                         }
@@ -114,13 +122,21 @@
                 "summary": "Update an article.",
                 "description": "Update an article. Auth is required",
                 "operationId": "UpdateArticle",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Slug of the article to update",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "App\\Http\\Resources\\SingleArticleResource"
+                                    "$ref": "#/components/schemas/Article"
                                 }
                             }
                         }
@@ -139,6 +155,14 @@
                 "summary": "Delete an article.",
                 "description": "Delete an article. Auth is required",
                 "operationId": "DeleteArticle",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Slug of the article to delete",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "204": {
                         "description": "Success"
@@ -159,13 +183,21 @@
                 "summary": "Favorite an article.",
                 "description": "Favorite an article. Auth is required",
                 "operationId": "CreateArticleFavorite",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Slug of the article that you want to favorite",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "App\\Http\\Resources\\SingleArticleResource"
+                                    "$ref": "#/components/schemas/Article"
                                 }
                             }
                         }
@@ -184,13 +216,21 @@
                 "summary": "Unfavorite an article.",
                 "description": "Unfavorite an article. Auth is required",
                 "operationId": "DeleteArticleFavorite",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Slug of the article that you want to unfavorite",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "App\\Http\\Resources\\SingleArticleResource"
+                                    "$ref": "#/components/schemas/Article"
                                 }
                             }
                         }
@@ -211,13 +251,21 @@
                 "summary": "Get comments for an article.",
                 "description": "Get the comments for an article. Auth is optional",
                 "operationId": "GetArticleComments",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Slug of the article that you want to get comments for",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "App\\Http\\Resources\\MultipleCommentsResource"
+                                    "$ref": "#/components/schemas/MultipleCommentsResponse"
                                 }
                             }
                         }
@@ -231,13 +279,21 @@
                 "summary": "Create a comment for an article.",
                 "description": "Create a comment for an article. Auth is required",
                 "operationId": "CreateArticleComment",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Slug of the article that you want to create a comment for",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "App\\Http\\Resources\\SingleCommentResource"
+                                    "$ref": "#/components/schemas/Comment"
                                 }
                             }
                         }
@@ -258,6 +314,20 @@
                 "summary": "Delete a comment for an article.",
                 "description": "Delete a comment for an article. Auth is required",
                 "operationId": "DeleteArticleComment",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Slug of the article that you want to delete a comment for",
+                        "required": true
+                    },
+                    {
+                        "name": "commentId",
+                        "in": "path",
+                        "description": "ID of the comment you want to delete",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "204": {
                         "description": "Success"
@@ -278,13 +348,21 @@
                 "summary": "Get a profile.",
                 "description": "Get a profile of a user of the system. Auth is optional",
                 "operationId": "GetProfileByUsername",
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "path",
+                        "description": "Username of the profile to get",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "App\\Http\\Resources\\ProfileResource"
+                                    "$ref": "#/components/schemas/Profile"
                                 }
                             }
                         }
@@ -300,13 +378,21 @@
                 "summary": "Follow a user.",
                 "description": "Follow a user by username",
                 "operationId": "FollowUserByUsername",
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "path",
+                        "description": "Username of the profile you want to follow",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "App\\Http\\Resources\\ProfileResource"
+                                    "$ref": "#/components/schemas/Profile"
                                 }
                             }
                         }
@@ -325,13 +411,21 @@
                 "summary": "Unfollow a user.",
                 "description": "Unfollow a user by username",
                 "operationId": "UnfollowUserByUsername",
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "path",
+                        "description": "Username of the profile you want to unfollow",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "App\\Http\\Resources\\ProfileResource"
+                                    "$ref": "#/components/schemas/Profile"
                                 }
                             }
                         }
@@ -358,7 +452,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/TagsResource"
+                                    "$ref": "#/components/schemas/TagsResponse"
                                 }
                             }
                         }
@@ -380,7 +474,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "App\\Http\\Resources\\UserResource"
+                                    "$ref": "#/components/schemas/User"
                                 }
                             }
                         }
@@ -402,7 +496,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "App\\Http\\Resources\\UserResource"
+                                    "$ref": "#/components/schemas/User"
                                 }
                             }
                         }
@@ -424,7 +518,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "App\\Http\\Resources\\UserResource"
+                                    "$ref": "#/components/schemas/User"
                                 }
                             }
                         }
@@ -449,7 +543,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "App\\Http\\Resources\\UserResource"
+                                    "$ref": "#/components/schemas/User"
                                 }
                             }
                         }
@@ -465,7 +559,137 @@
     },
     "components": {
         "schemas": {
-            "TagsResource": {
+            "MultipleArticlesResponse": {
+                "properties": {
+                    "articles": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Article"
+                        }
+                    },
+                    "articlesCount": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "MultipleCommentsResponse": {
+                "properties": {
+                    "comments": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Comment"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "ProfileResponse": {
+                "properties": {
+                    "profile": {
+                        "$ref": "#/components/schemas/Profile"
+                    }
+                },
+                "type": "object"
+            },
+            "Profile": {
+                "properties": {
+                    "username": {
+                        "type": "string"
+                    },
+                    "bio": {
+                        "type": "string"
+                    },
+                    "image": {
+                        "type": "string"
+                    },
+                    "following": {
+                        "type": "boolean",
+                        "default": false
+                    }
+                },
+                "type": "object"
+            },
+            "SingleArticleResponse": {
+                "properties": {
+                    "article": {
+                        "$ref": "#/components/schemas/Article"
+                    }
+                },
+                "type": "object"
+            },
+            "Article": {
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "slug": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "body": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "author": {
+                        "$ref": "#/components/schemas/Profile"
+                    },
+                    "tagList": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "favorited": {
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "favoritesCount": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "SingleCommentResponse": {
+                "properties": {
+                    "comment": {
+                        "$ref": "#/components/schemas/Comment"
+                    }
+                },
+                "type": "object"
+            },
+            "Comment": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "body": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "author": {
+                        "$ref": "#/components/schemas/Profile"
+                    }
+                },
+                "type": "object"
+            },
+            "TagsResponse": {
                 "properties": {
                     "tags": {
                         "type": "array",
@@ -475,6 +699,43 @@
                     }
                 },
                 "type": "object"
+            },
+            "UserResponse": {
+                "properties": {
+                    "user": {
+                        "$ref": "#/components/schemas/User"
+                    }
+                },
+                "type": "object"
+            },
+            "User": {
+                "properties": {
+                    "username": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "bio": {
+                        "type": "string"
+                    },
+                    "image": {
+                        "type": "string"
+                    },
+                    "token": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "BearerToken": {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
             }
         }
     }

@@ -5,10 +5,47 @@ namespace App\Http\Resources;
 use App\Models\User;
 use App\Support\Jwt;
 use Illuminate\Http\Resources\Json\JsonResource;
+use OpenApi\Attributes as OA;
 
 /**
  * @property User $resource
  */
+#[OA\Schema(
+    schema: "UserResponse",
+    type: "object",
+    properties: [
+        new OA\Property(
+            property: "user",
+            ref: "#/components/schemas/User"
+        )
+    ]
+)]
+#[OA\Schema(
+    schema: "User",
+    type: "object",
+    properties: [
+        new OA\Property(
+            property: "username",
+            type: "string"
+        ),
+        new OA\Property(
+            property: "email",
+            type: "string"
+        ),
+        new OA\Property(
+            property: "bio",
+            type: "string"
+        ),
+        new OA\Property(
+            property: "image",
+            type: "string"
+        ),
+        new OA\Property(
+            property: "token",
+            type: "string"
+        )
+    ]
+)]
 class UserResource extends JsonResource
 {
     public static $wrap = 'user';

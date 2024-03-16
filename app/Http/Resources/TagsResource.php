@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 use OpenApi\Attributes as OA;
 
 #[OA\Schema(
-    schema: "TagsResource",
+    schema: "TagsResponse",
     type: "object",
     properties: [
         new OA\Property(

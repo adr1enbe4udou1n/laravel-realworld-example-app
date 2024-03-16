@@ -90,6 +90,12 @@ class ArticleController extends Controller
      */
     #[Get('/{slug}')]
     #[OA\Get(path: '/articles/{slug}', operationId: 'GetArticle', tags: ['Articles'])]
+    #[OA\Parameter(
+        name: 'slug',
+        in: 'path',
+        required: true,
+        description: 'Slug of the article to get'
+    )]
     #[OA\Response(
         response: 200,
         description: 'Success',
@@ -138,6 +144,12 @@ class ArticleController extends Controller
      */
     #[Put('/{slug}', middleware: ['auth', 'can:update,slug'])]
     #[OA\Put(path: '/articles/{slug}', operationId: 'UpdateArticle', tags: ['Articles'], security: ['BearerToken'])]
+    #[OA\Parameter(
+        name: 'slug',
+        in: 'path',
+        required: true,
+        description: 'Slug of the article to update'
+    )]
     #[OA\Response(
         response: 200,
         description: 'Success',
@@ -161,6 +173,12 @@ class ArticleController extends Controller
      */
     #[Delete('/{slug}', middleware: ['auth', 'can:update,slug'])]
     #[OA\Delete(path: '/articles/{slug}', operationId: 'DeleteArticle', tags: ['Articles'], security: ['BearerToken'])]
+    #[OA\Parameter(
+        name: 'slug',
+        in: 'path',
+        required: true,
+        description: 'Slug of the article to delete'
+    )]
     #[OA\Response(
         response: 204,
         description: 'Success'
@@ -181,6 +199,12 @@ class ArticleController extends Controller
      */
     #[Post('/{slug}/favorite', middleware: 'auth')]
     #[OA\Post(path: '/articles/{slug}/favorite', operationId: 'CreateArticleFavorite', tags: ['Favorites'], security: ['BearerToken'])]
+    #[OA\Parameter(
+        name: 'slug',
+        in: 'path',
+        required: true,
+        description: 'Slug of the article that you want to favorite'
+    )]
     #[OA\Response(
         response: 200,
         description: 'Success',
@@ -202,6 +226,12 @@ class ArticleController extends Controller
      */
     #[Delete('{slug}/favorite', middleware: 'auth')]
     #[OA\Delete(path: '/articles/{slug}/favorite', operationId: 'DeleteArticleFavorite', tags: ['Favorites'], security: ['BearerToken'])]
+    #[OA\Parameter(
+        name: 'slug',
+        in: 'path',
+        required: true,
+        description: 'Slug of the article that you want to unfavorite'
+    )]
     #[OA\Response(
         response: 200,
         description: 'Success',
