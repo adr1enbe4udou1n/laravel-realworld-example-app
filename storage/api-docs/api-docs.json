@@ -1,0 +1,481 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Conduit API",
+        "description": "Conduit is a social blogging site (like Medium) built on top of Laravel. This is the API backend.",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/api",
+            "description": "Conduit API server"
+        }
+    ],
+    "paths": {
+        "/articles": {
+            "get": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Get recent articles globally.",
+                "description": "Get most recent articles globally. Use query parameters to filter results. Auth is optional",
+                "operationId": "GetArticles",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "App\\Http\\Resources\\MultipleArticlesResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Create an article.",
+                "description": "Create an article. Auth is required",
+                "operationId": "CreateArticle",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "App\\Http\\Resources\\SingleArticleResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "BearerToken"
+                    }
+                ]
+            }
+        },
+        "/articles/feed": {
+            "get": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Get recent articles from users you follow.",
+                "description": "Get most recent articles from users you follow. Use query parameters to limit. Auth is required",
+                "operationId": "GetArticlesFeed",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "App\\Http\\Resources\\MultipleArticlesResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "BearerToken"
+                    }
+                ]
+            }
+        },
+        "/articles/{slug}": {
+            "get": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Get an article.",
+                "description": "Get an article. Auth not required",
+                "operationId": "GetArticle",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "App\\Http\\Resources\\SingleArticleResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Update an article.",
+                "description": "Update an article. Auth is required",
+                "operationId": "UpdateArticle",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "App\\Http\\Resources\\SingleArticleResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "BearerToken"
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Delete an article.",
+                "description": "Delete an article. Auth is required",
+                "operationId": "DeleteArticle",
+                "responses": {
+                    "204": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "BearerToken"
+                    }
+                ]
+            }
+        },
+        "/articles/{slug}/favorite": {
+            "post": {
+                "tags": [
+                    "Favorites"
+                ],
+                "summary": "Favorite an article.",
+                "description": "Favorite an article. Auth is required",
+                "operationId": "CreateArticleFavorite",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "App\\Http\\Resources\\SingleArticleResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "BearerToken"
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Favorites"
+                ],
+                "summary": "Unfavorite an article.",
+                "description": "Unfavorite an article. Auth is required",
+                "operationId": "DeleteArticleFavorite",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "App\\Http\\Resources\\SingleArticleResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "BearerToken"
+                    }
+                ]
+            }
+        },
+        "/articles/{slug}/comments": {
+            "get": {
+                "tags": [
+                    "Comments"
+                ],
+                "summary": "Get comments for an article.",
+                "description": "Get the comments for an article. Auth is optional",
+                "operationId": "GetArticleComments",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "App\\Http\\Resources\\MultipleCommentsResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Comments"
+                ],
+                "summary": "Create a comment for an article.",
+                "description": "Create a comment for an article. Auth is required",
+                "operationId": "CreateArticleComment",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "App\\Http\\Resources\\SingleCommentResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "BearerToken"
+                    }
+                ]
+            }
+        },
+        "/articles/{slug}/comments/{commentId}": {
+            "delete": {
+                "tags": [
+                    "Comments"
+                ],
+                "summary": "Delete a comment for an article.",
+                "description": "Delete a comment for an article. Auth is required",
+                "operationId": "DeleteArticleComment",
+                "responses": {
+                    "204": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "BearerToken"
+                    }
+                ]
+            }
+        },
+        "/profiles/{username}": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Get a profile.",
+                "description": "Get a profile of a user of the system. Auth is optional",
+                "operationId": "GetProfileByUsername",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "App\\Http\\Resources\\ProfileResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/profiles/{username}/follow": {
+            "post": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Follow a user.",
+                "description": "Follow a user by username",
+                "operationId": "FollowUserByUsername",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "App\\Http\\Resources\\ProfileResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "BearerToken"
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Unfollow a user.",
+                "description": "Unfollow a user by username",
+                "operationId": "UnfollowUserByUsername",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "App\\Http\\Resources\\ProfileResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "BearerToken"
+                    }
+                ]
+            }
+        },
+        "/tags": {
+            "get": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "Get tags.",
+                "description": "Get tags. Auth not required",
+                "operationId": "GetTags",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TagsResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users": {
+            "post": {
+                "tags": [
+                    "User and Authentication"
+                ],
+                "summary": "Register a new user.",
+                "description": "Register a new user",
+                "operationId": "CreateUser",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "App\\Http\\Resources\\UserResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/login": {
+            "post": {
+                "tags": [
+                    "User and Authentication"
+                ],
+                "summary": "Existing user login.",
+                "description": "Login for existing user",
+                "operationId": "Login",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "App\\Http\\Resources\\UserResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user": {
+            "get": {
+                "tags": [
+                    "User and Authentication"
+                ],
+                "summary": "Get current user.",
+                "description": "Gets the currently logged-in user",
+                "operationId": "GetCurrentUser",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "App\\Http\\Resources\\UserResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "BearerToken"
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "User and Authentication"
+                ],
+                "summary": "Update current user.",
+                "description": "Updated user information for current user",
+                "operationId": "UpdateCurrentUser",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "App\\Http\\Resources\\UserResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "BearerToken"
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "TagsResource": {
+                "properties": {
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}

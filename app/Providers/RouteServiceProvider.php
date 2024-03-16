@@ -33,8 +33,6 @@ class RouteServiceProvider extends ServiceProvider
                 ->middleware('api')
                 ->group(
                     function () {
-                        Route::get('/', fn () => view('swagger'));
-
                         (new RouteRegistrar(app(Router::class)))
                             ->useRootNamespace(app()->getNamespace())
                             ->registerDirectory(app_path('Http/Controllers/Api'));

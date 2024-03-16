@@ -5,18 +5,14 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProfileResource;
 use App\Models\User;
-use App\OpenApi\Responses\ProfileResponse;
 use Illuminate\Support\Facades\Auth;
 use Spatie\RouteAttributes\Attributes\Delete;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Post;
 use Spatie\RouteAttributes\Attributes\Prefix;
-use Vyuldashev\LaravelOpenApi\Attributes\Operation;
-use Vyuldashev\LaravelOpenApi\Attributes\PathItem;
-use Vyuldashev\LaravelOpenApi\Attributes\Response;
+use OpenApi\Attributes as OA;
 
 #[Prefix('profiles/{username}')]
-#[PathItem]
 class ProfileController extends Controller
 {
     /**
@@ -27,8 +23,12 @@ class ProfileController extends Controller
      * @param  User  $username  Username of the profile to get
      */
     #[Get('/')]
-    #[Operation('GetProfileByUsername', tags: ['Profile'])]
-    #[Response(factory: ProfileResponse::class, statusCode: 200)]
+    #[OA\Get(path: '/profiles/{username}', operationId: 'GetProfileByUsername', tags: ['Profile'])]
+    #[OA\Response(
+        response: 200,
+        description: 'Success',
+        content: new OA\JsonContent(ref: ProfileResource::class)
+    )]
     public function get(User $username): ProfileResource
     {
         return new ProfileResource($username);
@@ -42,8 +42,12 @@ class ProfileController extends Controller
      * @param  User  $username  Username of the profile you want to follow
      */
     #[Post('follow', middleware: 'auth')]
-    #[Operation('FollowUserByUsername', tags: ['Profile'], security: 'BearerToken')]
-    #[Response(factory: ProfileResponse::class, statusCode: 200)]
+    #[OA\Post(path: '/profiles/{username}/follow', operationId: 'FollowUserByUsername', tags: ['Profile'], security: ['BearerToken'])]
+    #[OA\Response(
+        response: 200,
+        description: 'Success',
+        content: new OA\JsonContent(ref: ProfileResource::class)
+    )]
     public function follow(User $username): ProfileResource
     {
         $username->followers()->attach(Auth::id());
@@ -59,8 +63,12 @@ class ProfileController extends Controller
      * @param  User  $username  Username of the profile you want to unfollow
      */
     #[Delete('follow', middleware: 'auth')]
-    #[Operation('UnfollowUserByUsername', tags: ['Profile'], security: 'BearerToken')]
-    #[Response(factory: ProfileResponse::class, statusCode: 200)]
+    #[OA\Delete(path: '/profiles/{username}/follow', operationId: 'UnfollowUserByUsername', tags: ['Profile'], security: ['BearerToken'])]
+    #[OA\Response(
+        response: 200,
+        description: 'Success',
+        content: new OA\JsonContent(ref: ProfileResource::class)
+    )]
     public function unfollow(User $username): ProfileResource
     {
         $username->followers()->detach(Auth::id());

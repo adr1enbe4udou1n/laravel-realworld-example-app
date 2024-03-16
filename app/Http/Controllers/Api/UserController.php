@@ -6,23 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\NewUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
-use App\OpenApi\RequestBodies\LoginUserRequestBody;
-use App\OpenApi\RequestBodies\NewUserRequestBody;
-use App\OpenApi\RequestBodies\UpdateUserRequestBody;
-use App\OpenApi\Responses\ErrorValidationResponse;
-use App\OpenApi\Responses\UserResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Post;
 use Spatie\RouteAttributes\Attributes\Put;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Vyuldashev\LaravelOpenApi\Attributes\Operation;
-use Vyuldashev\LaravelOpenApi\Attributes\PathItem;
-use Vyuldashev\LaravelOpenApi\Attributes\RequestBody;
-use Vyuldashev\LaravelOpenApi\Attributes\Response;
+use OpenApi\Attributes as OA;
 
-#[PathItem]
 class UserController extends Controller
 {
     /**
@@ -31,10 +22,14 @@ class UserController extends Controller
      * Register a new user
      */
     #[Post('users')]
-    #[Operation('CreateUser', tags: ['User and Authentication'])]
-    #[RequestBody(factory: NewUserRequestBody::class)]
-    #[Response(factory: UserResponse::class, statusCode: 200)]
-    #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
+    #[OA\Post(path: '/users', operationId: 'CreateUser', tags: ['User and Authentication'])]
+    #[OA\Response(
+        response: 200,
+        description: 'Success',
+        content: new OA\JsonContent(ref: UserResource::class)
+    )]
+    // #[RequestBody(factory: NewUserRequestBody::class)]
+    // #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
     public function register(NewUserRequest $request): UserResource
     {
         $user = $request->newUser();
@@ -49,10 +44,14 @@ class UserController extends Controller
      * Login for existing user
      */
     #[Post('users/login')]
-    #[Operation('Login', tags: ['User and Authentication'])]
-    #[RequestBody(factory: LoginUserRequestBody::class)]
-    #[Response(factory: UserResponse::class, statusCode: 200)]
-    #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
+    #[OA\Post(path: '/users/login', operationId: 'Login', tags: ['User and Authentication'])]
+    #[OA\Response(
+        response: 200,
+        description: 'Success',
+        content: new OA\JsonContent(ref: UserResource::class)
+    )]
+    // #[RequestBody(factory: LoginUserRequestBody::class)]
+    // #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
     public function login(Request $request): UserResource
     {
         if (! Auth::attempt($request->user)) {
@@ -68,8 +67,12 @@ class UserController extends Controller
      * Gets the currently logged-in user
      */
     #[Get('user', middleware: 'auth')]
-    #[Operation('GetCurrentUser', tags: ['User and Authentication'], security: 'BearerToken')]
-    #[Response(factory: UserResponse::class, statusCode: 200)]
+    #[OA\Get(path: '/user', operationId: 'GetCurrentUser', tags: ['User and Authentication'], security: ['BearerToken'])]
+    #[OA\Response(
+        response: 200,
+        description: 'Success',
+        content: new OA\JsonContent(ref: UserResource::class)
+    )]
     public function current(): UserResource
     {
         return new UserResource(Auth::user());
@@ -81,10 +84,14 @@ class UserController extends Controller
      * Updated user information for current user
      */
     #[Put('user', middleware: 'auth')]
-    #[Operation('UpdateCurrentUser', tags: ['User and Authentication'], security: 'BearerToken')]
-    #[RequestBody(factory: UpdateUserRequestBody::class)]
-    #[Response(factory: UserResponse::class, statusCode: 200)]
-    #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
+    #[OA\Put(path: '/user', operationId: 'UpdateCurrentUser', tags: ['User and Authentication'], security: ['BearerToken'])]
+    #[OA\Response(
+        response: 200,
+        description: 'Success',
+        content: new OA\JsonContent(ref: UserResource::class)
+    )]
+    // #[RequestBody(factory: UpdateUserRequestBody::class)]
+    // #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
     public function update(UpdateUserRequest $request): UserResource
     {
         $user = $request->updatedUser();

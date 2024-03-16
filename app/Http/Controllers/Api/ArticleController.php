@@ -9,14 +9,6 @@ use App\Http\Resources\MultipleArticlesResource;
 use App\Http\Resources\SingleArticleResource;
 use App\Models\Article;
 use App\Models\Tag;
-use App\OpenApi\Parameters\ListArticlesParameters;
-use App\OpenApi\Parameters\ListFeedParameters;
-use App\OpenApi\RequestBodies\NewArticleRequestBody;
-use App\OpenApi\RequestBodies\UpdateArticleRequestBody;
-use App\OpenApi\Responses\ErrorValidationResponse;
-use App\OpenApi\Responses\MultipleArticlesResponse;
-use App\OpenApi\Responses\NoContentResponse;
-use App\OpenApi\Responses\SingleArticleResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\RouteAttributes\Attributes\Delete;
@@ -24,14 +16,9 @@ use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Post;
 use Spatie\RouteAttributes\Attributes\Prefix;
 use Spatie\RouteAttributes\Attributes\Put;
-use Vyuldashev\LaravelOpenApi\Attributes\Operation;
-use Vyuldashev\LaravelOpenApi\Attributes\Parameters;
-use Vyuldashev\LaravelOpenApi\Attributes\PathItem;
-use Vyuldashev\LaravelOpenApi\Attributes\RequestBody;
-use Vyuldashev\LaravelOpenApi\Attributes\Response;
+use OpenApi\Attributes as OA;
 
 #[Prefix('articles')]
-#[PathItem]
 class ArticleController extends Controller
 {
     public const MAX_LIMIT = 20;
@@ -42,9 +29,13 @@ class ArticleController extends Controller
      * Get most recent articles globally. Use query parameters to filter results. Auth is optional
      */
     #[Get('/')]
-    #[Operation('GetArticles', tags: ['Articles'])]
-    #[Parameters(factory: ListArticlesParameters::class)]
-    #[Response(factory: MultipleArticlesResponse::class, statusCode: 200)]
+    #[OA\Get(path: '/articles', operationId: 'GetArticles', tags: ['Articles'])]
+    #[OA\Response(
+        response: 200,
+        description: 'Success',
+        content: new OA\JsonContent(ref: MultipleArticlesResource::class)
+    )]
+    // #[Parameters(factory: ListArticlesParameters::class)]
     public function list(Request $request): MultipleArticlesResource
     {
         $articles = Article::with('author', 'tags', 'favoritedBy')
@@ -68,9 +59,13 @@ class ArticleController extends Controller
      * Get most recent articles from users you follow. Use query parameters to limit. Auth is required
      */
     #[Get('/feed', middleware: 'auth')]
-    #[Operation('GetArticlesFeed', tags: ['Articles'], security: 'BearerToken')]
-    #[Parameters(factory: ListFeedParameters::class)]
-    #[Response(factory: MultipleArticlesResponse::class, statusCode: 200)]
+    #[OA\Get(path: '/articles/feed', operationId: 'GetArticlesFeed', tags: ['Articles'], security: ['BearerToken'])]
+    #[OA\Response(
+        response: 200,
+        description: 'Success',
+        content: new OA\JsonContent(ref: MultipleArticlesResource::class)
+    )]
+    // #[Parameters(factory: ListFeedParameters::class)]
     public function feed(Request $request): MultipleArticlesResource
     {
         $articles = Article::with('author', 'tags', 'favoritedBy')
@@ -94,8 +89,12 @@ class ArticleController extends Controller
      * @param  Article  $slug  Slug of the article to get
      */
     #[Get('/{slug}')]
-    #[Operation('GetArticle', tags: ['Articles'])]
-    #[Response(factory: SingleArticleResponse::class, statusCode: 200)]
+    #[OA\Get(path: '/articles/{slug}', operationId: 'GetArticle', tags: ['Articles'])]
+    #[OA\Response(
+        response: 200,
+        description: 'Success',
+        content: new OA\JsonContent(ref: SingleArticleResource::class)
+    )]
     public function get(Article $slug): SingleArticleResource
     {
         return new SingleArticleResource($slug->loadCount('favoritedBy'));
@@ -107,10 +106,14 @@ class ArticleController extends Controller
      * Create an article. Auth is required
      */
     #[Post('/', middleware: 'auth')]
-    #[Operation('CreateArticle', tags: ['Articles'], security: 'BearerToken')]
-    #[RequestBody(factory: NewArticleRequestBody::class)]
-    #[Response(factory: SingleArticleResponse::class, statusCode: 200)]
-    #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
+    #[OA\Post(path: '/articles', operationId: 'CreateArticle', tags: ['Articles'], security: ['BearerToken'])]
+    #[OA\Response(
+        response: 200,
+        description: 'Success',
+        content: new OA\JsonContent(ref: SingleArticleResource::class)
+    )]
+    // #[RequestBody(factory: NewArticleRequestBody::class)]
+    // #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
     public function create(NewArticleRequest $request): SingleArticleResource
     {
         $article = new Article($request->input('article'));
@@ -134,10 +137,14 @@ class ArticleController extends Controller
      * @param  Article  $slug  Slug of the article to update
      */
     #[Put('/{slug}', middleware: ['auth', 'can:update,slug'])]
-    #[Operation('UpdateArticle', tags: ['Articles'], security: 'BearerToken')]
-    #[RequestBody(factory: UpdateArticleRequestBody::class)]
-    #[Response(factory: SingleArticleResponse::class, statusCode: 200)]
-    #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
+    #[OA\Put(path: '/articles/{slug}', operationId: 'UpdateArticle', tags: ['Articles'], security: ['BearerToken'])]
+    #[OA\Response(
+        response: 200,
+        description: 'Success',
+        content: new OA\JsonContent(ref: SingleArticleResource::class)
+    )]
+    // #[RequestBody(factory: UpdateArticleRequestBody::class)]
+    // #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
     public function update(Article $slug, UpdateArticleRequest $request): SingleArticleResource
     {
         $slug->update($request->input('article'));
@@ -153,8 +160,11 @@ class ArticleController extends Controller
      * @param  Article  $slug  Slug of the article to delete
      */
     #[Delete('/{slug}', middleware: ['auth', 'can:update,slug'])]
-    #[Operation('DeleteArticle', tags: ['Articles'], security: 'BearerToken')]
-    #[Response(factory: NoContentResponse::class, statusCode: 204)]
+    #[OA\Delete(path: '/articles/{slug}', operationId: 'DeleteArticle', tags: ['Articles'], security: ['BearerToken'])]
+    #[OA\Response(
+        response: 204,
+        description: 'Success'
+    )]
     public function delete(Article $slug)
     {
         $slug->delete();
@@ -170,8 +180,12 @@ class ArticleController extends Controller
      * @param  Article  $slug  Slug of the article that you want to favorite
      */
     #[Post('/{slug}/favorite', middleware: 'auth')]
-    #[Operation('CreateArticleFavorite', tags: ['Favorites'], security: 'BearerToken')]
-    #[Response(factory: SingleArticleResponse::class, statusCode: 200)]
+    #[OA\Post(path: '/articles/{slug}/favorite', operationId: 'CreateArticleFavorite', tags: ['Favorites'], security: ['BearerToken'])]
+    #[OA\Response(
+        response: 200,
+        description: 'Success',
+        content: new OA\JsonContent(ref: SingleArticleResource::class)
+    )]
     public function favorite(Article $slug): SingleArticleResource
     {
         $slug->favoritedBy()->attach(Auth::id());
@@ -187,8 +201,12 @@ class ArticleController extends Controller
      * @param  Article  $slug  Slug of the article that you want to unfavorite
      */
     #[Delete('{slug}/favorite', middleware: 'auth')]
-    #[Operation('DeleteArticleFavorite', tags: ['Favorites'], security: 'BearerToken')]
-    #[Response(factory: SingleArticleResponse::class, statusCode: 200)]
+    #[OA\Delete(path: '/articles/{slug}/favorite', operationId: 'DeleteArticleFavorite', tags: ['Favorites'], security: ['BearerToken'])]
+    #[OA\Response(
+        response: 200,
+        description: 'Success',
+        content: new OA\JsonContent(ref: SingleArticleResource::class)
+    )]
     public function unfavorite(Article $slug): SingleArticleResource
     {
         $slug->favoritedBy()->detach(Auth::id());
