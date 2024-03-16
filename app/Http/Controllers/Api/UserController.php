@@ -33,7 +33,11 @@ class UserController extends Controller
         description: 'Success',
         content: new OA\JsonContent(ref: UserResource::class)
     )]
-    // #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
+    #[OA\Response(
+        response: 422,
+        description: 'Validation errors',
+        content: new OA\JsonContent(ref: "#/components/schemas/ErrorValidationResponse")
+    )]
     public function register(NewUserRequest $request): UserResource
     {
         $user = $request->newUser();
@@ -59,7 +63,11 @@ class UserController extends Controller
         description: 'Success',
         content: new OA\JsonContent(ref: UserResource::class)
     )]
-    // #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
+    #[OA\Response(
+        response: 422,
+        description: 'Validation errors',
+        content: new OA\JsonContent(ref: "#/components/schemas/ErrorValidationResponse")
+    )]
     public function login(LoginUserRequest $request): UserResource
     {
         if (! Auth::attempt($request->user)) {
@@ -103,7 +111,11 @@ class UserController extends Controller
         description: 'Success',
         content: new OA\JsonContent(ref: UserResource::class)
     )]
-    // #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
+    #[OA\Response(
+        response: 422,
+        description: 'Validation errors',
+        content: new OA\JsonContent(ref: "#/components/schemas/ErrorValidationResponse")
+    )]
     public function update(UpdateUserRequest $request): UserResource
     {
         $user = $request->updatedUser();

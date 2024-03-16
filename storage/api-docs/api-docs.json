@@ -61,6 +61,16 @@
                                 }
                             }
                         }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorValidationResponse"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -159,6 +169,16 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/SingleArticleResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorValidationResponse"
                                 }
                             }
                         }
@@ -327,6 +347,16 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/SingleCommentResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorValidationResponse"
                                 }
                             }
                         }
@@ -522,6 +552,16 @@
                                 }
                             }
                         }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorValidationResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -552,6 +592,16 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/UserResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorValidationResponse"
                                 }
                             }
                         }
@@ -613,6 +663,16 @@
                                 }
                             }
                         }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorValidationResponse"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -625,6 +685,23 @@
     },
     "components": {
         "schemas": {
+            "ErrorValidationResponse": {
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    },
+                    "errors": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "type": "object"
+            },
             "LoginUser": {
                 "properties": {
                     "email": {

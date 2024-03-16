@@ -123,7 +123,11 @@ class ArticleController extends Controller
         description: 'Success',
         content: new OA\JsonContent(ref: SingleArticleResource::class)
     )]
-    // #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
+    #[OA\Response(
+        response: 422,
+        description: 'Validation errors',
+        content: new OA\JsonContent(ref: "#/components/schemas/ErrorValidationResponse")
+    )]
     public function create(NewArticleRequest $request): SingleArticleResource
     {
         $article = new Article($request->input('article'));
@@ -164,7 +168,11 @@ class ArticleController extends Controller
         description: 'Success',
         content: new OA\JsonContent(ref: SingleArticleResource::class)
     )]
-    // #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
+    #[OA\Response(
+        response: 422,
+        description: 'Validation errors',
+        content: new OA\JsonContent(ref: "#/components/schemas/ErrorValidationResponse")
+    )]
     public function update(Article $slug, UpdateArticleRequest $request): SingleArticleResource
     {
         $slug->update($request->input('article'));

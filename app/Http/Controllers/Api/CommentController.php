@@ -77,7 +77,11 @@ class CommentController extends Controller
         description: 'Success',
         content: new OA\JsonContent(ref: SingleCommentResource::class)
     )]
-    // #[Response(factory: ErrorValidationResponse::class, statusCode: 422)]
+    #[OA\Response(
+        response: 422,
+        description: 'Validation errors',
+        content: new OA\JsonContent(ref: "#/components/schemas/ErrorValidationResponse")
+    )]
     public function create(Article $slug, NewCommentRequest $request): SingleCommentResource
     {
         $comment = new Comment($request->input('comment'));

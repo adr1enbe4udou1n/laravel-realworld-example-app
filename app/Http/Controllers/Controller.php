@@ -25,6 +25,24 @@ use OpenApi\Attributes as OA;
     bearerFormat: 'JWT',
     securityScheme: 'BearerToken'
 )]
+#[OA\Schema(
+    schema: "ErrorValidationResponse",
+    type: "object",
+    properties: [
+        new OA\Property(
+            property: "message",
+            type: "string"
+        ),
+        new OA\Property(
+            property: "errors",
+            type: "object",
+            additionalProperties: new OA\AdditionalProperties(
+                type: "array",
+                items: new OA\Items(type: "string")
+            )
+        )
+    ]
+)]
 class Controller extends BaseController
 {
     use AuthorizesRequests;
