@@ -31,19 +31,16 @@ class CommentController extends Controller
         operationId: 'GetArticleComments',
         tags: ['Comments']
     )]
-    #[OA\Parameter(
-        name: 'slug',
-        in: 'path',
-        required: true,
-        description: 'Slug of the article that you want to get comments for',
-    )]
     #[OA\Response(
         response: 200,
         description: 'Success',
         content: new OA\JsonContent(ref: MultipleCommentsResource::class)
     )]
-    public function list(Article $slug): MultipleCommentsResource
-    {
+    public function list(
+        #[OA\PathParameter(
+            schema: new OA\Schema(type: 'string'),
+        )] Article $slug
+    ): MultipleCommentsResource {
         return new MultipleCommentsResource($slug->comments()->with('author.followers')->orderByDesc('id')->get());
     }
 
@@ -61,12 +58,6 @@ class CommentController extends Controller
         tags: ['Comments'],
         security: ['BearerToken']
     )]
-    #[OA\Parameter(
-        name: 'slug',
-        in: 'path',
-        required: true,
-        description: 'Slug of the article that you want to create a comment for',
-    )]
     #[OA\RequestBody(
         required: true,
         description: 'Comment you want to create',
@@ -82,8 +73,12 @@ class CommentController extends Controller
         description: 'Validation errors',
         content: new OA\JsonContent(ref: '#/components/schemas/ErrorValidationResponse')
     )]
-    public function create(Article $slug, NewCommentRequest $request): SingleCommentResource
-    {
+    public function create(
+        #[OA\PathParameter(
+            schema: new OA\Schema(type: 'string'),
+        )] Article $slug,
+        NewCommentRequest $request
+    ): SingleCommentResource {
         $comment = new Comment($request->input('comment'));
 
         $comment->author()->associate(Auth::user());
@@ -108,21 +103,15 @@ class CommentController extends Controller
         tags: ['Comments'],
         security: ['BearerToken']
     )]
-    #[OA\Parameter(
-        name: 'slug',
-        in: 'path',
-        required: true,
-        description: 'Slug of the article that you want to delete a comment for',
-    )]
-    #[OA\Parameter(
-        name: 'commentId',
-        in: 'path',
-        required: true,
-        description: 'ID of the comment you want to delete',
-    )]
     #[OA\Response(response: 204, description: 'Success')]
-    public function delete(Article $slug, Comment $commentId)
-    {
+    public function delete(
+        #[OA\PathParameter(
+            schema: new OA\Schema(type: 'string'),
+        )] Article $slug,
+        #[OA\PathParameter(
+            schema: new OA\Schema(type: 'integer'),
+        )] Comment $commentId
+    ) {
         abort_if($slug->id !== $commentId->article_id, 403);
 
         $commentId->delete();

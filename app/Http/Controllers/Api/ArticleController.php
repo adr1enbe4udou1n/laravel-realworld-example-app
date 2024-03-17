@@ -30,32 +30,30 @@ class ArticleController extends Controller
      */
     #[Get('/')]
     #[OA\Get(path: '/articles', operationId: 'GetArticles', tags: ['Articles'])]
-    #[OA\Parameter(
+    #[OA\QueryParameter(
         name: 'limit',
-        in: 'query',
         description: 'Limit number of articles returned (default is 20)',
         schema: new OA\Schema(type: 'integer')
     )]
-    #[OA\Parameter(
+    #[OA\QueryParameter(
         name: 'offset',
-        in: 'query',
         description: 'Offset/skip number of articles (default is 0)',
         schema: new OA\Schema(type: 'integer')
     )]
-    #[OA\Parameter(
+    #[OA\QueryParameter(
         name: 'tag',
-        in: 'query',
         description: 'Filter by tag',
+        schema: new OA\Schema(type: 'string')
     )]
-    #[OA\Parameter(
+    #[OA\QueryParameter(
         name: 'author',
-        in: 'query',
         description: 'Filter by author (username)',
+        schema: new OA\Schema(type: 'string')
     )]
-    #[OA\Parameter(
+    #[OA\QueryParameter(
         name: 'favorited',
-        in: 'query',
         description: 'Filter by favorites of a user (username)',
+        schema: new OA\Schema(type: 'string')
     )]
     #[OA\Response(
         response: 200,
@@ -86,15 +84,13 @@ class ArticleController extends Controller
      */
     #[Get('/feed', middleware: 'auth')]
     #[OA\Get(path: '/articles/feed', operationId: 'GetArticlesFeed', tags: ['Articles'], security: ['BearerToken'])]
-    #[OA\Parameter(
+    #[OA\QueryParameter(
         name: 'limit',
-        in: 'query',
         description: 'Limit number of articles returned (default is 20)',
         schema: new OA\Schema(type: 'integer')
     )]
-    #[OA\Parameter(
+    #[OA\QueryParameter(
         name: 'offset',
-        in: 'query',
         description: 'Offset/skip number of articles (default is 0)',
         schema: new OA\Schema(type: 'integer')
     )]
@@ -127,19 +123,16 @@ class ArticleController extends Controller
      */
     #[Get('/{slug}')]
     #[OA\Get(path: '/articles/{slug}', operationId: 'GetArticle', tags: ['Articles'])]
-    #[OA\Parameter(
-        name: 'slug',
-        in: 'path',
-        required: true,
-        description: 'Slug of the article to get'
-    )]
     #[OA\Response(
         response: 200,
         description: 'Success',
         content: new OA\JsonContent(ref: SingleArticleResource::class)
     )]
-    public function get(Article $slug): SingleArticleResource
-    {
+    public function get(
+        #[OA\PathParameter(
+            schema: new OA\Schema(type: 'string'),
+        )] Article $slug
+    ): SingleArticleResource {
         return new SingleArticleResource($slug->loadCount('favoritedBy'));
     }
 
@@ -189,12 +182,6 @@ class ArticleController extends Controller
      */
     #[Put('/{slug}', middleware: ['auth', 'can:update,slug'])]
     #[OA\Put(path: '/articles/{slug}', operationId: 'UpdateArticle', tags: ['Articles'], security: ['BearerToken'])]
-    #[OA\Parameter(
-        name: 'slug',
-        in: 'path',
-        required: true,
-        description: 'Slug of the article to update'
-    )]
     #[OA\RequestBody(
         required: true,
         description: 'Article to update',
@@ -210,8 +197,12 @@ class ArticleController extends Controller
         description: 'Validation errors',
         content: new OA\JsonContent(ref: '#/components/schemas/ErrorValidationResponse')
     )]
-    public function update(Article $slug, UpdateArticleRequest $request): SingleArticleResource
-    {
+    public function update(
+        #[OA\PathParameter(
+            schema: new OA\Schema(type: 'string'),
+        )] Article $slug,
+        UpdateArticleRequest $request
+    ): SingleArticleResource {
         $slug->update($request->input('article'));
 
         return new SingleArticleResource($slug->loadCount('favoritedBy'));
@@ -226,18 +217,15 @@ class ArticleController extends Controller
      */
     #[Delete('/{slug}', middleware: ['auth', 'can:update,slug'])]
     #[OA\Delete(path: '/articles/{slug}', operationId: 'DeleteArticle', tags: ['Articles'], security: ['BearerToken'])]
-    #[OA\Parameter(
-        name: 'slug',
-        in: 'path',
-        required: true,
-        description: 'Slug of the article to delete'
-    )]
     #[OA\Response(
         response: 204,
         description: 'Success'
     )]
-    public function delete(Article $slug)
-    {
+    public function delete(
+        #[OA\PathParameter(
+            schema: new OA\Schema(type: 'string'),
+        )] Article $slug
+    ) {
         $slug->delete();
 
         return response()->noContent();
@@ -252,19 +240,16 @@ class ArticleController extends Controller
      */
     #[Post('/{slug}/favorite', middleware: 'auth')]
     #[OA\Post(path: '/articles/{slug}/favorite', operationId: 'CreateArticleFavorite', tags: ['Favorites'], security: ['BearerToken'])]
-    #[OA\Parameter(
-        name: 'slug',
-        in: 'path',
-        required: true,
-        description: 'Slug of the article that you want to favorite'
-    )]
     #[OA\Response(
         response: 200,
         description: 'Success',
         content: new OA\JsonContent(ref: SingleArticleResource::class)
     )]
-    public function favorite(Article $slug): SingleArticleResource
-    {
+    public function favorite(
+        #[OA\PathParameter(
+            schema: new OA\Schema(type: 'string'),
+        )] Article $slug
+    ): SingleArticleResource {
         $slug->favoritedBy()->attach(Auth::id());
 
         return new SingleArticleResource($slug->loadCount('favoritedBy'));
@@ -279,19 +264,16 @@ class ArticleController extends Controller
      */
     #[Delete('{slug}/favorite', middleware: 'auth')]
     #[OA\Delete(path: '/articles/{slug}/favorite', operationId: 'DeleteArticleFavorite', tags: ['Favorites'], security: ['BearerToken'])]
-    #[OA\Parameter(
-        name: 'slug',
-        in: 'path',
-        required: true,
-        description: 'Slug of the article that you want to unfavorite'
-    )]
     #[OA\Response(
         response: 200,
         description: 'Success',
         content: new OA\JsonContent(ref: SingleArticleResource::class)
     )]
-    public function unfavorite(Article $slug): SingleArticleResource
-    {
+    public function unfavorite(
+        #[OA\PathParameter(
+            schema: new OA\Schema(type: 'string'),
+        )] Article $slug
+    ): SingleArticleResource {
         $slug->favoritedBy()->detach(Auth::id());
 
         return new SingleArticleResource($slug->loadCount('favoritedBy'));

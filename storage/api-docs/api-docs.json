@@ -40,17 +40,26 @@
                     {
                         "name": "tag",
                         "in": "query",
-                        "description": "Filter by tag"
+                        "description": "Filter by tag",
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "name": "author",
                         "in": "query",
-                        "description": "Filter by author (username)"
+                        "description": "Filter by author (username)",
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "name": "favorited",
                         "in": "query",
-                        "description": "Filter by favorites of a user (username)"
+                        "description": "Filter by favorites of a user (username)",
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -171,7 +180,10 @@
                         "name": "slug",
                         "in": "path",
                         "description": "Slug of the article to get",
-                        "required": true
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -199,7 +211,10 @@
                         "name": "slug",
                         "in": "path",
                         "description": "Slug of the article to update",
-                        "required": true
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "requestBody": {
@@ -253,7 +268,10 @@
                         "name": "slug",
                         "in": "path",
                         "description": "Slug of the article to delete",
-                        "required": true
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -281,7 +299,10 @@
                         "name": "slug",
                         "in": "path",
                         "description": "Slug of the article that you want to favorite",
-                        "required": true
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -314,7 +335,10 @@
                         "name": "slug",
                         "in": "path",
                         "description": "Slug of the article that you want to unfavorite",
-                        "required": true
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -349,7 +373,10 @@
                         "name": "slug",
                         "in": "path",
                         "description": "Slug of the article that you want to get comments for",
-                        "required": true
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -377,7 +404,10 @@
                         "name": "slug",
                         "in": "path",
                         "description": "Slug of the article that you want to create a comment for",
-                        "required": true
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "requestBody": {
@@ -433,13 +463,19 @@
                         "name": "slug",
                         "in": "path",
                         "description": "Slug of the article that you want to delete a comment for",
-                        "required": true
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "name": "commentId",
                         "in": "path",
                         "description": "ID of the comment you want to delete",
-                        "required": true
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
                 ],
                 "responses": {
@@ -467,7 +503,10 @@
                         "name": "username",
                         "in": "path",
                         "description": "Username of the profile to get",
-                        "required": true
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -497,7 +536,10 @@
                         "name": "username",
                         "in": "path",
                         "description": "Username of the profile you want to follow",
-                        "required": true
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -530,7 +572,10 @@
                         "name": "username",
                         "in": "path",
                         "description": "Username of the profile you want to unfollow",
-                        "required": true
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {

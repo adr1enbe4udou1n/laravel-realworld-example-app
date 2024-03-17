@@ -24,19 +24,16 @@ class ProfileController extends Controller
      */
     #[Get('/')]
     #[OA\Get(path: '/profiles/{username}', operationId: 'GetProfileByUsername', tags: ['Profile'])]
-    #[OA\Parameter(
-        name: 'username',
-        in: 'path',
-        required: true,
-        description: 'Username of the profile to get',
-    )]
     #[OA\Response(
         response: 200,
         description: 'Success',
         content: new OA\JsonContent(ref: ProfileResource::class)
     )]
-    public function get(User $username): ProfileResource
-    {
+    public function get(
+        #[OA\PathParameter(
+            schema: new OA\Schema(type: 'string'),
+        )] User $username
+    ): ProfileResource {
         return new ProfileResource($username);
     }
 
@@ -49,19 +46,16 @@ class ProfileController extends Controller
      */
     #[Post('follow', middleware: 'auth')]
     #[OA\Post(path: '/profiles/{username}/follow', operationId: 'FollowUserByUsername', tags: ['Profile'], security: ['BearerToken'])]
-    #[OA\Parameter(
-        name: 'username',
-        in: 'path',
-        required: true,
-        description: 'Username of the profile you want to follow',
-    )]
     #[OA\Response(
         response: 200,
         description: 'Success',
         content: new OA\JsonContent(ref: ProfileResource::class)
     )]
-    public function follow(User $username): ProfileResource
-    {
+    public function follow(
+        #[OA\PathParameter(
+            schema: new OA\Schema(type: 'string'),
+        )] User $username
+    ): ProfileResource {
         $username->followers()->attach(Auth::id());
 
         return new ProfileResource($username);
@@ -76,19 +70,16 @@ class ProfileController extends Controller
      */
     #[Delete('follow', middleware: 'auth')]
     #[OA\Delete(path: '/profiles/{username}/follow', operationId: 'UnfollowUserByUsername', tags: ['Profile'], security: ['BearerToken'])]
-    #[OA\Parameter(
-        name: 'username',
-        in: 'path',
-        required: true,
-        description: 'Username of the profile you want to unfollow',
-    )]
     #[OA\Response(
         response: 200,
         description: 'Success',
         content: new OA\JsonContent(ref: ProfileResource::class)
     )]
-    public function unfollow(User $username): ProfileResource
-    {
+    public function unfollow(
+        #[OA\PathParameter(
+            schema: new OA\Schema(type: 'string'),
+        )] User $username
+    ): ProfileResource {
         $username->followers()->detach(Auth::id());
 
         return new ProfileResource($username);
