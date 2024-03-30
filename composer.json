@@ -13,6 +13,7 @@
         "darkaonline/l5-swagger": "^8.6",
         "itsgoingd/clockwork": "^5.1",
         "laravel/framework": "^11.0",
+        "laravel/octane": "^2.3",
         "laravel/tinker": "^2.9",
         "lcobucci/clock": "^3.0",
         "lcobucci/jwt": "^5.0",
