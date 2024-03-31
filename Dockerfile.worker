@@ -15,6 +15,4 @@ COPY artisan composer.json composer.lock ./
 
 RUN chown -R www-data:www-data storage bootstrap/cache
 
-RUN php artisan octane:install --server=frankenphp -n
-
 ENTRYPOINT ["php", "artisan", "octane:frankenphp"]
