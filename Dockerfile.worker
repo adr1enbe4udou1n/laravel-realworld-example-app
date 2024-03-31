@@ -17,4 +17,4 @@ RUN chown -R www-data:www-data storage bootstrap/cache
 
 RUN php artisan octane:install --server=frankenphp -n
 
-ENTRYPOINT ["php", "artisan", "octane:frankenphp"]
+ENTRYPOINT ["php", "artisan", "octane:frankenphp", "--host=0.0.0.0", "--port=80"]
