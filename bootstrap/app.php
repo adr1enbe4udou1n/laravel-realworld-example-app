@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\App;
 use Spatie\RouteAttributes\RouteRegistrar;
@@ -19,8 +20,10 @@ return Application::configure(basePath: dirname(__DIR__))
                 );
         },
     )
-    ->withMiddleware(function () {
-        //
+    ->withMiddleware(function (Middleware $middleware) {
+        $middleware->trustProxies(at: [
+            '*',
+        ]);
     })
     ->withExceptions(function () {
         //
