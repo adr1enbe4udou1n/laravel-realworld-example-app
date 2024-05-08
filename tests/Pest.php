@@ -50,8 +50,6 @@ function assertSqlQueriesCountEqual(int $count, ?Closure $closure = null)
         $closure();
     }
 
-    // dump(DB::getQueryLog());
-
     expect(count(DB::getQueryLog()))->toBe($count);
 
     if ($closure) {
