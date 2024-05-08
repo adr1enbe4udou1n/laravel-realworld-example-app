@@ -18,6 +18,6 @@ RUN \
     useradd -D ${USER}; \
     setcap CAP_NET_BIND_SERVICE=+eip /usr/local/bin/frankenphp; \
     chown -R ${USER}:${USER} /data/caddy && chown -R ${USER}:${USER} /config/caddy; \
-    chown -R ${USER}:${USER} storage bootstrap/cache
+    chown -R ${USER}:${USER} bootstrap/cache && chown -R ${USER}:${USER} storage;
 
 USER ${USER}
