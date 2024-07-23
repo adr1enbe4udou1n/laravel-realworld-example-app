@@ -20,13 +20,13 @@ class Jwt
     public function __construct()
     {
         $this->configuration = Configuration::forSymmetricSigner(
-            new Sha256(),
+            new Sha256,
             InMemory::plainText(config('jwt.secret_key'))
         );
 
         $this->configuration->setValidationConstraints(
             new SignedWith(
-                new Sha256(),
+                new Sha256,
                 InMemory::plainText(config('jwt.secret_key'))
             ),
             new StrictValidAt(SystemClock::fromUTC())
@@ -35,7 +35,7 @@ class Jwt
 
     public function generate(User $user): string
     {
-        $now = new DateTimeImmutable();
+        $now = new DateTimeImmutable;
 
         return $this->configuration->builder()
             ->issuedBy(config('app.url'))
