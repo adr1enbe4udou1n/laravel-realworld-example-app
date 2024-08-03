@@ -26,7 +26,6 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
       - uses: https://gitea.okami101.io/okami101/actions/task@main
         env:
-          COMPOSER_ALLOW_SUPERUSER: 1
           DB_CONNECTION: pgsql
           DB_HOST: ${{ vars.POSTGRESQL_HOST }}
           DB_PORT: 5432
