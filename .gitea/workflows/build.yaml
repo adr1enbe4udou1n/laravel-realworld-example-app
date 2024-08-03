@@ -46,7 +46,8 @@ jobs:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
-      - uses: https://gitea.okami101.io/okami101/actions/task@main
+      - name: Task
+        uses: https://gitea.okami101.io/okami101/actions/task@main
       - uses: sonarsource/sonarqube-scan-action@v2
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
