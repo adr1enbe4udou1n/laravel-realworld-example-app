@@ -8,14 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      COMPOSER_ALLOW_SUPERUSER: 1
-      DB_CONNECTION: pgsql
-      DB_HOST: ${{ vars.POSTGRESQL_HOST }}
-      DB_PORT: 5432
-      DB_DATABASE: conduit_laravel_test
-      DB_USERNAME: test
-      DB_PASSWORD: test
     steps:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
@@ -33,6 +25,14 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
       - uses: https://gitea.okami101.io/okami101/actions/task@main
+        env:
+          COMPOSER_ALLOW_SUPERUSER: 1
+          DB_CONNECTION: pgsql
+          DB_HOST: ${{ vars.POSTGRESQL_HOST }}
+          DB_PORT: 5432
+          DB_DATABASE: conduit_laravel_test
+          DB_USERNAME: test
+          DB_PASSWORD: test
       - uses: sonarsource/sonarqube-scan-action@v2
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
