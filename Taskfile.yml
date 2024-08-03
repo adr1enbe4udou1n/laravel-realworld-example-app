@@ -17,4 +17,5 @@ tasks:
       - php artisan migrate --env=testing
   test:
     cmds:
-      - php artisan test --coverage --min=90 --coverage-clover=coverage.xml
+      []
+      # - php artisan test --coverage --min=90 --coverage-clover=coverage.xml

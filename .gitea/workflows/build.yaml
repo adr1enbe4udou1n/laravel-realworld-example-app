@@ -1,0 +1,39 @@
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: gitea.okami101.io/okami101/php-qa:8.3
+    env:
+      COMPOSER_ALLOW_SUPERUSER: 1
+      DB_CONNECTION: pgsql
+      DB_HOST: ${{ vars.POSTGRESQL_HOST }}
+      DB_PORT: 5432
+      DB_DATABASE: conduit_laravel_test
+      DB_USERNAME: test
+      DB_PASSWORD: test
+    steps:
+      - uses: actions/checkout@v4
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      - uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+      - uses: https://gitea.okami101.io/okami101/actions/task@main
+      # - uses: sonarsource/sonarqube-scan-action@v2
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #     SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
+      - uses: https://gitea.okami101.io/okami101/actions/docker@main
+        if: startsWith(github.ref, 'refs/tags/v')
+        with:
+          password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
