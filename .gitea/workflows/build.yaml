@@ -8,8 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container:
-      image: gitea.okami101.io/okami101/php-qa:8.3
     env:
       COMPOSER_ALLOW_SUPERUSER: 1
       DB_CONNECTION: pgsql
@@ -20,6 +18,7 @@ jobs:
       DB_PASSWORD: test
     steps:
       - uses: actions/checkout@v4
+      - uses: docker://gitea.okami101.io/okami101/php-qa:8.3
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
