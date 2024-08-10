@@ -2,7 +2,7 @@
 
 Laravel real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld-example-apps) spec and API.
 
-![CI](https://gitea.okami101.io/conduit/symfony/actions/workflows/build.yaml/badge.svg)
+![CI](https://gitea.okami101.io/conduit/laravel/actions/workflows/build.yaml/badge.svg)
 
 ## [RealWorld](https://github.com/gothinkster/realworld)
 
