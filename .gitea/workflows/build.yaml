@@ -7,6 +7,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container: shivammathur/node:latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: test
+          POSTGRES_USER: test
+          POSTGRES_DB: test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
@@ -26,9 +38,9 @@ jobs:
       - uses: https://gitea.okami101.io/okami101/actions/task@main
         env:
           DB_CONNECTION: pgsql
-          DB_HOST: ${{ vars.POSTGRESQL_HOST }}
+          DB_HOST: postgres
           DB_PORT: 5432
-          DB_DATABASE: conduit_laravel_test
+          DB_DATABASE: test
           DB_USERNAME: test
           DB_PASSWORD: test
       - name: Cache sonar
