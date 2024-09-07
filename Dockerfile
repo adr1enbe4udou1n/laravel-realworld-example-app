@@ -14,6 +14,8 @@ COPY storage storage/
 COPY vendor vendor/
 COPY artisan composer.json composer.lock ./
 
+RUN php artisan octane:install --server=frankenphp -n
+
 RUN \
     useradd -D ${USER}; \
     setcap CAP_NET_BIND_SERVICE=+eip /usr/local/bin/frankenphp; \
@@ -21,3 +23,4 @@ RUN \
     chown -R ${USER}:${USER} bootstrap/cache && chown -R ${USER}:${USER} storage;
 
 USER ${USER}
+CMD ["php", "artisan", "octane:frankenphp"]

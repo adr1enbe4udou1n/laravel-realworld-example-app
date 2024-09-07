@@ -17,3 +17,7 @@ _ide_helper.php
 .phpstorm.meta.php
 .php-cs-fixer.cache
 coverage.xml
+
+/caddy
+frankenphp
+frankenphp-worker.php
