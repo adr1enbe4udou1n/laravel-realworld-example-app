@@ -23,4 +23,5 @@ RUN \
     chown -R ${USER}:${USER} bootstrap/cache && chown -R ${USER}:${USER} storage;
 
 USER ${USER}
-CMD ["php", "artisan", "octane:frankenphp"]
+
+CMD ["php", "artisan", "octane:frankenphp", "--host=0.0.0.0", "--port=8000"]
