@@ -21,7 +21,7 @@ jobs:
           --health-retries 5
     steps:
       - uses: actions/checkout@v4
-      - uses: shivammathur/setup-php@v2
+      - uses: https://github.com/shivammathur/setup-php@v2
         with:
           php-version: "8.4"
           extensions: intl, pdo_pgsql, pcov
@@ -35,7 +35,7 @@ jobs:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
-      - uses: https://gitea.okami101.io/okami101/actions/task@main
+      - uses: https://forge.okami101.io/okami101/actions/task@main
         env:
           DB_CONNECTION: pgsql
           DB_HOST: postgres
@@ -48,11 +48,11 @@ jobs:
         with:
           path: /opt/sonar-scanner/.sonar/cache
           key: ${{ runner.os }}-sonar
-      - uses: sonarsource/sonarqube-scan-action@v5
+      - uses: https://github.com/sonarsource/sonarqube-scan-action@v5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
-      - uses: https://gitea.okami101.io/okami101/actions/docker@main
+      - uses: https://forge.okami101.io/okami101/actions/docker@main
         with:
           password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
           gitea-token: ${{ secrets.RELEASE_TOKEN }}
