@@ -1,0 +1,21 @@
+[tasks.vendor]
+run = [
+    "touch .env",
+    "rm .env.testing",
+    "composer install"
+]
+
+[tasks.lint]
+run = [
+    "./vendor/bin/pint --test",
+    "./vendor/bin/phpstan analyse --ansi"
+]
+
+[tasks.build]
+run = "php artisan migrate --env=testing"
+
+[tasks.test]
+run = "php artisan test --coverage --min=90 --coverage-clover=coverage.xml"
+
+[tools]
+php = "8.5"
