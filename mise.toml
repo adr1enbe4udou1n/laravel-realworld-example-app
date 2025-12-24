@@ -17,5 +17,13 @@ run = "php artisan migrate --env=testing"
 [tasks.test]
 run = "php artisan test --coverage --min=90 --coverage-clover=coverage.xml"
 
+[tasks.ci]
+run = [
+  { task = "vendor" },
+  { task = "lint" },
+  { task = "build" },
+  { task = "test" },
+]
+
 [tools]
 php = "8.5"
