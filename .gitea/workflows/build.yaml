@@ -46,11 +46,6 @@ jobs:
           DB_PASSWORD: test
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
-      - uses: https://gitea.okami101.io/okami101/actions/docker@main
-        with:
-          password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
-          gitea-token: ${{ secrets.RELEASE_TOKEN }}
-          release: true
   image:
     runs-on: ubuntu-latest
     needs: build
