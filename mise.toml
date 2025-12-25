@@ -11,8 +11,6 @@ run = [
 
 [tasks.prepare]
 run = [
-    "touch .env",
-    "rm .env.testing",
     "php artisan migrate --env=testing"
 ]
 
