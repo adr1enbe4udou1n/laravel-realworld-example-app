@@ -1,5 +1,6 @@
 FROM gitea.okami101.io/okami101/frankenphp:8.5
 
+ENV APP_ENV=prod
 ARG USER=www-data
 
 WORKDIR /app
@@ -14,9 +15,9 @@ COPY storage storage/
 COPY vendor vendor/
 COPY artisan composer.json composer.lock ./
 
-RUN php artisan octane:install --server=frankenphp -n
-
 RUN \
+    composer install --no-dev --optimize-autoloader; \
+    php artisan octane:install --server=frankenphp -n; \
     useradd -D ${USER}; \
     setcap CAP_NET_BIND_SERVICE=+eip /usr/local/bin/frankenphp; \
     chown -R ${USER}:${USER} /data/caddy && chown -R ${USER}:${USER} /config/caddy; \

@@ -1,7 +1,5 @@
 [tasks.vendor]
 run = [
-    "touch .env",
-    "rm .env.testing",
     "composer install"
 ]
 
@@ -11,19 +9,26 @@ run = [
     "./vendor/bin/phpstan analyse --ansi"
 ]
 
-[tasks.build]
-run = "php artisan migrate --env=testing"
+[tasks.prepare]
+run = [
+    "touch .env",
+    "rm .env.testing",
+    "php artisan migrate --env=testing"
+]
 
 [tasks.test]
 run = "php artisan test --coverage --min=90 --coverage-clover=coverage.xml"
+depends = ["prepare"]
+
+[tasks.scan]
+run = "sonar-scanner"
 
 [tasks.ci]
 run = [
-  { task = "vendor" },
-  { task = "lint" },
-  { task = "build" },
-  { task = "test" },
+  { tasks = ["lint", "test"] },
 ]
+depends = ["vendor"]
 
 [tools]
-php = "8.4"
+php = "8.5"
+sonar-scanner-cli = "8"
