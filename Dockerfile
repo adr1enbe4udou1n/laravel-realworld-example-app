@@ -12,7 +12,6 @@ COPY database database/
 COPY public public/
 COPY resources resources/
 COPY storage storage/
-COPY vendor vendor/
 COPY artisan composer.json composer.lock ./
 
 RUN \
