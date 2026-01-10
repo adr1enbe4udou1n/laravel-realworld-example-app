@@ -1,28 +1,33 @@
 FROM gitea.okami101.io/okami101/frankenphp:8.5
 
-ENV APP_ENV=prod
 ARG USER=www-data
-ENV COMPOSER_ALLOW_SUPERUSER=1
+
+RUN \
+    useradd ${USER}; \
+    setcap CAP_NET_BIND_SERVICE=+eip /usr/local/bin/frankenphp; \
+    chown -R ${USER}:${USER} /config/caddy /data/caddy; \
+    chown -R ${USER}:${USER} /app
+
+USER ${USER}
+
+ENV APP_ENV=prod
 
 WORKDIR /app
 
-COPY app app/
-COPY bootstrap bootstrap/
-COPY config config/
-COPY database database/
-COPY public public/
-COPY resources resources/
-COPY storage storage/
+COPY  app app/
+COPY  config config/
+COPY  database database/
+COPY  resources resources/
+COPY --chown=${USER}:${USER} public public/
+COPY --chown=${USER}:${USER} bootstrap bootstrap/
+COPY --chown=${USER}:${USER} storage storage/
 COPY artisan composer.json composer.lock ./
 
 RUN \
     composer install --no-dev --optimize-autoloader; \
     php artisan octane:install --server=frankenphp -n; \
-    useradd -D ${USER}; \
-    setcap CAP_NET_BIND_SERVICE=+eip /usr/local/bin/frankenphp; \
-    chown -R ${USER}:${USER} /data/caddy && chown -R ${USER}:${USER} /config/caddy; \
-    chown -R ${USER}:${USER} bootstrap/cache && chown -R ${USER}:${USER} storage;
-
-USER ${USER}
+    php artisan storage:link; \
+    php artisan route:cache; \
+    php artisan view:cache
 
 CMD ["php", "artisan", "octane:frankenphp", "--host=0.0.0.0", "--port=8000"]
