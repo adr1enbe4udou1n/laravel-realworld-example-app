@@ -5,7 +5,9 @@ ARG USER=www-data
 RUN \
     useradd ${USER}; \
     setcap CAP_NET_BIND_SERVICE=+eip /usr/local/bin/frankenphp; \
-    chown -R ${USER}:${USER} /config/caddy /data/caddy
+    chown -R ${USER}:${USER} /config/caddy /data/caddy; \
+    mkdir -p /app; \
+    chown -R ${USER}:${USER} /app
 
 USER ${USER}
 
