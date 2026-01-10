@@ -2,6 +2,7 @@ FROM gitea.okami101.io/okami101/frankenphp:8.5
 
 ENV APP_ENV=prod
 ARG USER=www-data
+ENV COMPOSER_ALLOW_SUPERUSER=1
 
 WORKDIR /app
 
