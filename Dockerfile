@@ -18,8 +18,8 @@ WORKDIR /app
 COPY  app app/
 COPY  config config/
 COPY  database database/
-COPY  public public/
 COPY  resources resources/
+COPY --chown=${USER}:${USER} public public/
 COPY --chown=${USER}:${USER} bootstrap bootstrap/
 COPY --chown=${USER}:${USER} storage storage/
 COPY artisan composer.json composer.lock ./
