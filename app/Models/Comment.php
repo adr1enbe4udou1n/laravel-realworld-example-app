@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Comment.
@@ -12,10 +13,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $author_id
  * @property int $article_id
  * @property string $body
- * @property null|\Illuminate\Support\Carbon $created_at
- * @property null|\Illuminate\Support\Carbon $updated_at
- * @property \App\Models\Article $article
- * @property \App\Models\User $author
+ * @property null|Carbon $created_at
+ * @property null|Carbon $updated_at
+ * @property Article $article
+ * @property User $author
  *
  * @method static \Database\Factories\CommentFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment newModelQuery()

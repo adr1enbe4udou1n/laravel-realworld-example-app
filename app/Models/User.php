@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\User.
@@ -14,13 +16,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property null|string $password
  * @property null|string $bio
  * @property null|string $image
- * @property null|\Illuminate\Support\Carbon $created_at
- * @property null|\Illuminate\Support\Carbon $updated_at
- * @property \App\Models\Article[]|\Illuminate\Database\Eloquent\Collection $favoriteArticles
+ * @property null|Carbon $created_at
+ * @property null|Carbon $updated_at
+ * @property Article[]|Collection $favoriteArticles
  * @property null|int $favorite_articles_count
- * @property \Illuminate\Database\Eloquent\Collection|User[] $followers
+ * @property Collection|User[] $followers
  * @property null|int $followers_count
- * @property \Illuminate\Database\Eloquent\Collection|User[] $following
+ * @property Collection|User[] $following
  * @property null|int $following_count
  *
  * @method static \Database\Factories\UserFactory factory(...$parameters)
