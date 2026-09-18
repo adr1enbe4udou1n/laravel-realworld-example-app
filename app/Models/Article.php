@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
@@ -69,17 +71,17 @@ class Article extends Model
         return $this->belongsTo(User::class, 'author_id');
     }
 
-    public function comments()
+    public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
     }
 
-    public function tags()
+    public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class);
     }
 
-    public function favoritedBy()
+    public function favoritedBy(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'article_favorite');
     }

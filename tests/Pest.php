@@ -51,7 +51,7 @@ function assertSqlQueriesCountEqual(int $count, ?Closure $closure = null)
         $closure();
     }
 
-    expect(count(DB::getQueryLog()))->toBe($count);
+    expect(DB::getQueryLog())->toHaveCount($count);
 
     if ($closure) {
         DB::flushQueryLog();
@@ -89,7 +89,9 @@ function createArticles()
         ])
         ->transform(function (Model $article) use ($tag1, $tag2, $johnTag) {
             /** @var Article $article */
-            return $article->tags()->attach([$tag1->id, $tag2->id, $johnTag->id]);
+            $article->tags()->attach([$tag1->id, $tag2->id, $johnTag->id]);
+
+            return $article;
         });
     Article::factory(20)->for($jane, 'author')
         ->sequence(fn (Sequence $sequence) => ['title' => "Jane Article {$sequence->index}"])
